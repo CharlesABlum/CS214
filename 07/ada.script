@@ -1,3 +1,5 @@
+Script started on Sun 06 Apr 2014 08:22:30 PM EDT
+theo@theo-VBox:~/Desktop/07$ cat namer.adb 
 -- namer.adb "test-drives" the Name type.
 -- Begun by: Dr. Adams, CS 214 at Calvin College.
 -- Completed by:Charles Blum
@@ -106,3 +108,11 @@ begin
 
 end namer;
 
+theo@theo-VBox:~/Desktop/07$ gnatmake namer.adb -gnata
+gnatmake: "namer" up to date.
+theo@theo-VBox:~/Desktop/07$ ./namer
+John     Paul     Jones   
+All tests passed!
+theo@theo-VBox:~/Desktop/07$ exit
+
+Script done on Sun 06 Apr 2014 08:22:52 PM EDT

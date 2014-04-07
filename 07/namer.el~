@@ -1,17 +1,16 @@
 ;;; namer.el simulates and tests an e-LISP Name type.
 ;;; Begun by: Dr. Adams, CS 214 at Calvin College.
-;;; Completed by: Charles Blum
-;;; Date: 06 April 2014
+;;; Completed by:
+;;; Date:
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Name constructs a name from three strings.      ;;
 ;;; Receive: first, middle and last, three strings. ;;
 ;;; Return: the triplet (first middle last).        ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun Name (first middle last)
-  (list first middle last)
-)
-Name
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -19,10 +18,8 @@ Name
 ;;; Receive: theName, a Name.                       
 ;;; Return: the first string in theName.           
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun getFirst (theName)
-  (car theName)
-)
-getFirst
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -30,10 +27,8 @@ getFirst
 ;;; Receive: theName, a Name.                      
 ;;; Return: the second string in theName.           
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun getMiddle (theName)
-  (car (cdr theName))
-)
-getMiddle
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -41,20 +36,13 @@ getMiddle
 ;;; Receive: theName, a Name.                    
 ;;; Return: the third string in theName.       
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun getLast (theName)
-  (car (cdr (cdr theName)))
-)
-getLast
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; getFullName returns a full name in F-M-L order. 
 ;;; Return: myFirst, myMiddle, myLast.           
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun getFullName (theName)
-  (concat (getFirst theName) " " (getMiddle theName) " " (getLast theName))
-)
-getFullName
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -63,11 +51,7 @@ getFullName
 ;;;          buffer, the name of a buffer.   
 ;;; Output: the strings in theName to buffer. ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun printName (theName buf)
-  (princ (getFullName theName) buf)
-  theName
-)
-printName
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -77,17 +61,14 @@ printName
   (require 'cl)                              ; assert
   (setq aName (Name "John" "Paul" "Jones"))  ; build a Name
 
-  (assert (equal (getFirst aName) "John" ))  ; test it
-  (assert (equal (getMiddle aName) "Paul" ))
-  (assert (equal (getLast aName) "Jones" ))
-  (assert (equal (getFullName aName) "John Paul Jones" ))
+;  (assert (equal (getFirst aName) "John" ))  ; test it
+;  (assert (equal (getMiddle aName) "Paul" ))
+;  (assert (equal (getLast aName) "Jones" ))
+;  (assert (equal (getFullName aName) "John Paul Jones" ))
 
-  (setq buf (get-buffer "namer.el"))         ; buf = this buffer
-  (assert (eq (printName aName buf) aName) ) ; output
+;  (setq buf (get-buffer "namer.el"))         ; buf = this buffer
+;  (assert (eq (printName aName buf) aName) ) ; output
   (terpri buf)                               ; newline
   (princ "All tests passed!")                ; feedback
-  (terpri buf)                               ; newline
-)
-John Paul Jones
-All tests passed!
-t
+  (terpri buf))                              ; newline
+

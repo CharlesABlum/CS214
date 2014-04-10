@@ -1,0 +1,47 @@
+Script started on Tue 04 Mar 2014 03:39:10 PM EST
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ g++ -Wall factorial.cpp -o cpp_factorial 
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ ./cpp_factorial 
+
+To compute n!, enter n: 5
+5! = 120
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ ./cpp_factorial 
+
+To compute n!, enter n: 10
+10! = 3.6288e+06
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ cat factorial.cpp
+/* factorial.cpp computes and displays the
+ * factorial of a number entered by the user.
+ *
+ * Input: an integer, n
+ * Output: the value of n!
+ * Begun by: Charles Blum, for cs214 at Calvin College
+ * Begin on: 4 March 2014
+ */
+
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+double factorial(unsigned n) {
+  double answer = 1.0;
+
+  for (unsigned i = 2; i <= n; i++)
+  {
+    answer *= i;
+  }
+  return answer;
+}
+
+int main() {
+  cout << "\nTo compute n!, enter n: ";
+  unsigned n;
+  cin >> n;
+
+  assert(n >= 0);
+
+  cout << n << "! = " << factorial(n) << endl;
+}
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ exit
+
+Script done on Tue 04 Mar 2014 03:40:00 PM EST

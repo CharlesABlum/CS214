@@ -1,0 +1,208 @@
+Script started on Thu 20 Feb 2014 09:21:13 AM EST
+cab35@englebart:~/Documents/cs214/labs/lab03$ cat year_codes.cpp 
+/* year_codes.cpp is a driver for function yearCode().
+ * Begun by: Dr. Adams, for CS 214 at Calvin College.
+ ****************************************************************/
+
+#include <iostream>                      // interactive I/O
+#include <string>                        // string class
+using namespace std;
+
+int yearCode(const string & year);
+
+int main() {
+  cout << "\nEnter your academic year: "; // prompt
+  string year;
+  cin >> year;                            // read year
+  cout << yearCode(year) << endl;         // display its code
+}
+
+
+/***************************************************************
+ * yearCode() converts an academic year into its integer code. *
+ * Receive: year, a string.
+ * PRE: year is one of {freshman, sophomore, junior, or senior}.
+ * Return: the integer code corresponding to year.
+ */
+
+// REPLACE THIS LINE WITH THE DEFINITION OF yearCode()
+int yearCode(const string & year){
+  if ( year == "freshman" )
+  {
+    return 1;
+  }
+  else if ( year == "sophmore" )
+  {
+    return 2;
+  }
+  else if ( year == "junior" )
+  {
+    return 3;
+  }
+  else if ( year == "senior" )
+  {
+    return 4;
+  }
+  else
+  {
+    return 0;
+  }
+}
+cab35@englebart:~/Documents/cs214/labs/lab03$ g++ -Wall year_codes.cpp -o cpp_year_codes 
+cab35@englebart:~/Documents/cs214/labs/lab03$ g++ -Wall year_codes.cpp -o cpp_year_codes [24Pcat year_codes.cpp[Cvim[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kcd ~/Documents/cs214/labs/lab03[6@p year*[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kcd 03[3Plscp year* ~/Documents/cs214/labs/lab03[6Pd[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kvim year_codes.cpp cat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[24@g++ -Wall year_codes.cpp -o cpp_year_codes[C[K./cpp_year_codes 
+
+Enter your academic year: fesh   reshaman    man
+1
+cab35@englebart:~/Documents/cs214/labs/lab03$ ./cpp_year_codes 
+
+Enter your academic year: hello world
+0
+cab35@englebart:~/Documents/cs214/labs/lab03$ ./cpp_year_codes 
+
+Enter your academic year: senior
+4
+cab35@englebart:~/Documents/cs214/labs/lab03$ exit
+
+Script done on Thu 20 Feb 2014 09:22:11 AM EST
+Script started on Thu 20 Feb 2014 09:44:01 AM EST
+cab35@englebart:~/Documents/cs214/labs/lab03$ cat year_codes.adb 
+-- year_codes.adb converts academic year codes to corresponding years.
+--
+-- Begun by: Dr. Adams, for CS 214 at Calvin College.
+--
+-- Input: year, a string
+-- Precondition: year is one of "freshman", "sophomore", "junior", "senior"
+-- Output: The year code (1, 2, 3 or 4) corresponding to year.
+----------------------------------------------------
+
+with Ada.Text_IO, Ada.Integer_Text_IO;
+use  Ada.Text_IO, Ada.Integer_Text_IO;
+
+procedure year_codes is
+
+   year : String(1..9) := "         ";
+   charsRead : Natural;
+
+function yearCode (year : string) return integer is
+begin 
+  if year = "freshman " then
+    return 1;
+  elsif ( year = "sophmore " ) then
+    return 2;
+  elsif ( year = "junior   " ) then
+    return 3;
+  elsif ( year = "senior   " ) then
+    return 4;
+  else
+    return 0;
+  end if;
+end yearCode;
+
+begin                                          
+   Put("Enter your academic year: ");           -- Prompt for input
+   Get_Line(year, charsRead);                   -- Input
+   Put( yearCode(year) );                       -- Convert and output
+   New_Line;
+end year_codes;
+
+cab35@englebart:~/Documents/cs214/labs/lab03$ gnatmake year_codes.adb 
+gnatmake: "year_codes" up to date.
+cab35@englebart:~/Documents/cs214/labs/lab03$ ./year_codes 
+Enter your academic year: freshman
+          1
+cab35@englebart:~/Documents/cs214/labs/lab03$ ./year_codes 
+Enter your academic year: h junior
+          3
+cab35@englebart:~/Documents/cs214/labs/lab03$ ./year_codes 
+Enter your academic year: hello world
+          0
+cab35@englebart:~/Documents/cs214/labs/lab03$ exit
+
+Script done on Thu 20 Feb 2014 09:44:34 AM EST
+Script started on Thu 20 Feb 2014 11:06:06 AM EST
+cab35@englebart:~/Documents/cs214/labs/lab03$ cat year_codes.el results.elisp 
+;;; year_codes.el is a driver for function yearCode.
+;;; Begun by: Dr. Adams, for CS 214 at Calvin College.
+;;; Completed by: Charles Blum for CS 214
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; yearCode returns the code for a given academic year.                 ;;;
+;;; Receive: year, a string.                                             ;;;
+;;; Precondition: year is one of {freshman, sophomore, junior or senior}.;;;
+;;; Return: the integer code corresponding to year.                      ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; main function                        ;;;
+;;; input: year                          ;;;
+;;; output: code corresponding to year   ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun main (year)
+ (interactive "sEnter your academic year: ")  ; read year
+ (message "%d" (yearCode year)))              ; display its code
+
+(defun yearCode (year)
+ "return the corresponding year" 
+ (if (equal year "freshman") 1
+ (if (equal year "sophmore") 2
+ (if (equal year "junior") 3
+ (if (equal year "senior") 4 0)))))
+;;;Charles Blum
+;;;lab03 - eLISP
+;;;20 February 2014
+
+(load "~/Documents/cs214/labs/lab03/year_codes.el")
+t
+(main "freshman")
+"1"
+(main "sophmore")
+"2"
+(main "world says hello")
+"0"
+(main "junior")
+"3"
+(main "senior")
+"4"
+cab35@englebart:~/Documents/cs214/labs/lab03$ exit
+
+Script done on Thu 20 Feb 2014 11:06:23 AM EST
+Script started on Thu 20 Feb 2014 10:04:53 AM EST
+cab35@englebart:~/Documents/cs214/labs/lab03$ car[Kt year_codes.rb 
+#! /usr/bin/ruby
+# year_codes.rb translates an academic year into a numeric code
+# Begun by: Dr. Nelesen, for CS 214 at Calvin College 
+################################################################
+
+# Input:  The name of an academic year
+# Precondition: The academic year is a string with a value of freshman, 
+#   sophomore, junior or senior
+# Output: The corresponding integer code for the given academic year
+
+def yearCode year
+  if year =~ /freshman/ then 1
+  elsif year =~ /sophmore/ then  2
+  elsif year =~ /junior/ then 3
+  elsif year =~ /senior/ then 4
+  else 0
+  end
+end
+
+if __FILE__ == $0
+   print "Enter the year: "
+   year = gets
+   print "Numeric code is: "
+   puts yearCode(year)
+end
+
+cab35@englebart:~/Documents/cs214/labs/lab03$ ruby year_codes.rb 
+Enter the year: hello
+Numeric code is: 0
+cab35@englebart:~/Documents/cs214/labs/lab03$ ruby year_codes.rb 
+Enter the year: freshamn   man
+Numeric code is: 1
+cab35@englebart:~/Documents/cs214/labs/lab03$ ruby year_codes.rb 
+Enter the year: junior
+Numeric code is: 3
+cab35@englebart:~/Documents/cs214/labs/lab03$ exit
+
+Script done on Thu 20 Feb 2014 10:05:20 AM EST

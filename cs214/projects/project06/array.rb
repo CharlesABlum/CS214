@@ -7,11 +7,9 @@
 ########################################################
 
 ###############################################
-# sum() sums the values in an array
-# Receive: anArray, an array of numbers
-# Return: the sum of the values in anArray.
+# readArray reads in the values from the user
+# Receive: the array of size 0.
 ################################################
-
 def readArray( someArray, size ) 
   for i in 0..(size-1)
     someArray.push( gets.to_f )
@@ -19,6 +17,10 @@ def readArray( someArray, size )
   someArray
 end 
 
+###############################################
+# wrietArray writes out the array to the user
+# Receive: the array of size n.
+################################################
 def writeArray(someArray)
   someArray.each { |i| puts( i ) }
 end

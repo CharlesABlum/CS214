@@ -18,6 +18,7 @@
   )
 )
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; writeArray takes in x number of inputs.      ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -25,11 +26,13 @@
   (setq i 0)
   (while (< i itsSize)
     (princ (aref anArray i) buf)
-    (princ " " buf)
-    (setq i (+ i 1))
   )
 )
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; average() computes the average of an array of numbers.;;
+;;; Receive: anArray, an array of numbers.              ;;
+;;; Return: the average of the numbers.                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun main (size)
   (interactive "nEnter an array size: ")
   (setq anArray (make-vector size 0))

@@ -1,0 +1,93 @@
+Script started on Thu 13 Feb 2014 10:48:09 AM EST
+cab35@englebart:~/Documents/cs214/labs/lab02$ cat example6.lex example6.y
+%{
+#include <stdio.h>
+#include "example6.tab.h"
+%}
+%%
+[0-9]+                  yylval = atoi(yytext); return NUMBER;
+heat                    return TOKHEAT;
+on|off                  yylval = !strcmp(yytext,"on"); return STATE;
+set                     return TOKSET;
+humidity		return TOKHUMIDITY;
+to			return TOKTO;
+temperature             return TOKTEMPERATURE;
+\n                      /* ignore end of line */;
+[ \t]+                  /* ignore whitespace */;
+%%
+%{
+#include <stdio.h>
+#include <string.h>
+ 
+void yyerror(const char *str) {
+        fprintf(stderr,"error: %s\n",str);
+}
+ 
+int yywrap() {
+        return 1;
+} 
+  
+main() {
+        yyparse();
+} 
+
+%}
+
+%token NUMBER TOKHEAT STATE TOKSET TOKHUMIDITY TOKTO TOKTEMPERATURE
+%%
+
+commands: /* empty */
+        | commands command
+        ;
+
+command:
+        heat_switch
+        | temperature_set
+	| humidity_set
+        ;
+
+heat_switch:
+        TOKHEAT STATE
+        {
+		if ($2) { /* if STATE == 1 */
+			printf("\tHeat turned on\n");
+		} else {
+			printf("\tHeat turned off\n");	 
+		}
+        }
+        ;
+
+temperature_set:
+        TOKSET TOKTEMPERATURE NUMBER
+        {
+                printf("\tTemperature set to %d\n", $3);
+        }
+        ;
+
+humidity_set:
+	TOKSET TOKHUMIDITY TOKTO NUMBER
+	{
+		printf("\tHumidity set to %d\n", $4);
+	}
+	;
+%%
+cab35@englebart:~/Documents/cs214/labs/lab02$ make clean
+rm -f lex.yy.c example6.tab.h example6.tab.c example6
+cab35@englebart:~/Documents/cs214/labs/lab02$ make
+flex example6.lex
+bison -d example6.y
+gcc lex.yy.c example6.tab.c -o example6 -lfl
+cab35@englebart:~/Documents/cs214/labs/lab02$ ./example6
+heat on
+	Heat turned on
+heat off
+	Heat turned off
+set temperature 72
+	Temperature set to 72
+set humd idity to 60
+	Humidity set to 60
+set humdi  idity 60
+error: syntax error
+cab35@englebart:~/Documents/cs214/labs/lab02$ exit
+
+Script done on Thu 13 Feb 2014 10:49:15 AM EST

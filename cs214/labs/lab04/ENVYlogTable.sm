@@ -1,0 +1,29 @@
+"logTable.sm displays a table of logarithms.
+
+ Input: start, stop and increment, three Float values.
+ PRE: start < stop and increment > 0.
+ Output: A table of logarithms, with start and stop as its limits,
+         with intervals of increment.
+
+ Begun by: Adams, CPSC 280, Fall 1997 at Calvin College.
+ Completed by:
+"
+
+| start stop increment |
+"display log(start)..log(stop) by increment intervals"
+start := (CwTextPrompter new
+		title: 'Input Box';
+		messageString: 'Enter the starting value: ';
+		answerString: '1';
+		prompt) asNumber asFloat.
+stop := (CwTextPrompter new
+		title: 'Input Box';
+		messageString: 'Enter the stopping value: ';
+		answerString: '10';
+		prompt) asNumber asFloat.
+increment := (CwTextPrompter new
+		title: 'Input Box';
+		messageString: 'Enter the increment value: ';
+		answerString: '1';
+		prompt) asNumber asFloat.
+

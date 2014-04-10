@@ -1,0 +1,55 @@
+Script started on Fri 28 Feb 2014 09:41:35 AM EST
+cab35@englebart:~/Documents/cs214/labs/lab04$ cat log_table.rb
+#! /usr/bin/ruby
+# log_table.rb displays a table of logarithms
+#
+# Begun by: Dr. Nelesen, for CS 214 at Calvin College.
+# Completed by:
+#
+# Input:  The start, stop and increment values
+# Precondition: The start value is less than the stop value, 
+#     and the increment is greater than 0
+# Output: A table of logarithms from start to stop, with increment
+#     as the step value
+
+if __FILE__ == $0
+  print "Enter the start value: "
+    start = gets.chomp.to_f
+  print "Enter the stop value: "
+    stop = gets.chomp.to_f
+  print "Enter the increment value: "
+    increment = gets.chomp.to_f
+
+  while start <= stop
+    value = Math.log10(start)
+    puts "The Logarithm of #{start} is #{value}"
+    start += increment
+  end   
+end
+
+cab35@englebart:~/Documents/cs214/labs/lab04$ ruby log_table.rb  [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K 
+Enter the start value: 1
+Enter the stop value: 10
+Enter the increment value: 0.5
+The Logarithm of 1.0 is 0.0
+The Logarithm of 1.5 is 0.17609125905568124
+The Logarithm of 2.0 is 0.3010299956639812
+The Logarithm of 2.5 is 0.3979400086720376
+The Logarithm of 3.0 is 0.47712125471966244
+The Logarithm of 3.5 is 0.5440680443502757
+The Logarithm of 4.0 is 0.6020599913279624
+The Logarithm of 4.5 is 0.6532125137753437
+The Logarithm of 5.0 is 0.6989700043360189
+The Logarithm of 5.5 is 0.7403626894942439
+The Logarithm of 6.0 is 0.7781512503836436
+The Logarithm of 6.5 is 0.8129133566428556
+The Logarithm of 7.0 is 0.8450980400142568
+The Logarithm of 7.5 is 0.8750612633917001
+The Logarithm of 8.0 is 0.9030899869919435
+The Logarithm of 8.5 is 0.9294189257142927
+The Logarithm of 9.0 is 0.9542425094393249
+The Logarithm of 9.5 is 0.9777236052888477
+The Logarithm of 10.0 is 1.0
+cab35@englebart:~/Documents/cs214/labs/lab04$ exit
+
+Script done on Fri 28 Feb 2014 09:41:56 AM EST

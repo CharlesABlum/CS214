@@ -1,0 +1,30 @@
+"split.sm is a Smalltalk 'program' to split a string into substrings.
+  Dr. Adams, CPSC 280, Fall 1997 at Calvin College.
+  Input: aString, the string to be split,
+         pos, the split position.
+  Output: the substring of aString before pos, and
+          the substring of aString from pos onwards.
+"
+| aString pos result part1 part2|
+aString := CwTextPrompter new
+                title: 'Input Box';
+                messageString: 'Enter the string to be split ';
+                answerString: 'hello';
+                prompt. 
+
+pos := (CwTextPrompter new
+                title: 'Input Box';
+                messageString: 'Enter the split position: ';
+                answerString: '3';
+                prompt) asNumber.
+
+result := aString split: pos.
+part1 := result at: 1.
+part2 := result at: 2.
+
+Transcript cr; 
+	nextPutAll: 'The first string is ';
+	nextPutAll: part1;
+	cr;
+	nextPutAll: ' and the second string is ';
+	nextPutAll: part2.

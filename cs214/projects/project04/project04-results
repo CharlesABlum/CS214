@@ -1,0 +1,209 @@
+Script started on Tue 04 Mar 2014 03:39:10 PM EST
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ g++ -Wall factorial.cpp -o cpp_factorial 
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ ./cpp_factorial 
+
+To compute n!, enter n: 5
+5! = 120
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ ./cpp_factorial 
+
+To compute n!, enter n: 10
+10! = 3.6288e+06
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ cat factorial.cpp
+/* factorial.cpp computes and displays the
+ * factorial of a number entered by the user.
+ *
+ * Input: an integer, n
+ * Output: the value of n!
+ * Begun by: Charles Blum, for cs214 at Calvin College
+ * Begin on: 4 March 2014
+ */
+
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+double factorial(unsigned n) {
+  double answer = 1.0;
+
+  for (unsigned i = 2; i <= n; i++)
+  {
+    answer *= i;
+  }
+  return answer;
+}
+
+int main() {
+  cout << "\nTo compute n!, enter n: ";
+  unsigned n;
+  cin >> n;
+
+  assert(n >= 0);
+
+  cout << n << "! = " << factorial(n) << endl;
+}
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ exit
+
+Script done on Tue 04 Mar 2014 03:40:00 PM EST
+Script started on Tue 04 Mar 2014 03:41:20 PM EST
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ cat l[Kfactorial.adb 
+-- factorial.adb computes the factorial of a integer, n
+--
+-- Input: n, an integer
+-- Precondition: n >= 0 
+-- Output: n!
+--
+-- Begun by: Charles Blum, for CS 214 at Calvin College.
+-- begon on: 4 March 2014
+--------------------------------------------------------------
+
+with Ada.Text_IO, Ada.Integer_Text_IO;
+use  Ada.Text_IO, Ada.Integer_Text_IO;
+with Ada.Numerics.Elementary_functions;
+use  Ada.Numerics.Elementary_functions;
+
+procedure factorial is
+
+  n, f: Integer;
+
+  function compute_factorial(n: in Integer) return Integer is
+  begin
+    f := 1;
+    for i in Integer range 1 .. n loop
+      f := f * i;
+    end loop;
+
+    return f;
+  end compute_factorial;
+
+
+begin                                           -- Prompt for input
+  Put_line("Calculate the n-th factorial of a number.");
+  Put("Enter a number n: ");
+  Get(n);
+  New_line;
+  Put(n);
+  Put("! = ");
+  Put(compute_factorial(n));
+end factorial;
+
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ .[Kgnatmake factorial.adb 
+gnatmake: "factorial" up to date.
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ ./factorial 
+Calculate the n-th factorial of a number.
+Enter a number n: 10
+
+         10! =     3628800
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ ./factorial 
+Calculate the n-th factorial of a number.
+Enter a number n: 5
+
+          5! =         120
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ ./factorial 
+Calculate the n-th factorial of a number.
+Enter a number n: 6
+
+          6! =         720
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ exit
+
+Script done on Tue 04 Mar 2014 03:41:46 PM EST
+Script started on Tue 04 Mar 2014 04:22:53 PM EST
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ cat e[Kfactorial.el elisp-output.script 
+;;; factorial.el computes the factorial of a number.
+;;;
+;;; Input: n, and integer
+;;; PRE: n >= 0 
+;;; Output: the factorial of n
+;;;
+;;; Begun by: Charles Blum, for CS 214 at Calvin College.
+;;; Begun on: 4 March 2014
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; computeFactorial() recursively generates the factorial            ;;;
+;;; of a number n                                                     ;;;
+;;; Receive: n, an integer                                            ;;;
+;;; Output: The factorial of n                                        ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun computeFactorial (n f)
+  (if (> n 0) 
+    (computeFactorial (- n 1) (* f n))
+    f
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; main is a 'driver' for displayLogTable()                   ;;;
+;;; Input: start, stop and increment.                          ;;;
+;;; Output: The table of logs from start to stop by increment  ;;;
+;;;          in a buffer named 'logTable.out'.                 ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun main (n)
+  "Compute and display the factorial of n"
+   (interactive "nEnter an integer n to compute the factorial: ")
+   (setq factorial (computeFactorial n 1))
+   (message "n! = %i" factorial)
+)
+
+
+
+
+
+
+
+
+
+
+
+(load "~/Desktop/project04/factorial.el")
+t
+(main 5)
+"n! = 120"
+(main 10)
+"n! = 3628800"
+(main 6)
+"n! = 720"
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ exit
+
+Script done on Tue 04 Mar 2014 04:23:06 PM EST
+Script started on Tue 04 Mar 2014 03:55:17 PM EST
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ cat factorial.rb 
+#! /usr/bin/ruby
+# factorial.rb displays the factorial of a number
+#
+# Begun by: Charles Blum, for CS 214 at Calvin College.
+# Begun on: 4 March 2014
+#
+# Input:  n, an integer
+# Precondition: n is >= 0
+# Output: The factorial of n 
+
+def comp_factorial(n)
+  f = 1
+  for i in 1..n
+    f *= i
+  end
+  f
+end
+
+if __FILE__ == $0
+  print "This program calculates the factorial of a number:"
+  print "Enter a number n:"
+  n = gets.chomp.to_i
+
+  puts "#{n}! = #{comp_factorial(n)}"
+end
+
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ ruby factorial.rb
+This program calculates the factorial of a number:Enter a number n:5
+5! = 120
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ ruby factorial.rb
+This program calculates the factorial of a number:Enter a number n:6
+6! = 720
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ ruby factorial.rb
+This program calculates the factorial of a number:Enter a number n:10
+10! = 3628800
+]0;theo@theo-VBox: ~/Desktop/project04theo@theo-VBox:~/Desktop/project04$ exit
+
+Script done on Tue 04 Mar 2014 03:55:48 PM EST

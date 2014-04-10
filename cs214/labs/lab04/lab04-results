@@ -1,0 +1,282 @@
+Script started on Thu 27 Feb 2014 09:14:11 AM EST
+cab35@englebart:~/Documents/cs214/labs/lab04$ cat log_table.cpp
+/* log_table.cpp displays a table of logarithms.
+ *
+ * Input: start, stop and increment, three doubles.
+ * PRE: start < stop && increment > 0.
+ * Output: A table of logarithms from start to stop,
+ *         with increment as the step value.
+ * Begun by: Adams, for CS 214 at Calvin College.
+ * Completed by:
+ ********************************************************/
+
+#include <iostream>    // cin, cout, <<, >>
+#include <cassert>     // assert()
+#include <cmath>       // log10()
+using namespace std;
+
+int main() {
+  cout << "\nTo display a table of logarithms,"
+       << "\n enter the start, stop and increment values: ";
+  double start, stop, increment;
+  cin >> start >> stop >> increment;
+  
+  assert(increment > 0);
+  
+  for ( double i = start; i <= stop; i += increment )
+    cout << "\nThe logarithm of " << i << " is\t " << log10(i) << flush;
+  cout << endl;
+}
+
+cab35@englebart:~/Documents/cs214/labs/lab04$ g++ -Q[KWall log_table.cpp -o cpp_log_table 
+cab35@englebart:~/Documents/cs214/labs/lab04$ ./lo[K[Kcpp_log_table 
+
+To display a table of logarithms,
+ enter the start, stop and increment values: 1 10 0.5
+
+The logarithm of 1 is	 0
+The logarithm of 1.5 is	 0.176091
+The logarithm of 2 is	 0.30103
+The logarithm of 2.5 is	 0.39794
+The logarithm of 3 is	 0.477121
+The logarithm of 3.5 is	 0.544068
+The logarithm of 4 is	 0.60206
+The logarithm of 4.5 is	 0.653213
+The logarithm of 5 is	 0.69897
+The logarithm of 5.5 is	 0.740363
+The logarithm of 6 is	 0.778151
+The logarithm of 6.5 is	 0.812913
+The logarithm of 7 is	 0.845098
+The logarithm of 7.5 is	 0.875061
+The logarithm of 8 is	 0.90309
+The logarithm of 8.5 is	 0.929419
+The logarithm of 9 is	 0.954243
+The logarithm of 9.5 is	 0.977724
+The logarithm of 10 is	 1
+cab35@englebart:~/Documents/cs214/labs/lab04$ exit
+
+Script done on Thu 27 Feb 2014 09:14:43 AM EST
+Script started on Thu 27 Feb 2014 09:46:13 AM EST
+cab35@englebart:~/Documents/cs214/labs/lab04$ cat log_table.adb
+-- log_table.adb computes a table of logarithms.
+--
+-- Input: start, stop, increment, three reals.
+-- Precondition: increment is positive.
+-- Output: A table of logarithms beginning with log(start),
+--         ending with log(stop), with intervals of increment.
+--
+-- Begun by: Dr. Adams, for CS 214 at Calvin College.
+-- Completed by:
+--------------------------------------------------------------
+
+with Ada.Text_IO, Ada.Float_Text_IO;
+use  Ada.Text_IO, Ada.Float_Text_IO;
+with Ada.Numerics.Elementary_functions;
+use  Ada.Numerics.Elementary_functions;
+
+procedure log_table is
+
+   Start, Stop, Increment : Float;
+
+begin                                           -- Prompt for input
+   Put_Line("To print a table of logarithms,");
+   Put(" enter the start, stop, and increment values: ");
+   Get(Start); Get(Stop); Get(Increment);
+
+  loop
+    Put("The logarithm of ");
+    Put(Start);
+    Put(" is ");
+    Put(log(Start, 10.0));
+    New_line;
+    Start := Start + Increment;
+    exit when ( Start > Stop);
+  end loop;
+
+end log_table;
+
+cab35@englebart:~/Documents/cs214/labs/lab04$ gnatmake log_table.adb
+gcc-4.6 -c log_table.adb
+gnatbind -x log_table.ali
+gnatlink log_table.ali
+cab35@englebart:~/Documents/cs214/labs/lab04$ ./log_table 
+To print a table of logarithms,
+ enter the start, stop, and increment values: 1 10 0.5
+The logarithm of  1.00000E+00 is  0.00000E+00
+The logarithm of  1.50000E+00 is  1.76091E-01
+The logarithm of  2.00000E+00 is  3.01030E-01
+The logarithm of  2.50000E+00 is  3.97940E-01
+The logarithm of  3.00000E+00 is  4.77121E-01
+The logarithm of  3.50000E+00 is  5.44068E-01
+The logarithm of  4.00000E+00 is  6.02060E-01
+The logarithm of  4.50000E+00 is  6.53212E-01
+The logarithm of  5.00000E+00 is  6.98970E-01
+The logarithm of  5.50000E+00 is  7.40363E-01
+The logarithm of  6.00000E+00 is  7.78151E-01
+The logarithm of  6.50000E+00 is  8.12913E-01
+The logarithm of  7.00000E+00 is  8.45098E-01
+The logarithm of  7.50000E+00 is  8.75061E-01
+The logarithm of  8.00000E+00 is  9.03090E-01
+The logarithm of  8.50000E+00 is  9.29419E-01
+The logarithm of  9.00000E+00 is  9.54243E-01
+The logarithm of  9.50000E+00 is  9.77724E-01
+The logarithm of  1.00000E+01 is  1.00000E+00
+cab35@englebart:~/Documents/cs214/labs/lab04$ exit
+
+Script done on Thu 27 Feb 2014 09:46:35 AM EST
+;;; log_table.el displays a table of logarithms.
+;;;
+;;; Input: start, stop and increment, three reals.
+;;; PRE: start < stop and increment > 0.
+;;; Output: A table of logarithms from start to stop,
+;;;          with interval of increment.
+;;;
+;;; Begun by: Adams, for CS 214 at Calvin College.
+;;; Completed by: Charles Blum
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; displayLogTable() recursively generates the actual table of logs. ;;;
+;;; Receive: start and stop, the limit values for the table;          ;;;
+;;;             increment, the step value for the table;              ;;;
+;;;             buf, the buffer in which to display the table.        ;;;
+;;; Output: The table of logs from start to stop, by increment.       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun displayLogTable (start stop increment buf)
+  (if (<= start stop) 
+      (progn (princ "The Logarithm of " buf)
+	     (princ start buf)
+	     (princ " is " buf)
+	     (princ (log10 start) buf)
+	     (terpri buf)
+	     (displayLogTable (+ start increment) stop increment buf)
+      )
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; main is a 'driver' for displayLogTable()                   ;;;
+;;; Input: start, stop and increment.                          ;;;
+;;; Output: The table of logs from start to stop by increment  ;;;
+;;;          in a buffer named 'logTable.out'.                 ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun main (start stop increment)
+  "print a table of logarithms"
+   (interactive "nEnter starting value: \nnEnter stopping value: \nnEnter increment value: ")
+   (if (get-buffer "log_table.out")
+       (kill-buffer "log_table.out"))
+   (setq buf (switch-to-buffer-other-window "log_table.out"))
+   (displayLogTable start stop increment buf))
+
+
+
+
+
+
+
+
+
+
+;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+(load "~/Documents/cs214/labs/lab04/log_table.el")
+t
+(main 1 10 0.5)
+
+nil
+The Logarithm of 1 is 0.0
+The Logarithm of 1.5 is 0.17609125905568124
+The Logarithm of 2.0 is 0.3010299956639812
+The Logarithm of 2.5 is 0.3979400086720376
+The Logarithm of 3.0 is 0.47712125471966244
+The Logarithm of 3.5 is 0.5440680443502757
+The Logarithm of 4.0 is 0.6020599913279624
+The Logarithm of 4.5 is 0.6532125137753437
+The Logarithm of 5.0 is 0.6989700043360189
+The Logarithm of 5.5 is 0.7403626894942439
+The Logarithm of 6.0 is 0.7781512503836436
+The Logarithm of 6.5 is 0.8129133566428556
+The Logarithm of 7.0 is 0.8450980400142568
+The Logarithm of 7.5 is 0.8750612633917001
+The Logarithm of 8.0 is 0.9030899869919435
+The Logarithm of 8.5 is 0.9294189257142927
+The Logarithm of 9.0 is 0.9542425094393249
+The Logarithm of 9.5 is 0.9777236052888477
+The Logarithm of 10.0 is 1.0
+The Logarithm of 1 is 0.0
+The Logarithm of 1.5 is 0.17609125905568124
+The Logarithm of 2.0 is 0.3010299956639812
+The Logarithm of 2.5 is 0.3979400086720376
+The Logarithm of 3.0 is 0.47712125471966244
+The Logarithm of 3.5 is 0.5440680443502757
+The Logarithm of 4.0 is 0.6020599913279624
+The Logarithm of 4.5 is 0.6532125137753437
+The Logarithm of 5.0 is 0.6989700043360189
+The Logarithm of 5.5 is 0.7403626894942439
+The Logarithm of 6.0 is 0.7781512503836436
+The Logarithm of 6.5 is 0.8129133566428556
+The Logarithm of 7.0 is 0.8450980400142568
+The Logarithm of 7.5 is 0.8750612633917001
+The Logarithm of 8.0 is 0.9030899869919435
+The Logarithm of 8.5 is 0.9294189257142927
+The Logarithm of 9.0 is 0.9542425094393249
+The Logarithm of 9.5 is 0.9777236052888477
+The Logarithm of 10.0 is 1.0
+Script started on Fri 28 Feb 2014 09:41:35 AM EST
+cab35@englebart:~/Documents/cs214/labs/lab04$ cat log_table.rb
+#! /usr/bin/ruby
+# log_table.rb displays a table of logarithms
+#
+# Begun by: Dr. Nelesen, for CS 214 at Calvin College.
+# Completed by:
+#
+# Input:  The start, stop and increment values
+# Precondition: The start value is less than the stop value, 
+#     and the increment is greater than 0
+# Output: A table of logarithms from start to stop, with increment
+#     as the step value
+
+if __FILE__ == $0
+  print "Enter the start value: "
+    start = gets.chomp.to_f
+  print "Enter the stop value: "
+    stop = gets.chomp.to_f
+  print "Enter the increment value: "
+    increment = gets.chomp.to_f
+
+  while start <= stop
+    value = Math.log10(start)
+    puts "The Logarithm of #{start} is #{value}"
+    start += increment
+  end   
+end
+
+cab35@englebart:~/Documents/cs214/labs/lab04$ ruby log_table.rb  [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K 
+Enter the start value: 1
+Enter the stop value: 10
+Enter the increment value: 0.5
+The Logarithm of 1.0 is 0.0
+The Logarithm of 1.5 is 0.17609125905568124
+The Logarithm of 2.0 is 0.3010299956639812
+The Logarithm of 2.5 is 0.3979400086720376
+The Logarithm of 3.0 is 0.47712125471966244
+The Logarithm of 3.5 is 0.5440680443502757
+The Logarithm of 4.0 is 0.6020599913279624
+The Logarithm of 4.5 is 0.6532125137753437
+The Logarithm of 5.0 is 0.6989700043360189
+The Logarithm of 5.5 is 0.7403626894942439
+The Logarithm of 6.0 is 0.7781512503836436
+The Logarithm of 6.5 is 0.8129133566428556
+The Logarithm of 7.0 is 0.8450980400142568
+The Logarithm of 7.5 is 0.8750612633917001
+The Logarithm of 8.0 is 0.9030899869919435
+The Logarithm of 8.5 is 0.9294189257142927
+The Logarithm of 9.0 is 0.9542425094393249
+The Logarithm of 9.5 is 0.9777236052888477
+The Logarithm of 10.0 is 1.0
+cab35@englebart:~/Documents/cs214/labs/lab04$ exit
+
+Script done on Fri 28 Feb 2014 09:41:56 AM EST

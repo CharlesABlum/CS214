@@ -1,0 +1,53 @@
+Script started on Sun 09 Mar 2014 12:01:30 PM EDT
+cat theo@theo-VBox:~/Desktop/cs214/lab05$ cat e[Ksl[Kplit.el
+;;; split.el splits a string into two substrings.
+;;;
+;;; Input: aString, the string to be split,
+;;;        pos, the split position.
+;;; Output: the substring of aString before pos, and
+;;;         the substring of aString from pos onwards.
+;;;
+;;; Begun by: Dr. Adams, for CS 214 at Calvin College.
+;;; Completed by:Charles Blum
+;;; Date:9 March 2014
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:;
+;;; split() splits a string into its two substrings.  
+;;; Receive: aString, the string to be split,         
+;;;        pos, the split position.                   
+;;; PRE: 0 <= pos < the length of aString.
+;;; Return: the substring of aString before pos, and  
+;;;         the substring of aString from pos onwards.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun split (aString pos)
+  (setq p1 (substring aString 0 pos))
+  (setq p2 (substring aString pos))
+  (list p1 p2) 
+)
+
+(defun main (aString pos)
+  (interactive "sEnter the string to be split: \nnEnter the split position")
+  (setq result (split aString pos))
+  (setq part1 (elt result 0))
+  (setq part2 (elt result 1))
+  (message "The first part is %s and the second part is %s" part1 part2))
+
+theo@theo-VBox:~/Desktop/cs214/lab05$ cat le[K[Kelisp.output 
+(load "~/Desktop/cs214/lab05/split.el")
+t
+(main "Wello Horld" 0)
+"The first part is  and the second part is Wello Horld"
+
+(main "Wello Horld" 3)
+"The first part is Wel and the second part is lo Horld"
+
+(main "Wello Horld" 5)
+"The first part is Wello and the second part is  Horld"
+
+(main "Wello Horld" 7)
+"The first part is Wello H and the second part is orld"
+theo@theo-VBox:~/Desktop/cs214/lab05$ exit
+
+Script done on Sun 09 Mar 2014 12:01:47 PM EDT

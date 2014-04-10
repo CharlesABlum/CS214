@@ -1,0 +1,101 @@
+;;; log_table.el displays a table of logarithms.
+;;;
+;;; Input: start, stop and increment, three reals.
+;;; PRE: start < stop and increment > 0.
+;;; Output: A table of logarithms from start to stop,
+;;;          with interval of increment.
+;;;
+;;; Begun by: Adams, for CS 214 at Calvin College.
+;;; Completed by: Charles Blum
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; displayLogTable() recursively generates the actual table of logs. ;;;
+;;; Receive: start and stop, the limit values for the table;          ;;;
+;;;             increment, the step value for the table;              ;;;
+;;;             buf, the buffer in which to display the table.        ;;;
+;;; Output: The table of logs from start to stop, by increment.       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun displayLogTable (start stop increment buf)
+  (if (<= start stop) 
+      (progn (princ "The Logarithm of " buf)
+	     (princ start buf)
+	     (princ " is " buf)
+	     (princ (log10 start) buf)
+	     (terpri buf)
+	     (displayLogTable (+ start increment) stop increment buf)
+      )
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; main is a 'driver' for displayLogTable()                   ;;;
+;;; Input: start, stop and increment.                          ;;;
+;;; Output: The table of logs from start to stop by increment  ;;;
+;;;          in a buffer named 'logTable.out'.                 ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun main (start stop increment)
+  "print a table of logarithms"
+   (interactive "nEnter starting value: \nnEnter stopping value: \nnEnter increment value: ")
+   (if (get-buffer "log_table.out")
+       (kill-buffer "log_table.out"))
+   (setq buf (switch-to-buffer-other-window "log_table.out"))
+   (displayLogTable start stop increment buf))
+
+
+
+
+
+
+
+
+
+
+;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+(load "~/Documents/cs214/labs/lab04/log_table.el")
+t
+(main 1 10 0.5)
+
+nil
+The Logarithm of 1 is 0.0
+The Logarithm of 1.5 is 0.17609125905568124
+The Logarithm of 2.0 is 0.3010299956639812
+The Logarithm of 2.5 is 0.3979400086720376
+The Logarithm of 3.0 is 0.47712125471966244
+The Logarithm of 3.5 is 0.5440680443502757
+The Logarithm of 4.0 is 0.6020599913279624
+The Logarithm of 4.5 is 0.6532125137753437
+The Logarithm of 5.0 is 0.6989700043360189
+The Logarithm of 5.5 is 0.7403626894942439
+The Logarithm of 6.0 is 0.7781512503836436
+The Logarithm of 6.5 is 0.8129133566428556
+The Logarithm of 7.0 is 0.8450980400142568
+The Logarithm of 7.5 is 0.8750612633917001
+The Logarithm of 8.0 is 0.9030899869919435
+The Logarithm of 8.5 is 0.9294189257142927
+The Logarithm of 9.0 is 0.9542425094393249
+The Logarithm of 9.5 is 0.9777236052888477
+The Logarithm of 10.0 is 1.0
+The Logarithm of 1 is 0.0
+The Logarithm of 1.5 is 0.17609125905568124
+The Logarithm of 2.0 is 0.3010299956639812
+The Logarithm of 2.5 is 0.3979400086720376
+The Logarithm of 3.0 is 0.47712125471966244
+The Logarithm of 3.5 is 0.5440680443502757
+The Logarithm of 4.0 is 0.6020599913279624
+The Logarithm of 4.5 is 0.6532125137753437
+The Logarithm of 5.0 is 0.6989700043360189
+The Logarithm of 5.5 is 0.7403626894942439
+The Logarithm of 6.0 is 0.7781512503836436
+The Logarithm of 6.5 is 0.8129133566428556
+The Logarithm of 7.0 is 0.8450980400142568
+The Logarithm of 7.5 is 0.8750612633917001
+The Logarithm of 8.0 is 0.9030899869919435
+The Logarithm of 8.5 is 0.9294189257142927
+The Logarithm of 9.0 is 0.9542425094393249
+The Logarithm of 9.5 is 0.9777236052888477
+The Logarithm of 10.0 is 1.0

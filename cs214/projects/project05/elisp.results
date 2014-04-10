@@ -1,0 +1,33 @@
+;; Charles Blum
+;; Project 5 - quadratics
+;; elisp results
+;; 12 March 2014
+
+(load "/home/theo/Desktop/cs214/project05/quad.el")
+t
+
+(main 1 2 1)
+"The first root is -1 
+and the second root is -1"
+
+
+(main 1 5 25)
+"b^2 - 4ac is negative! Please try again.
+Something didn't calculate right. Please try again."
+
+(main 1 10 25)
+"The first root is -5 
+and the second root is -5"
+
+(main 1 0 -25)
+"The first root is 5 
+and the second root is -5"
+
+(main 0 1 2)
+"coefficient a is Zero! Please try again.
+Something didn't calculate right. Please try again."
+
+
+
+
+

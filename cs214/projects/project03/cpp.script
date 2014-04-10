@@ -1,0 +1,74 @@
+Script started on Wed 12 Mar 2014 06:46:09 PM EDT
+theo@theo-VBox:~/Desktop/cs214/project03$ cat select_grade.cpp
+/* select_grade.cpp is a driver for function select_grade().
+ * Begun by: Charles Blum, for CS 214 at Calvin College.
+ ****************************************************************/
+
+#include <iostream>                      // interactive I/O
+#include <string>                        // string class
+using namespace std;
+
+char select_grade(const int &num);
+
+int main() {
+  cout << "Enter your numeric grade on a 0-100 scale: "; // prompt
+  int numGrade;
+  cin >> numGrade;          		                  // read numeric grade
+  cout << select_grade(numGrade) << endl;      		  // display its code
+}
+
+
+/***************************************************************
+ * select_grade() converts a numberic grade into its letter grade.
+ * Receive: numGrade, a n int.
+ * PRE: numGrade is an integer value from 0 to 100..
+ * Return: the corresponding letter grade as a char.
+ */
+
+char select_grade(const int &num){
+  switch ( num / 10 )
+  {
+    case 10:
+    case 9:
+      return 'A';
+    case 8:
+      return 'B';
+    case 7:
+      return 'C';
+    case 6:
+      return 'D';
+    default:
+     return 'F';
+  }
+}
+theo@theo-VBox:~/Desktop/cs214/project03$ g++ -Wall select_grade.cpp -o cpp_selecct_grade 
+theo@theo-VBox:~/Desktop/cs214/project03$ ./cpp_select_grade 
+Enter your numeric grade on a 0-100 scale: 90
+A
+theo@theo-VBox:~/Desktop/cs214/project03$ ./cpp_select_grade 
+Enter your numeric grade on a 0-100 scale: 100
+A
+theo@theo-VBox:~/Desktop/cs214/project03$ ./cpp_select_grade 
+Enter your numeric grade on a 0-100 scale: 89
+B
+theo@theo-VBox:~/Desktop/cs214/project03$ ./cpp_select_grade 
+Enter your numeric grade on a 0-100 scale: 77
+C
+theo@theo-VBox:~/Desktop/cs214/project03$ ./cpp_select_grade 
+Enter your numeric grade on a 0-100 scale: 65
+D
+theo@theo-VBox:~/Desktop/cs214/project03$ ./cpp_select_grade 
+Enter your numeric grade on a 0-100 scale: 54
+F
+theo@theo-VBox:~/Desktop/cs214/project03$ ./cpp_select_grade 
+Enter your numeric grade on a 0-100 scale: 2
+F
+theo@theo-VBox:~/Desktop/cs214/project03$ ./cpp_select_grade 
+Enter your numeric grade on a 0-100 scale: 101
+A
+theo@theo-VBox:~/Desktop/cs214/project03$ ./cpp_select_grade 
+Enter your numeric grade on a 0-100 scale: 0
+F
+theo@theo-VBox:~/Desktop/cs214/project03$ exit
+
+Script done on Wed 12 Mar 2014 06:47:20 PM EDT

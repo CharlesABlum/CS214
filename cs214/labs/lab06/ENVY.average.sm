@@ -1,0 +1,9 @@
+"average.sm 'test-drives' method average.
+  Dr. Adams, CPSC 280, Fall 1997.
+  Precondition: anArray is an Array of numbers.
+  Output: the average of the values in anArray.
+"
+| anArray |
+
+Transcript cr; nextPut: anArray average printString.
+

@@ -1,0 +1,8 @@
+(load "~/Desktop/project04/factorial.el")
+t
+(main 5)
+"n! = 120"
+(main 10)
+"n! = 3628800"
+(main 6)
+"n! = 720"

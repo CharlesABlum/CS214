@@ -1,7 +1,9 @@
+Script started on Sun 06 Apr 2014 08:22:30 PM EDT
+theo@theo-VBox:~/Desktop/07$ cat namer.adb 
 -- namer.adb "test-drives" the Name type.
 -- Begun by: Dr. Adams, CS 214 at Calvin College.
 -- Completed by:Charles Blum
--- Date: 09 April 2014
+-- Date: 03 April 2014
 ----------------------------------------------
 
 with Ada.Text_IO; use Ada.Text_IO;
@@ -91,57 +93,6 @@ procedure namer is
     Put(getFirst(TheName) & " " & getMiddle(TheName) & " " & getLast(TheName));
   end Put;
 
-  ---------------------------------------------
-  -- project07 changes                       --
-  ---------------------------------------------
-
-  ---------------------------------------------
-  -- setters for the Name class              --
-  -- sets the corresponding name to the Name --
-  -- variable                                --
-  ---------------------------------------------
-  procedure setFirst( TheName : out Name; first : in String ) is
-  begin
-    TheName.myFirst := first;
-  end setFirst;
-
-  procedure setMiddle( TheName : out Name; middle : in String ) is
-  begin
-    TheName.myMiddle := middle;
-  end setMiddle;
-
-  procedure setLast( TheName : out Name; last : in String ) is
-  begin
-    TheName.myLast := last;
-  end setLast;
-
-  ---------------------------------------------
-  -- lmfi() prints out the Name in           --
-  -- last, first (iddle initial). format     --
-  ---------------------------------------------
-  function lfmi( TheName : in Name ) return String is
-  middleInitial : Character := ' ';
-  begin
-    middleInitial := getMiddle(TheName)(getMiddle(TheName)'First);
-    return getLast(TheName) & ", " & getFirst(TheName) & " " & MiddleInitial & ".";
-  end lfmi;
-
-  ---------------------------------------------
-  -- project07 changes                       --
-  ---------------------------------------------
-  procedure readName(TheName : in out Name) is
-  someName : String := "no name ";
-  begin
-    New_Line;
-    Put("enter a new name, first, middle, and last:");
-    New_Line;
-    Get(someName);
-    TheName.myFirst := someName;
-    Get(someName);
-    TheName.myMiddle := someName;
-    Get(someName);
-    TheName.myLast := someName;
-  end readName;
 
 begin
    Init(aName, "John    ", "Paul    ", "Jones   ");
@@ -151,29 +102,17 @@ begin
    pragma Assert( getLast(aName) = "Jones   ", "getLast() failed");
    pragma Assert( getFullName(aName) = "John     Paul     Jones   ", 
                     "getFullName() failed");
+
    Put(aName); New_line;
-   Put("lab07 tests passed!");
-
-   setFirst( aName, "Paul    " );
-   setMiddle( aName, "John    " );
-   setLast( aName, "Smith   " );
-
-   pragma Assert( getFirst(aName) = "Paul    ", "setFirst() failed" );
-   pragma Assert( getMiddle(aName) = "John    ", "setMiddle() failed" );
-   pragma Assert( getLast(aName) = "Smith   ", "setLast() failed" );
-   Put(lfmi(aName));
-   pragma Assert( lfmi(aName) = "Paul    , John    S.", "lfmi() failed" );
-   readName(aName);
-   pragma Assert( getFirst(aName) /= "Paul    ", "readName() failed" );
-   pragma Assert( getFirst(aName) /= "John    ", "readName() failed" );
-   pragma Assert( getFirst(aName) /= "Smith   ", "readName() failed" );
-   
-   New_Line;
-   Put("project07 tests passed!");
-   New_Line;
-
-   New_Line;
    Put("All tests passed!"); New_line;
 
 end namer;
 
+theo@theo-VBox:~/Desktop/07$ gnatmake namer.adb -gnata
+gnatmake: "namer" up to date.
+theo@theo-VBox:~/Desktop/07$ ./namer
+John     Paul     Jones   
+All tests passed!
+theo@theo-VBox:~/Desktop/07$ exit
+
+Script done on Sun 06 Apr 2014 08:22:52 PM EDT

@@ -2,7 +2,7 @@
 #
 # Begun by: Dr. Adams, for CS 214 at Calvin College.
 # Completed by: Charles Blum
-# Date: 06 April 2014
+# Date: 09 April 2014
 ####################################################
 
 require 'test/unit/assertions'   # needed for assert
@@ -14,8 +14,8 @@ class Name
     @first, @middle, @last = first, middle, last
   end
 
-  #getters for the instance variables
-  attr_reader :first, :middle, :last
+  #getters and setters for the instance variables
+  attr_accessor :first, :middle, :last
 
   #fullName creates a string which contains the
   #full name of the person
@@ -29,6 +29,19 @@ class Name
     puts(fullName)
     fullName
   end
+
+  #return a name in last, first (middle initial) format
+  def lfmi
+    myLFMI = @last + ", " + @first + " " + @middle.chars.first + "."
+  end
+
+  #read in a new full name from the user
+  def readName
+    puts("\nEnter a new full name:\n")
+    @first = gets
+    @middle = gets
+    @last = gets
+  end
 end
 
 def testName
@@ -39,7 +52,19 @@ def testName
    assert name.last == "Jones", "last failed"
    assert name.fullName == "John Paul Jones", "fullName failed"
    assert name.print == "John Paul Jones", "print failed"
-   
+   print "lab07 tests passed!\n\n"
+
+   name.first, name.middle, name.last  = "Paul", "John", "Smith"
+   assert name.first == "Paul", "first failed"
+   assert name.middle == "John", "middle failed"
+   assert name.last == "Smith", "last failed"
+   assert name.lfmi == "Smith, Paul J.", "lfmi failed"
+   name.readName
+   assert name.first != "Paul", "first failed"
+   assert name.middle != "John", "middle failed"
+   assert name.last != "Smith", "last failed"
+   print "Project07 tests passed!\n"
+
    print "All tests passed!\n"
 end
 

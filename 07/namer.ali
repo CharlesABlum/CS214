@@ -1,15 +1,14 @@
 V "GNAT Lib v4.6"
 M P W=b
-A -gnata
 P SS ZX
 R nnnnnnnnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnvnnvnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
 
-U namer%b		namer.adb		95a53e5f NE OO SU IL
+U namer%b		namer.adb		40966538 NE OO SU IL
 W ada%s			ada.ads			ada.ali
 W ada.tags%s		a-tags.adb		a-tags.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
-W system.assertions%s	s-assert.adb		s-assert.ali
 W system.concat_5%s	s-conca5.adb		s-conca5.ali
+W system.concat_6%s	s-conca6.adb		s-conca6.ali
 W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
 
 D ada.ads		20070406091342 3ffc8e18
@@ -23,10 +22,10 @@ D a-textio.ads		20091028140912 386df5d4
 D a-unccon.ads		20070406091342 f9eb8f06
 D interfac.ads		20090409150019 f77d8799
 D i-cstrea.ads		20100622165701 1bd72c32
-D namer.adb		20140407002009 adc8cb8b
+D namer.adb		20140409232227 78fb90ec
 D system.ads		20120503154647 23e1f70b
-D s-assert.ads		20090417131547 a3a4e6ab
 D s-conca5.ads		20090420091404 1039cea1
+D s-conca6.ads		20090420091404 c7caf514
 D s-crtl.ads		20100617122610 ac77b159
 D s-exctab.ads		20090417131547 66e51330
 D s-ficobl.ads		20100909103250 443b9d66
@@ -47,30 +46,50 @@ X 1 ada.ads
 16K9*Ada 19e8 12|7r6 7r23
 X 8 a-textio.ads
 49K13*Text_IO 472e16 12|7w10 7r27
-167U14*New_Line 12|104s16 105s30
-243U14*Put 12|91s5 105s4
+167U14*New_Line 12|135s5 137s5 154s16 171s4 173s4 175s4 176s30
+241U14*Get 12|138s5 140s5 142s5
+243U14*Put 12|91s5 136s5 155s4 164s4 172s4 176s4
 X 12 namer.adb
-9U11*namer 9b11 107l5 107t10
+9U11*namer 9b11 178l5 178t10
 11i3 NAME_SIZE{integer} 15r46 77r29
-13R8 Name 16e15 18r11 30r33 43r34 54r35 65r33 76r37 89r30
-15a7 myFirst{string} 32m13 45r20
-15a16 myMiddle{string} 33m13 56r20
-15a26 myLast{string} 34m13 67r20
-18r3 aName{13R8} 96m9 98r28 99r29 100r27 101r31 104r8
-30U13 Init 30b13 30<19 30>39 30>46 30>54 35l7 35t11 96s4
+13R8 Name 16e15 18r11 30r33 43r34 54r35 65r33 76r37 89r30 103r37 108r38 113r36
+. 122r31 132r39
+15a7 myFirst{string} 32m13 45r20 105m13 139m13
+15a16 myMiddle{string} 33m13 56r20 110m13 141m13
+15a26 myLast{string} 34m13 67r20 115m13 143m13
+18r3 aName{13R8} 147m9 149r28 150r29 151r27 152r31 154r8 157m14 158m15 159m13
+. 161r28 162r29 163r27 164r13 165r24 166m13 167r28 168r28 169r28
+30U13 Init 30b13 30<19 30>39 30>46 30>54 35l7 35t11 147s4
 30r19 TheName{13R8} 32m5 33m5 34m5
 30s39 First{string} 32r24
 30s46 Middle{string} 33r25
 30s54 Last{string} 34r23
-43V12 getFirst{string} 43b12 43>21 46l7 46t15 79s17 91s9 98s19
+43V12 getFirst{string} 43b12 43>21 46l7 46t15 79s17 91s9 126s38 149s19 161s19
+. 167s19 168s19 169s19
 43r21 TheName{13R8} 45r12
-54V12 getMiddle{string} 54b12 54>22 57l7 57t16 79s43 91s35 99s19
+54V12 getMiddle{string} 54b12 54>22 57l7 57t16 79s43 91s35 125s22 125s41
+. 150s19 162s19
 54r22 TheName{13R8} 56r12
-65V12 getLast{string} 65b12 65>20 68l7 68t14 79s70 91s62 100s19
+65V12 getLast{string} 65b12 65>20 68l7 68t14 79s70 91s62 126s12 151s19 163s19
 65r20 TheName{13R8} 67r12
-76V12 getFullName{string} 76b12 76>24 81l7 81t18 101s19
+76V12 getFullName{string} 76b12 76>24 81l7 81t18 152s19
 76r24 TheName{13R8} 79r26 79r53 79r78
 77a3 fullName{string} 79m5 80r12
-89U13 Put 89b13 89>17 92l7 92t10 104s4
+89U13 Put 89b13 89>17 92l7 92t10 154s4
 89r17 TheName{13R8} 91r18 91r45 91r70
+103U13 setFirst 103b13 103<23 103>43 106l7 106t15 157s4
+103r23 TheName{13R8} 105m5
+103s43 first{string} 105r24
+108U13 setMiddle 108b13 108<24 108>44 111l7 111t16 158s4
+108r24 TheName{13R8} 110m5
+108s44 middle{string} 110r25
+113U13 setLast 113b13 113<22 113>42 116l7 116t14 159s4
+113r22 TheName{13R8} 115m5
+113s42 last{string} 115r23
+122V12 lfmi{string} 122b12 122>18 127l7 127t11 164s8 165s19
+122r18 TheName{13R8} 125r32 125r51 126r20 126r47
+123e3 middleInitial{character} 125m5 126r64
+132U13 readName 132b13 132=22 144l7 144t15 166s4
+132r22 TheName{13R8} 139m5 141m5 143m5
+133a3 someName{string} 138m9 139r24 140m9 141r25 142m9 143r23
 

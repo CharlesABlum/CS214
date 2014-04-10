@@ -1,0 +1,50 @@
+
+public class L3Packet {
+	
+	//Field bit-sizes
+	private static final int DEST_END = 16;
+	private static final int SRC_END = DEST_END + 16;
+	private static final int LENGTH_END = SRC_END + 16;
+	private static final int TTL_END = LENGTH_END + 4;
+	
+	private L3Address mySrc, myDest;
+	private int myLength, myTTL;
+	private String myPayload;
+	
+	/**
+	 * create a packet using a using fields
+	 * i.e. an outgoing packet
+	 * @param src, source address, as L3Address
+	 * @param dest, destination address, as L3Address
+	 * @param payload, a bit-string
+	 */
+	public L3Packet( L3Address src, L3Address dest, String payload ) {
+		this.myDest = dest;
+		this.mySrc = src;
+		this.myLength = payload.length();
+		this.myTTL = 0xf;
+		this.myPayload = payload;
+	}
+	
+	/**
+	 * create a packet from a bit-string
+	 * (i.e. an incoming packet)
+	 * @param bits, the bit-string
+	 */
+	public L3Packet( String bits ) {
+		this.myDest = new L3Address( bits.substring(0, DEST_END) );
+		this.mySrc = new L3Address( bits.substring(DEST_END, SRC_END));
+		this.myLength = Integer.parseInt( bits.substring(SRC_END, LENGTH_END), 2);
+		this.myTTL = Integer.parseInt( bits.substring(LENGTH_END, TTL_END), 2);
+		this.myPayload = bits.substring( TTL_END );		
+	}
+	
+	/**
+	 * getters for the L3Packet class
+	 * @return corresponding variable
+	 */
+	public L3Address getDestAddr()	{ return myDest; }
+	public L3Address getSrcAddr()	{ return mySrc; }
+	public int getHopsLeft() 		{ return myTTL; }
+	public String getPayload()		{ return myPayload; }
+}

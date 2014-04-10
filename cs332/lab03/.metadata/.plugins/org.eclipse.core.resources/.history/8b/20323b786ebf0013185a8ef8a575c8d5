@@ -1,0 +1,61 @@
+
+public class L3Packet {
+	
+	//Field bit-ranges (or delimiters) 
+	private static final int DEST_END = 16;
+	private static final int SRC_END = DEST_END + 16;
+	private static final int LENGTH_END = SRC_END + 16;
+	private static final int TTL_END = LENGTH_END + 4;
+	
+	private L3Address mySrc, myDest;
+	private int myLength, myTTL;
+	private String myPayload;
+	
+	/**
+	 * Constructor: create a packet using a using fields
+	 * i.e. an outgoing packet
+	 * @param src, source address, as L3Address
+	 * @param dest, destination address, as L3Address
+	 * @param payload, a bit-string
+	 */
+	public L3Packet( L3Address dest, L3Address src, String payload ) {
+		this.myDest = dest;
+		this.mySrc = src;
+		this.myLength = payload.length();
+		this.myTTL = 0xf;
+		this.myPayload = payload;
+	}
+	
+	/**
+	 * Constructor: create a packet from a bit-string
+	 * (i.e. an incoming packet)
+	 * @param bits, the bit-string
+	 */
+	public L3Packet( String bits ) {
+		this.myDest = new L3Address( bits.substring(0, DEST_END) );
+		this.mySrc = new L3Address( bits.substring(DEST_END, SRC_END));
+		this.myLength = Integer.parseInt( bits.substring(SRC_END, LENGTH_END), 2);
+		this.myTTL = Integer.parseInt( bits.substring(LENGTH_END, TTL_END), 2);
+		this.myPayload = bits.substring( TTL_END );		
+	}
+	
+	/**
+	 * Converts the packet fields into a binary string for tranmission
+	 */
+	public String toString() {
+		return myDest.toString() +
+			   mySrc.toString() +
+			   Layer2Frame.toBinary(myLength, LENGTH_END - SRC_END) +
+			   Layer2Frame.toBinary(myTTL, TTL_END - LENGTH_END) +
+			   myPayload;
+	}
+	
+	/**
+	 * getters for the L3Packet class
+	 * @return corresponding variable
+	 */
+	public L3Address getDestAddr()	{ return myDest; }
+	public L3Address getSrcAddr()	{ return mySrc; }
+	public int getHopsLeft() 		{ return myTTL; }
+	public String getPayload()		{ return myPayload; }
+}

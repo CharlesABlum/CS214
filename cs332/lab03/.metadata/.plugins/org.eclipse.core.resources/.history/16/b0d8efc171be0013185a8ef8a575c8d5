@@ -1,0 +1,8 @@
+
+public class L3Listener {
+	static Integer BCAST = 0xff;
+	
+	Integer networkPart;
+	Integer hostPart;
+
+}

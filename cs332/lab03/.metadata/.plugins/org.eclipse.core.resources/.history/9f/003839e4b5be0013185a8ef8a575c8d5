@@ -1,0 +1,4 @@
+
+public interface L3Listener {
+	packetReceived( L3Handler l3h, L3Packet packet );
+}

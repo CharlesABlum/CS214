@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="Layer2Listener"/>
+<fullyQualifiedTypeName name="L3ShimListener"/>
+<fullyQualifiedTypeName name="Layer2Endpoint"/>
+<fullyQualifiedTypeName name="L3Shim"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="L3Listener"/>
+<fullyQualifiedTypeName name="L3Display"/>
+<fullyQualifiedTypeName name="javax.swing.JTextField"/>
+<fullyQualifiedTypeName name="L3Handler"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="L3Address"/>
+<fullyQualifiedTypeName name="L3Packet"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="Layer2Frame"/>
+</qualifiedTypeNameHistroy>

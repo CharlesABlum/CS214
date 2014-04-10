@@ -1,0 +1,81 @@
+
+public class L3Shim implements Layer2Listener {
+	public static final int L3TYPE_L3 = 0x0;
+	public static final int L3TYPE_NDP = 0x1;	//Future use
+	private static final int L3SHIM_MAX_VALUE = 4;	//2-bit shim field 
+
+	private Layer2Endpoint l2e;
+	private L3ShimListener[] listener = new L3ShimListener[L3SHIM_MAX_VALUE];
+
+	/**
+	 * Constructor:
+	 */
+	public L3Shim( Layer2Endpoint l2e ) {
+		//TODO - finish this method
+	}
+
+	/**
+	 * 
+	 * @param handler
+	 * @param frame
+	 */
+	public void frameReceived( Layer2Handler handler, Layer2Frame frame ) {
+		//grab the first two bits to check protocol type
+		int protocol = Integer.parseInt(frame.getPayload().substring(0, 2), 2);
+		if ( protocol == L3TYPE_L3 ) 
+		{
+			
+		}
+		else if ( protocol == L3TYPE_NDP ) 
+		{
+			
+		}
+		else
+		{
+			
+		}
+		
+		//TODO - finish this method
+	}
+
+	/**
+	 * Create and send a Layer2Frame which contains a L3Packet,
+	 * with the L3Shim on the front
+	 * @param bits, the L3 bit-string
+	 * @param protocol, which L3 protocol is being used
+	 * @param destMAC, MAC the frame needs to be sent to
+	 */
+	public void send( String bits, int protocol, int destMAC ) {
+		/* srcMAC is the host part of source L3Address...duh
+		 * get it from the bits String (assume bits is a L3Packet)
+		 * should be the 4th octet (bits 24-31).
+		 * We can't do the same with the destMAC because there is a 
+		 * chance that the protocol being used at layer 3 isn't L3 
+		 * in which case the destMAC may not even exist, so it needs
+		 * to be a parameter instead.
+		 */
+		int vlanID = 0,
+				srcMAC = Integer.parseInt( bits.substring(24, 32), 2 );
+		String L3ShimHeader = "";
+		if ( protocol == L3TYPE_L3 )
+			L3ShimHeader = "00";
+		else if ( protocol == L3TYPE_NDP )
+			L3ShimHeader = "01";
+		else
+			L3ShimHeader = "00";	//if neither assume its L3
+		Layer2Frame l2f = new Layer2Frame( destMAC, srcMAC, vlanID, L3ShimHeader + bits );
+		//TODO - finish the method
+	}
+
+	/**
+	 * register a listener for the protocol (L3 or
+	 * NDP, possibly others) with the index protoType
+	 * @param l, the listener
+	 * @param protocolType, the protocol type and array index
+	 */
+	public void setListener( L3ShimListener l, int protocolType ) {
+		assert (listener == null): "LISTENER ALREADY SET. ERROR!";
+		listener[protocolType] = l;		
+	}
+
+}

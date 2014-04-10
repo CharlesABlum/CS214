@@ -1,0 +1,6 @@
+
+public class L3Listener {
+	Integer networkPart;
+	Integer hostPart;
+
+}

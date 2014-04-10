@@ -1,0 +1,23 @@
+
+public class L3Packet {
+	
+	
+	/**
+	 * create a packet using a source address,
+	 * destination address, and a payload
+	 * @param src
+	 * @param dest
+	 * @param payload
+	 */
+	public L3Packet( L3Address src, L3Address dest, String payload ) {
+		
+	}
+	
+	/**
+	 * create a packet from a bit-string
+	 * @param bits, the bit-string
+	 */
+	public L3Packet( String bits ) {
+		
+	}
+}

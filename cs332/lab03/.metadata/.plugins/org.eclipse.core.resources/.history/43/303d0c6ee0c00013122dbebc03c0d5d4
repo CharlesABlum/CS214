@@ -43,12 +43,7 @@ public class L3Packet {
 		this.myTTL = Integer.parseInt( bits.substring(LENGTH_END, TTL_END), 2);
 		this.myPayload = bits.substring( TTL_END );
 		
-		//make sure the length field and payload length are the same
-		if ( myLength != myPayload.length() )
-		{
-			throw new IllegalArgumentException( "Incoming Packet...Payload's length " +
-					"does not equal the Length field!" );
-		}
+		
 	}
 	
 	/**

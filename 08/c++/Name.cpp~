@@ -7,7 +7,6 @@
 
 #include <iostream>        // istream, ostream
 #include <string>
-#include "Name.h"
 using namespace std;
 
 /**************************************************
@@ -67,3 +66,21 @@ string Name::getFullName() const {
 void Name::print(ostream & out) {
    out << myFirst << ' ' << myMiddle << ' ' << myLast;
 }
+
+
+/******************************************
+ * a simple driver to test our Name type. *
+ ******************************************/
+int main()
+{
+  Name aName("John", "Paul", "Jones");
+  
+  assert( aName.getMiddle() == "Paul" );
+  assert( aName.getLast() == "Jones" );
+  assert( aName.getFullName() == "John Paul Jones" );
+  
+  aName.print(cout);  cout << endl;
+  cout << "All tests passed!\n";
+}
+
+

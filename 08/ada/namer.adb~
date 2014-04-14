@@ -1,14 +1,26 @@
--- name_package.adb defines operations for the Name type.
+-- namer.adb "test-drives" the Name type.
 --
--- Begun by: Dr. Adams, CS 214 at Calvin College.
--- Completed by: Charles Blum
--- Date: 13 April 2014
----------------------------------------------------------
+-- Begun by: Dr. Adams, CPSC 280, October 1999.
+-- Completed by:
+-- Date:
+----------------------------------------------
 
-with Ada.Text_IO;
-use Ada.Text_IO;
+with Ada.Text_IO; use Ada.Text_IO;
 
-package body Name_Package is
+procedure namer is
+
+  NAME_SIZE : constant Positive := 8;
+
+  type Name is
+      record
+         myFirst,
+         myMiddle,
+         MyLast : String(1..NAME_SIZE);
+      end record;
+
+  aName : Name ;
+
+
   ----------------------------------------------
   -- Init initializes a Name variable          
   -- Receive: Nm, the Name variable;          
@@ -18,6 +30,7 @@ package body Name_Package is
   -- Return: Nm, its fields set to First, 
   --               Middle, and Last.     
   ----------------------------------------------
+
   procedure Init(Nm: out Name;
                  First, Middle, Last : in String) is
   begin
@@ -81,5 +94,20 @@ package body Name_Package is
   procedure Put(Nm: in Name) is
   begin
     Put( getFullName(Nm) );
-  end Put;   
-end Name_Package;
+  end Put;
+
+begin
+   Init(aName, "John    ", "Paul    ", "Jones   ");
+
+   pragma Assert( getFirst(aName) = "John    ",
+                   "getFirst() failed");
+   pragma Assert( getMiddle(aName) = "Paul    ", 
+                   "getMiddle() failed");
+   pragma Assert( getLast(aName) = "Jones   ", 
+                   "getLast() failed");
+   pragma Assert( getFullName(aName) = "John     Paul     Jones   ",
+                    "getFullName() failed");
+   Put(aName); New_line;
+   Put("All tests passed!"); New_line;
+end namer;
+

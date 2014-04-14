@@ -1,14 +1,31 @@
-/* Name.cpp defines Name operations.
+/* namer.cpp implements and tests class Name.
  *
- * Begun by: Dr. Adams, CS 214 at Calvin College.
- * Completed by: Charles Blum
- * Date: 13 April 2014
- */
+ * Begun by: Dr. Adams, for CS 214 at Calvin College.
+ * Completed by:
+ * Date:
+ *****************************************************/
 
 #include <iostream>        // istream, ostream
-#include <string>
-#include "Name.h"
+#include <string>          // string
+#include <cassert>
 using namespace std;
+
+
+class Name {
+public:                          // interface functions
+   Name(const string & first, const string & middle, const string &
+last);
+   void print(ostream & out);
+   string getFirst() const;
+   string getMiddle() const;
+   string getLast() const;
+   string getFullName() const;
+
+private:
+   string myFirst,
+          myMiddle,
+          myLast;
+};
 
 /**************************************************
 * Name constructs a name from three strings.      *
@@ -67,3 +84,20 @@ string Name::getFullName() const {
 void Name::print(ostream & out) {
    out << myFirst << ' ' << myMiddle << ' ' << myLast;
 }
+
+
+/******************************************
+ * a simple driver to test our Name type. *
+ ******************************************/
+int main()
+{
+  Name aName("John", "Paul", "Jones");
+  
+  assert( aName.getMiddle() == "Paul" );
+  assert( aName.getLast() == "Jones" );
+  assert( aName.getFullName() == "John Paul Jones" );
+  
+  aName.print(cout);  cout << endl;
+  cout << "All tests passed!\n";
+}
+

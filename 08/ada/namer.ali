@@ -1,0 +1,65 @@
+V "GNAT Lib v4.6"
+M P W=b
+A -gnata
+A -mtune=generic
+A -march=x86-64
+P SS ZX
+R nnnnnnnnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+
+U namer%b		namer.adb		f066f932 NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W name_package%s	name_package.adb	name_package.ali
+W system.assertions%s	s-assert.adb		s-assert.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+D ada.ads		20070406091342 3ffc8e18
+D a-except.ads		20090727140100 0c711ac9
+D a-finali.ads		20090409150019 e5e85fa4
+D a-filico.ads		20090409150019 872dc219
+D a-ioexce.ads		20091130110856 8b9de6cd
+D a-stream.ads		20090409150019 2ca4ee37
+D a-tags.ads		20101021101406 c7695348
+D a-textio.ads		20091028140912 386df5d4
+D a-unccon.ads		20070406091342 f9eb8f06
+D interfac.ads		20090409150019 f77d8799
+D i-cstrea.ads		20100622165701 1bd72c32
+D name_package.ads	20140414115304 e1fef2e9
+D namer.adb		20140414115226 29f5fe0f
+D system.ads		20120503154647 23e1f70b
+D s-assert.ads		20090417131547 a3a4e6ab
+D s-crtl.ads		20100617122610 ac77b159
+D s-exctab.ads		20090417131547 66e51330
+D s-ficobl.ads		20100909103250 443b9d66
+D s-finimp.ads		20090409150019 46853fe8
+D s-finroo.ads		20090409150019 dbb860c9
+D s-parame.ads		20091130110856 9c5d83fa
+D s-secsta.ads		20090707124243 eea35a36
+D s-soflin.ads		20090729085153 9414c974
+D s-stache.ads		20090417130712 596fc1b4
+D s-stalib.ads		20101021102512 c4241c00
+D s-stoele.ads		20090417130712 facd7d98
+D s-stoele.adb		20100617152355 afc5dc80
+D s-stratt.ads		20100909123135 aedef97e
+D s-traent.ads		20090417130712 5221ee41
+D s-unstyp.ads		20090409150019 6ae15c76
+D s-wchcon.ads		20090417130712 bfeb2e3d
+X 1 ada.ads
+16K9*Ada 19e8 13|8r6 9r5
+X 8 a-textio.ads
+49K13*Text_IO 472e16 13|8w10 9r9
+167U14*New_Line 13|26s16 27s30
+243U14*Put 13|27s4
+X 12 name_package.ads
+7K9*Name_Package 29e17 13|8w19 9r18 13r12
+8R8*Name 26e17 13|13r25
+10U13*Init 13|16s4
+12V12*getFirst{string} 13|18s19
+13V12*getMiddle{string} 13|20s19
+14V12*getLast{string} 13|22s19
+15V12*getFullName{string} 13|24s19
+16U13*Put 13|26s4
+X 13 namer.adb
+11U11*namer 11b11 28l5 28t10
+13r4 aName{12|8R8} 16m9 18r28 20r29 22r27 24r31 26r8
+

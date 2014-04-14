@@ -7,11 +7,27 @@
 
 require 'test/unit/assertions'
 include Test::Unit::Assertions
-require './Name'
 
+class Name
+
+  def initialize(first, middle, last)
+    @first, @middle, @last = first, middle, last
+  end
+
+  attr_reader :first, :middle, :last
+
+  def fullName
+    @first + " " + @middle + " " + @last
+  end
+
+  def print
+    puts fullName
+    fullName
+  end
+end
 
 def testName
-   name = Names::Name.new("John", "Paul", "Jones")
+   name = Name.new("John", "Paul", "Jones")
 
    assert name.first == "John", 
            "first failed"

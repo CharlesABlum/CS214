@@ -1,0 +1,65 @@
+Script started on Mon 14 Apr 2014 08:00:21 AM EDT
+theo@theo-VBox:~/Desktop/08/ruby$ cat Name.rb
+# namer.rb tests class Name and its operations
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by: Charles Blum
+# Date: 13 April 2014
+####################################################
+module Names
+class Name
+
+  def initialize(first, middle, last)
+    @first, @middle, @last = first, middle, last
+  end
+
+  attr_reader :first, :middle, :last
+
+  def fullName
+    @first + " " + @middle + " " + @last
+  end
+
+  def print
+    puts fullName
+    fullName
+  end
+end
+end
+theo@theo-VBox:~/Desktop/08/ruby$ cat namer.rb][K
+# namer.rb tests class Name and its operations
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:
+# Date:
+####################################################
+
+require 'test/unit/assertions'
+include Test::Unit::Assertions
+require './Name'
+
+
+def testName
+   name = Names::Name.new("John", "Paul", "Jones")
+
+   assert name.first == "John", 
+           "first failed"
+   assert name.middle == "Paul",
+           "middle failed"
+   assert name.last == "Jones",
+           "last failed"
+   assert name.fullName == "John Paul Jones",
+           "fullName failed"
+   assert name.print == "John Paul Jones",
+           "print failed"
+   
+   print "All tests passed!\n"
+end
+
+testName
+
+theo@theo-VBox:~/Desktop/08/ruby$ .[Kruby namer.rb
+John Paul Jones
+All tests passed!
+theo@theo-VBox:~/Desktop/08/ruby$ exit
+
+Script done on Mon 14 Apr 2014 08:00:47 AM EDT

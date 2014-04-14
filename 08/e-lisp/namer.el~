@@ -1,8 +1,8 @@
-;;; Name.el simulates an e-LISP Name type and operations on that type.
+;;; namer.el simulates and tests an e-LISP Name type.
 ;;;
-;;; Begun by: Dr. Adams, for CS 214 at Calvin College.
-;;; Completed by: Charles Blum
-;;; Date: 13 April 2014
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by:
+;;; Date:
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -60,3 +60,23 @@
 (defun printName (theName buf)
    (princ (getFullName theName) buf)
    theName )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; A simple driver for our Name functions. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (require 'cl)                              ; Common Lisp's assert
+  (setq aName (Name "John" "Paul" "Jones"))  ; build a Name
+
+  (assert (equal (getFirst aName) "John" ))  ; test it
+  (assert (equal (getMiddle aName) "Paul" ))
+  (assert (equal (getLast aName) "Jones" ))
+  (assert (equal (getFullName aName) "John Paul Jones" ))
+
+  (setq buf (get-buffer "namer.el"))         ; buf = this buffer
+  (assert (eq (printName aName buf) aName) )
+  (terpri buf)                               ; newline
+  (princ "All tests passed!")                ; feedback
+  (terpri buf))                              ; newline
+

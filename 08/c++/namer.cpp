@@ -1,8 +1,8 @@
 /* namer.cpp implements and tests class Name.
  *
  * Begun by: Dr. Adams, for CS 214 at Calvin College.
- * Completed by:
- * Date:
+ * Completed by: Charles Blum
+ * Date: 13 April 2014
  *****************************************************/
 
 #include <iostream>        // istream, ostream

@@ -1,5 +1,5 @@
-Script started on Mon 14 Apr 2014 07:42:49 AM EDT
-theo@theo-VBox:~/Desktop/08/c++$ cat NA[Kame.h Name.cpp N[Knamer.cpp
+Script started on Mon 14 Apr 2014 08:19:55 AM EDT
+theo@theo-VBox:~/Documents/spring-2014/08/c++$ cat Name.h Name.cpp namer.cpp
 /* Name.h declares class Name.
  *
  * Begun by: Dr. Adams, CS 214 at Calvin College.
@@ -97,8 +97,8 @@ void Name::print(ostream & out) {
 /* namer.cpp implements and tests class Name.
  *
  * Begun by: Dr. Adams, for CS 214 at Calvin College.
- * Completed by:
- * Date:
+ * Completed by: Charles Blum
+ * Date: 13 April 2014
  *****************************************************/
 
 #include <iostream>        // istream, ostream
@@ -121,11 +121,11 @@ int main()
   cout << "All tests passed!\n";
 }
 
-theo@theo-VBox:~/Desktop/08/c++$ make
+theo@theo-VBox:~/Documents/spring-2014/08/c++$ make
 make: `namer' is up to date.
-theo@theo-VBox:~/Desktop/08/c++$ ./namer 
+theo@theo-VBox:~/Documents/spring-2014/08/c++$ ./namer 
 John Paul Jones
 All tests passed!
-theo@theo-VBox:~/Desktop/08/c++$ exit
+theo@theo-VBox:~/Documents/spring-2014/08/c++$ exit
 
-Script done on Mon 14 Apr 2014 07:43:07 AM EDT
+Script done on Mon 14 Apr 2014 08:20:11 AM EDT

@@ -1,8 +1,8 @@
 # namer.rb tests class Name and its operations
 #
 # Begun by: Dr. Adams, for CS 214 at Calvin College.
-# Completed by:
-# Date:
+# Completed by: Charles Blum
+# Date: 13 April 2014
 ####################################################
 
 require 'test/unit/assertions'

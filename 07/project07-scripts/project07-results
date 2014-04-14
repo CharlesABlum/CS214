@@ -1,0 +1,1680 @@
+Script started on Wed 09 Apr 2014 09:56:23 AM EDT
+theo@theo-VBox:~/Documents/cs214/code/07$ cat namer.cpp 
+/* namer.cpp implements and tests class Name.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date: 09 April 2014
+ */
+
+#include <iostream>        // istream, ostream
+#include <string>          // string
+#include <cassert>         // assert()
+using namespace std;
+
+// Replace this line with the declaration of class Name 
+class Name {
+  public:                          // interface functions
+    Name(const string & fist, const string & middle, const string & last);
+    string getFirst()  const;
+    string getMiddle() const;
+    string getLast()   const;
+    string getFullName() const;
+    void print(ostream & out);
+    //project07
+    void setFirst( const string & f);
+    void setMiddle( const string & m);
+    void setLast( const string & l );
+    string lfmi() const;
+    void readName( istream & in );
+  private:
+    string myFirst,
+           myMiddle,
+           myLast;
+};
+
+/**************************************************
+* Name constructs a name from three strings.      *
+* Receive: first, middle and last, three strings. *
+* Return: the triplet (first middle last).        *
+***************************************************/
+Name::Name(const string & first, const string & middle, const string & last) {
+  myFirst = first;
+  myMiddle = middle;
+  myLast = last;
+}
+
+/***************************************************
+ * getFirst() extracts the first name of a Name object. *
+ * Return: myFirst.                                *
+ ***************************************************/
+string Name::getFirst() const {
+  return myFirst;
+}
+
+/*****************************************************
+ * getMiddle() extracts the middle name of a Name object. *
+ * Return: myMiddle.                                 *
+ *****************************************************/
+string Name::getMiddle() const {
+  return myMiddle;
+}
+
+/**************************************************
+ * getLast() extracts the last name of a Name object.  *
+ * Return: myLast.                                *
+ **************************************************/
+string Name::getLast() const {
+  return myLast;
+}
+
+/***************************************************
+ * getFullName() returns a full name in F-M-L order.    *
+ * Return: myFirst, myMiddle, myLast.              *
+ ***************************************************/
+string Name::getFullName() const {
+  return myFirst + ' ' + myMiddle + ' ' + myLast;
+}
+
+/****************************************************
+ * print() displays a Name object.                    *
+ * Receive: out, the name of a stream.              *
+ * Output: the strings in theName to buffer.        *
+ * POST: out contains myFirst, myMiddle and myLast. *
+ ****************************************************/
+void Name::print(ostream & out) {
+  out << getFullName();
+}
+
+/*
+ * Project 07 Chagnes
+ */
+/*************************************************
+ * Setters for first, middle, and last names.    *
+ * Postcondition: the instance variable is set   *
+ *************************************************/
+void Name::setFirst(const string & aFirst) {
+  myFirst = aFirst;
+}
+
+void Name::setMiddle(const string & aMiddle) {
+  myMiddle = aMiddle;
+}
+
+void Name::setLast(const string & aLast) {
+  myLast = aLast;
+}
+
+/*************************************************
+ * lfmi returns the name in last, first middle   *
+ * where middle is the first letter.             *
+ * Postcondition: name is returned to the user.  *
+ *************************************************/
+string Name::lfmi() const {
+  return myLast + ", " + myFirst + " " + myMiddle[0] + ".";
+}
+
+/*************************************************
+ * readName takes in new input from the user.    *
+ * Postcondition: the instance variables are set *
+ * set to new values.                            *
+ *************************************************/
+void Name::readName(istream & in ) {
+  in >> myFirst >> myMiddle >> myLast;
+}
+/*
+ * End Project 07 Changes
+ */
+
+/******************************************
+ * a simple driver to test our Name type. *
+ ******************************************/
+int main()
+{
+  Name aName("John", "Paul", "Jones");
+
+  assert( aName.getFirst() == "John" );
+  assert( aName.getMiddle() == "Paul" );
+  assert( aName.getLast() == "Jones" );
+  assert( aName.getFullName() == "John Paul Jones" );
+  
+  aName.print(cout);  cout << endl;
+  cout << "\nLab07 tests passed!" << endl;
+
+  aName.setFirst( "Paul" );
+  aName.setMiddle( "John" );
+  aName.setLast( "Smith" );
+  
+  assert( aName.getFirst() == "Paul" );
+  assert( aName.getMiddle() == "John" );
+  assert( aName.getLast() == "Smith" );
+  assert( aName.getFullName() == "Paul John Smith" );
+  cout << aName.lfmi() << endl;
+  assert( aName.lfmi() == "Smith, Paul J." );
+
+  cout << "Enter a name that is not: \"" << aName.getFullName() << "\"" << endl;
+  aName.readName( cin );
+
+  assert( aName.getFirst() != "Paul" );
+  assert( aName.getMiddle() != "John" );
+  assert( aName.getLast() != "Smith" );
+  assert( aName.getFullName() != "Paul John Smith" );
+  assert( aName.lfmi() != "Smith, Paul J." );
+  cout << "\nProject07 tests passed!" << endl;
+
+  cout << "\n\nAll tests passed! " << endl;
+}
+
+theo@theo-VBox:~/Documents/cs214/code/07$ g++ -Wall namer.cpp -o cpp_namer 
+theo@theo-VBox:~/Documents/cs214/code/07$ ./cpp_namer 
+John Paul Jones
+
+Lab07 tests passed!
+Smith, Paul J.
+Enter a name that is not: "Paul John Smith"
+cpp_namer: namer.cpp:156: int main(): Assertion `aName.getFirst() != "Paul"' failed.
+Aborted (core dumped)
+theo@theo-VBox:~/Documents/cs214/code/07$ mv cpp.script project07-scripts/
+theo@theo-VBox:~/Documents/cs214/code/07$ ls -l
+total 100
+-rwxrwxr-x 1 theo theo 19765 Apr  9 09:56 [0m[01;32mcpp_namer[0m
+drwxrwxr-x 3 theo theo  4096 Apr  9 09:54 [01;34mlab07-scripts[0m
+-rw-rw-r-- 1 theo theo   625 Apr  6 21:23 Makefile
+-rwxrwxr-x 1 theo theo 29634 Apr  6 21:23 [01;32mnamer[0m
+-rw-rw-r-- 1 theo theo  3685 Apr  6 21:23 namer.adb
+-rw-rw-r-- 1 theo theo  2741 Apr  6 21:23 namer.ali
+-rw-rw-r-- 1 theo theo  5196 Apr  9 09:31 namer.cpp
+-rw-rw-r-- 1 theo theo  2987 Apr  6 21:23 namer.el
+-rw-rw-r-- 1 theo theo  8256 Apr  6 21:23 namer.o
+-rw-rw-r-- 1 theo theo  1144 Apr  6 21:23 namer.rb
+drwxrwxr-x 2 theo theo  4096 Apr  9 09:56 [01;34mproject07-scripts[0m
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+namer.adb:103:41: "," should be ";"
+namer.adb:105:24: "first" is undefined
+namer.adb:108:42: "," should be ";"
+namer.adb:110:25: "middle" is undefined
+namer.adb:113:40: "," should be ";"
+namer.adb:115:23: "last" is undefined
+namer.adb:136:04: too many arguments in call to "setFirst"
+namer.adb:137:04: too many arguments in call to "setMiddle"
+namer.adb:138:04: too many arguments in call to "setLast"
+namer.adb:140:19: "getFrist" is undefined
+namer.adb:140:19: possible misspelling of "getFirst"
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+namer.adb:140:19: "getFrist" is undefined
+namer.adb:140:19: possible misspelling of "getFirst"
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer 
+John     Paul     Jones   
+lab07 tests passed!All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer [11@gnatmake namer.adb[C
+gcc-4.6 -c namer.adb
+namer.adb:122:30: identifier expected
+namer.adb:124:94: missing ";"
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+namer.adb:124:38: "getFrist" is undefined
+namer.adb:124:38: possible misspelling of "getFirst"
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+namer.adb:124:62: invalid operand types for operator "&"
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+namer.adb:123:03: statement not allowed in declarative part
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ [Ktheo@theo-VBox:~/Documents/cs214/code/07$ [Ktheo@theo-VBox:~/Documents/cs214/code/07$ [Ktheo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb [11P./namer[C[11@gnatmake namer.adb[C[Kgnatmake namer.adb 
+gcc-4.6 -c namer.adb
+namer.adb:123:03: statement not allowed in declarative part
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ [Ktheo@theo-VBox:~/Documents/cs214/code/07$ [Ktheo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+namer.adb:123:03: statement not allowed in declarative part
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+namer.adb:125:40: expected type "Standard.String"
+namer.adb:125:40: found type "Standard.Integer"
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+namer.adb:125:22: expected type "Standard.String"
+namer.adb:125:22: found type "Standard.Character"
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ [Ktheo@theo-VBox:~/Documents/cs214/code/07$ [Ktheo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+namer.adb:123:32: expected type "Standard.Character"
+namer.adb:123:32: found a string type
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer 
+John     Paul     Jones   
+lab07 tests passed!Smith   , Paul     J.project07 tests passed!
+
+All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer [11@gnatmake namer.adb[C
+gcc-4.6 -c namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb [11P./namer[C
+John     Paul     Jones   
+lab07 tests passed!Smith   , Paul     J.project07 tests passed!
+
+All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer [11@gnatmake namer.adb[C
+gcc-4.6 -c namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb [11P./namer[C
+John     Paul     Jones   
+lab07 tests passed!project07 tests passed!
+
+All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer [11@gnatmake namer.adb[C
+gcc-4.6 -c namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb [11P./namer[C
+John     Paul     Jones   
+lab07 tests passed!
+project07 tests passed!
+
+All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer [11@gnatmake namer.adb[C
+gcc-4.6 -c namer.adb
+namer.adb:135:21: "=" should be ":="
+namer.adb:136:22: "=" should be ":="
+namer.adb:137:20: "=" should be ":="
+namer.adb:161:35: != should be /=
+namer.adb:162:35: != should be /=
+namer.adb:163:35: != should be /=
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb [11P./namer[C[11@gnatmake namer.adb[C
+gcc-4.6 -c namer.adb
+namer.adb:135:24: no candidate interpretations match the actuals:
+namer.adb:135:24: missing argument for parameter "Item" in call to "get" declared at a-textio.ads:240
+namer.adb:135:24: missing argument for parameter "Item" in call to "get" declared at a-textio.ads:206
+namer.adb:135:24: context requires function call, found procedure name
+namer.adb:136:25: no candidate interpretations match the actuals:
+namer.adb:136:25: missing argument for parameter "Item" in call to "get" declared at a-textio.ads:240
+namer.adb:136:25: missing argument for parameter "Item" in call to "get" declared at a-textio.ads:206
+namer.adb:136:25: context requires function call, found procedure name
+namer.adb:137:23: no candidate interpretations match the actuals:
+namer.adb:137:23: missing argument for parameter "Item" in call to "get" declared at a-textio.ads:240
+namer.adb:137:23: missing argument for parameter "Item" in call to "get" declared at a-textio.ads:206
+namer.adb:137:23: context requires function call, found procedure name
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb 
+gcc-4.6 -c namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer 
+John     Paul     Jones   
+lab07 tests passed!1
+2
+3
+3
+f
+d
+a
+a
+^C
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer [11@gnatmake namer.adb[C
+gcc-4.6 -c namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb [11P./namer[C
+John     Paul     Jones   
+lab07 tests passed!enter a new name, first, middle, and last:\n^[[A^[[B^[[B^[[B^C
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer [11@gnatmake namer.adb[C
+gcc-4.6 -c namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb [11P./namer[C
+John     Paul     Jones   
+lab07 tests passed!
+enter a new name, first, middle, and last:
+hello
+there
+world
+^[[A^[[A^C
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer [11@gnatmake namer.adb[C
+gcc-4.6 -c namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb [11P./namer[C
+John     Paul     Jones   
+lab07 tests passed!Smith   , Paul     J.
+enter a new name, first, middle, and last:
+a
+s
+d
+^C
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer [K./namer 
+John     Paul     Jones   
+lab07 tests passed!Smith   , Paul     J.
+enter a new name, first, middle, and last:
+asdfasdf
+asdfasdf
+asdfasdf
+
+project07 tests passed!
+
+All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer 
+John     Paul     Jones   
+lab07 tests passed!Smith   , Paul     J.
+enter a new name, first, middle, and last:
+asdfasdfasdfasdfasdfasfd
+
+project07 tests passed!
+
+All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer [11@gnatmake namer.adb[C
+gcc-4.6 -c namer.adb
+namer.adb:133:14: unconstrained subtype not allowed (need initialization)
+namer.adb:133:14: provide initial value or explicit array bounds
+gnatmake: "namer.adb" compilation error
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb [11P./namer[C[11@gnatmake namer.adb[C[11P./namer[C[11@gnatmake namer.adb[C
+gcc-4.6 -c namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmake namer.adb [11P./namer[C
+John     Paul     Jones   
+lab07 tests passed!Smith   , Paul     J.
+enter a new name, first, middle, and last:
+hello
+world
+hello
+asdf
+asdf
+asd
+
+project07 tests passed!
+
+All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer 
+John     Paul     Jones   
+lab07 tests passed!Smith   , Paul     J.
+enter a new name, first, middle, and last:
+charll es 
+albert  
+blum    
+
+project07 tests passed!
+
+All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ script ada.script
+Script started, file is ada.script
+theo@theo-VBox:~/Documents/cs214/code/07$ cat namer.adb
+-- namer.adb "test-drives" the Name type.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date: 09 April 2014
+----------------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure namer is
+
+  NAME_SIZE : constant Integer := 8;
+
+  type Name is
+    record
+      myFirst, myMiddle, myLast : String( 1..NAME_SIZE );
+    end record;
+
+  aName : Name ;
+
+
+  ----------------------------------------------
+  -- Init initializes a Name variable          -
+  -- Receive: theName, the Name variable;      -
+  --          First, the first name;           -
+  --          Middle, the middle name;         -
+  --          Last, the last name.             -
+  -- Return: theName, its fields set to First, -
+  --               Middle, and Last.           -
+  ----------------------------------------------
+  procedure Init (TheName : out Name; First, Middle, Last : in String) is
+  begin
+    TheName.myFirst := First;
+    TheName.myMiddle := Middle;
+    TheName.myLast := Last;
+  end Init;
+
+  ----------------------------------------------
+  -- getFirst(Name) retrieves Name.myFirst     -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myFirst.                  -
+  ----------------------------------------------
+  function getFirst(TheName : in Name) return String is
+  begin 
+    return TheName.myFirst;
+  end getFirst;
+
+  ----------------------------------------------
+  -- getMiddle(Name) retrieves Name.myMiddle   -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myMiddle                  -
+  ----------------------------------------------
+  function getMiddle(TheName : in Name) return String is
+  begin 
+    return TheName.myMiddle;
+  end getMiddle;
+
+  ----------------------------------------------
+  -- getLast(Name) retrieves Name.myLast       -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myLast                    -
+  ----------------------------------------------
+  function getLast(TheName : in Name) return String is
+  begin 
+    return TheName.myLast;
+  end getLast;
+
+  ------------------------------------------------
+  -- getFullName(Name) retrieves Name as a String-
+  -- Receive: theName, a Name.                   -
+  -- PRE: theName has been initialized.          -
+  -- Return: a String representation of theName  -
+  ------------------------------------------------
+  function getFullName(TheName : in Name) return String is
+  fullName : String(1..(3 * NAME_SIZE + 2));
+  begin
+    fullName := getFirst(TheName) & " " & getMiddle(TheName) & " " & getLast(TheName);
+    return fullName;
+  end getFullName;
+
+  ----------------------------------------------
+  -- Put(Name) displays a Name value.          -
+  -- PRE: theName has been initialized.        -
+  -- Receive: theName, a Name.                 -
+  -- Output: theName, to the screen.           -
+  ----------------------------------------------
+  procedure Put(TheName : in Name) is
+  begin
+    Put(getFirst(TheName) & " " & getMiddle(TheName) & " " & getLast(TheName));
+  end Put;
+
+  ---------------------------------------------
+  -- project07 changes                       --
+  ---------------------------------------------
+
+  ---------------------------------------------
+  -- setters for the Name class              --
+  -- sets the corresponding name to the Name --
+  -- variable                                --
+  ---------------------------------------------
+  procedure setFirst( TheName : out Name; first : in String ) is
+  begin
+    TheName.myFirst := first;
+  end setFirst;
+
+  procedure setMiddle( TheName : out Name; middle : in String ) is
+  begin
+    TheName.myMiddle := middle;
+  end setMiddle;
+
+  procedure setLast( TheName : out Name; last : in String ) is
+  begin
+    TheName.myLast := last;
+  end setLast;
+
+  ---------------------------------------------
+  -- lmfi() prints out the Name in           --
+  -- last, first (iddle initial). format     --
+  ---------------------------------------------
+  function lfmi( TheName : in Name ) return String is
+  middleInitial : Character := ' ';
+  begin
+    middleInitial := getMiddle(TheName)(getMiddle(TheName)'First);
+    return getLast(TheName) & ", " & getFirst(TheName) & " " & MiddleInitial & ".";
+  end lfmi;
+
+  ---------------------------------------------
+  -- project07 changes                       --
+  ---------------------------------------------
+  procedure readName(TheName : in out Name) is
+  someName : String := "no name ";
+  begin
+    New_Line;
+    Put("enter a new name, first, middle, and last:");
+    New_Line;
+    Get(someName);
+    TheName.myFirst := someName;
+    Get(someName);
+    TheName.myMiddle := someName;
+    Get(someName);
+    TheName.myLast := someName;
+  end readName;
+
+begin
+   Init(aName, "John    ", "Paul    ", "Jones   ");
+
+   pragma Assert( getFirst(aName) = "John    ", "getFirst() failed");
+   pragma Assert( getMiddle(aName) = "Paul    ", "getMiddle() failed");
+   pragma Assert( getLast(aName) = "Jones   ", "getLast() failed");
+   pragma Assert( getFullName(aName) = "John     Paul     Jones   ", 
+                    "getFullName() failed");
+   Put(aName); New_line;
+   Put("lab07 tests passed!");
+
+   setFirst( aName, "Paul    " );
+   setMiddle( aName, "John    " );
+   setLast( aName, "Smith   " );
+
+   pragma Assert( getFirst(aName) = "Paul    ", "setFirst() failed" );
+   pragma Assert( getMiddle(aName) = "John    ", "setMiddle() failed" );
+   pragma Assert( getLast(aName) = "Smith   ", "setLast() failed" );
+   Put(lfmi(aName));
+   pragma Assert( lfmi(aName) = "Paul    , John    S.", "lfmi() failed" );
+   readName(aName);
+   pragma Assert( getFirst(aName) /= "Paul    ", "readName() failed" );
+   pragma Assert( getFirst(aName) /= "John    ", "readName() failed" );
+   pragma Assert( getFirst(aName) /= "Smith   ", "readName() failed" );
+   
+   New_Line;
+   Put("project07 tests passed!");
+   New_Line;
+
+   New_Line;
+   Put("All tests passed!"); New_line;
+
+end namer;
+
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmkae[K[K[Kake namer.adb 
+gnatmake: "namer" up to date.
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer 
+John     Paul     Jones   
+lab07 tests passed!Smith   , Paul     J.
+enter a new name, first, middle, and last:
+charles 
+albert  
+blum    
+
+project07 tests passed!
+
+All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ exit
+Script done, file is ada.script
+theo@theo-VBox:~/Documents/cs214/code/07$ vim namer.rb
+[?1049h[?1h=[1;42r[34l[34h[?25h[23m[24m[0m[H[J[?25l[42;1H"namer.rb" 47L, 1144C[1;1H[34m# namer.rb tests class Name and its operations
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by: Charles Blum
+# Date: 06 April 2014
+####################################################[0m
+
+[35mrequire[0m [35m'[0m[31mtest/unit/assertions[0m[35m'[0m   [34m# needed for assert[0m
+[35minclude[0m [32mTest[0m::[32mUnit[0m::[32mAssertions[0m
+
+[35mclass[0m [32mName[0m
+  [34m#default constructor[0m
+  [35mdef[0m [36minitialize[0m(first, middle, last)
+    [36m@first[0m, [36m@middle[0m, [36m@last[0m = first, middle, last
+  [35mend[0m
+
+  [34m#getters for the instance variables[0m
+  [33mattr_reader[0m [31m:first[0m, [31m:middle[0m, [31m:last[0m
+
+  [34m#fullName creates a string which contains the[0m
+  [34m#full name of the person[0m
+  [35mdef[0m [36mfullName[0m
+    myFullName = [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m + [35m"[0m[31m [0m[35m"[0m + [36m@last[0m
+  [35mend[0m
+
+  [34m#print prints the full name out[0m
+  [34m#and returns the name as a string[0m
+  [35mdef[0m [36mprint[0m
+    puts(fullName)
+    fullName
+  [35mend
+end
+
+def[0m [36mtestName[0m
+   name = [32mName[0m.new([35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJones[0m[35m"[0m)
+
+   assert name.first == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mJones[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m
+   assert name.fullName == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mfullName failed[0m[35m"[0m
+   assert name.print == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mprint failed[0m[35m"[0m[42;63H1,1[11CTop[1;1H[34h[?25h[?25l[42;63H2[2;1H[34h[?25h[?25l[42;63H3[3;1H[34h[?25h[?25l[42;63H4[4;1H[34h[?25h[?25l[42;63H5[5;1H[34h[?25h[?25l[42;65H2[5;2H[34h[?25h[?25l[42;65H3[5;3H[34h[?25h[?25l[42;65H4[5;4H[34h[?25h[?25l[42;65H5[5;5H[34h[?25h[?25l[42;65H6[5;6H[34h[?25h[?25l[42;65H7[5;7H[34h[?25h[?25l[42;65H8[5;8H[34h[?25h[?25l[42;65H9[5;9H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;13H[K[42;63H5,9[11CTop[5;9H[34h[?25h[?25l[42;4H[1mREPLACE --[0m[42;63H[K[42;63H5,9[11CTop[5;9H[34h[?25h[?25l[42;65H10[5;10H[34h[?25h[?25l[34m09[0m[42;66H1[5;11H[34h[?25h[42;1H[K[5;10H[?25l[42;63H5,10[10CTop[5;10H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 47L, 1144C written[33C5,10[10CTop[42;63H[K[42;63H5,10[10CTop[5;10H[34h[?25h[?25l[42;63H6[6;10H[34h[?25h[?25l[42;63H7,0-1[7;1H[34h[?25h[?25l[42;63H8,10 [8;10H[34h[?25h[?25l[42;63H9[9;10H[34h[?25h[?25l[42;63H10,0-1[10;1H[34h[?25h[?25l[42;64H1,10 [11;10H[34h[?25h[?25l[42;64H2[12;10H[34h[?25h[?25l[42;64H3[13;10H[34h[?25h[?25l[42;64H4[14;10H[34h[?25h[?25l[42;64H5,5 [15;5H[34h[?25h[?25l[42;64H6,0-1[16;1H[34h[?25h[?25l[42;64H7,10 [17;10H[34h[?25h[?25l[42;67H1[17;11H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;13H[K[42;63H17,11[9CTop[17;11H[34h[?25h[?25l[34m  for the instance variables[0m[42;67H2[17;12H[34h[?25h[?25l[34m a for the instance variables[0m[42;67H3[17;13H[34h[?25h[?25l[34man for the instance variables[0m[42;67H4[17;14H[34h[?25h[?25l[34mns for the instance variables[0m[42;67H5[17;15H[34h[?25h[?25l[34m  for the instance variables[0m[42;67H6[17;16H[34h[?25h[?25l[34m s for the instance variables[0m[42;67H7[17;17H[34h[?25h[?25l[34m  for the instance variables[0m[17;43H[K[42;67H6[17;16H[34h[?25h[?25l[34m for the instance variables[0m[17;42H[K[42;67H5[17;15H[34h[?25h[?25l[34mn for the instance variables[0m[17;41H[K[42;67H4[17;14H[34h[?25h[?25l[34mns for the instance variables[0m[42;67H5[17;15H[34h[?25h[?25l[34m  for the instance variables[0m[42;67H6[17;16H[34h[?25h[?25l[34m for the instance variables[0m[17;42H[K[42;67H5[17;15H[34h[?25h[?25l[34mn for the instance variables[0m[17;41H[K[42;67H4[17;14H[34h[?25h[?25l[34mnd for the instance variables[0m[42;67H5[17;15H[34h[?25h[?25l[34m  for the instance variables[0m[42;67H6[17;16H[34h[?25h[?25l[34m s for the instance variables[0m[42;67H7[17;17H[34h[?25h[?25l[34mse for the instance variables[0m[42;67H8[17;18H[34h[?25h[?25l[34met for the instance variables[0m[42;67H9[17;19H[34h[?25h[?25l[34mtt for the instance variables[0m[42;66H20[17;20H[34h[?25h[?25l[34mte for the instance variables[0m[42;67H1[17;21H[34h[?25h[?25l[34mer for the instance variables[0m[42;67H2[17;22H[34h[?25h[?25l[34mrs for the instance variables[0m[42;67H3[17;23H[34h[?25h[?25l[42;64H8[18;23H[34h[?25h[?25l[42;64H9,1 [19;1H[34h[?25h[?25l[42;63H20,23[20;23H[34h[?25h[?25l[42;64H1[21;23H[34h[?25h[?25l[42;64H2,15[22;15H[34h[?25h[?25l[42;64H3,23[23;23H[34h[?25h[?25l[42;64H4,6 [24;6H[34h[?25h[?25l[42;64H5,1[25;1H[34h[?25h[?25l[42;64H4,6[24;6H[34h[?25h[?25l[42;64H3,23[23;23H[34h[?25h[?25l[42;64H2,15[22;15H[34h[?25h[?25l[42;64H1,23[21;23H[34h[?25h[?25l[42;64H0[20;23H[34h[?25h[?25l[42;63H19,1 [19;1H[34h[?25h[?25l[42;64H8,23[18;23H[34h[?25h[?25l[42;67H2[18;22H[34h[?25h[?25l[42;67H1[18;21H[34h[?25h[?25l[42;67H0[18;20H[34h[?25h[?25l[42;66H19[18;19H[34h[?25h[?25l[42;67H8[18;18H[34h[?25h[?25l[42;67H7[18;17H[34h[?25h[?25l[42;67H6[18;16H[34h[?25h[?25l[42;67H5[18;15H[34h[?25h[?25l[42;67H4[18;14H[34h[?25h[?25l[42;67H3[18;13H[34h[?25h[?25l[42;67H2[18;12H[34h[?25h[?25l[42;67H1[18;11H[34h[?25h[?25l[42;67H0[18;10H[34h[?25h[?25l[42;66H9 [18;9H[34h[?25h[?25l[42;66H8[18;8H[34h[?25h[?25l[42;66H7[18;7H[34h[?25h[?25l[42;66H8[18;8H[34h[?25h[?25l[42;4H[1mREPLACE --[0m[42;63H[K[42;63H18,8[10CTop[18;8H[34h[?25h[?25l[42;4H[1mINSERT -[0m[42;13H[K[42;63H18,8[10CTop[18;8H[34h[?25h[?25l  attr_areader [31m:first[0m, [31m:middle[0m, [31m:last[0m[42;66H9[18;9H[34h[?25h[?25lacreader [31m:first[0m, [31m:middle[0m, [31m:last[0m[42;66H10[18;10H[34h[?25h[?25lccreader [31m:first[0m, [31m:middle[0m, [31m:last[0m[42;67H1[18;11H[34h[?25h[?25lcereader [31m:first[0m, [31m:middle[0m, [31m:last[0m[42;67H2[18;12H[34h[?25h[?25lesreader [31m:first[0m, [31m:middle[0m, [31m:last[0m[42;67H3[18;13H[34h[?25h[?25lssreader [31m:first[0m, [31m:middle[0m, [31m:last[0m[42;67H4[18;14H[34h[?25h[?25lsoreader [31m:first[0m, [31m:middle[0m, [31m:last[0m[42;67H5[18;15H[34h[?25h[?25lrreader [31m:first[0m, [31m:middle[0m, [31m:last[0m[42;67H6[18;16H[34h[?25h[?25lreader [31m:first[0m, [31m:middle[0m, [31m:last[0m[18;44H[K[18;16H[34h[?25h[?25lrader [31m:first[0m, [31m:middle[0m, [31m:last[0m[18;43H[K[18;16H[34h[?25h[?25lrder [31m:first[0m, [31m:middle[0m, [31m:last[0m[18;42H[K[18;16H[34h[?25h[?25lrer [31m:first[0m, [31m:middle[0m, [31m:last[0m[18;41H[K[18;16H[34h[?25h[?25lrr [31m:first[0m, [31m:middle[0m, [31m:last[0m[18;40H[K[18;16H[34h[?25h[?25l  [33mattr_accessor[0m [31m:first[0m, [31m:middle[0m, [31m:last[0m[18;39H[K[18;16H[34h[?25h[?25l[42;64H9,1 [19;1H[34h[?25h[?25l[42;63H20,16[20;16H[34h[?25h[?25l[42;64H1[21;16H[34h[?25h[?25l[42;64H2,15[22;15H[34h[?25h[?25l[42;64H3,16[23;16H[34h[?25h[?25l[42;64H4,6 [24;6H[34h[?25h[?25l[42;64H5,1[25;1H[34h[?25h[?25l[42;64H6,16[26;16H[34h[?25h[?25l[42;64H7[27;16H[34h[?25h[?25l[42;64H8,12[28;12H[34h[?25h[?25l[42;64H9,16[29;16H[34h[?25h[?25l[42;63H30,13[30;13H[34h[?25h[?25l[42;64H1,6 [31;6H[34h[?25h[?25l[42;64H2,4[32;4H[34h[?25h[?25l[42;64H3,1[33;1H[34h[?25h[?25l[42;64H4,13[34;13H[34h[?25h[?25l[42;64H5,16[35;16H[34h[?25h[?25l[42;64H6,1 [36;1H[34h[?25h[?25l[42;64H7,16[37;16H[34h[?25h[?25l[42;64H8[38;16H[34h[?25h[?25l[42;64H9[39;16H[34h[?25h[?25l[42;63H40[40;16H[34h[?25h[?25l[42;64H1[41;16H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H42,4[10C16%[41;4H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mAll tests passed![0m[35m\n"[0m[42;63H[K[42;63H43,16[9C33%[41;16H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;1H[35mend[0m[42;63H[K[42;63H44,4[10C50%[41;4H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H45,1[10C66%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;1HtestName[42;63H[K[42;63H46,9[10C83%[41;9H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H47,1[10CBot[41;1H[34h[?25h[?25l[42;64H6,9[40;9H[34h[?25h[?25l[42;64H5,1[39;1H[34h[?25h[?25l[42;64H4,4[38;4H[34h[?25h[?25l[42;64H3,16[37;16H[34h[?25h[?25l[42;64H2,4 [36;4H[34h[?25h[?25l p[42;66H5[36;5H[34h[?25h[?25lpr[42;66H6[36;6H[34h[?25h[?25lri[42;66H7[36;7H[34h[?25h[?25lin[42;66H8[36;8H[34h[?25h[?25lnt[42;66H9[36;9H[34h[?25h[?25l[42;66H10[36;10H[34h[?25h[?25l [35m"[0m
+[31m   print [0m[1C[32mAll[0m tests passed!\n
+[31mend
+
+testName[0m[42;67H1[36;11H[34h[?25h[?25l[31m [0m[42;67H2[36;12H[34h[?25h[?25l[36;11H[K[42;67H1[36;11H[34h[?25h[?25l[35m"[0m[31ml[0m[42;67H2[36;12H[34h[?25h[?25l[31mla[0m[42;67H3[36;13H[34h[?25h[?25l[31mab[0m[42;67H4[36;14H[34h[?25h[?25l[31mb0[0m[42;67H5[36;15H[34h[?25h[?25l[31m07[0m[42;67H6[36;16H[34h[?25h[?25l[31m [0m[42;67H7[36;17H[34h[?25h[?25l[31m t[0m[42;67H8[36;18H[34h[?25h[?25l[31mte[0m[42;67H9[36;19H[34h[?25h[?25l[31mes[0m[42;66H20[36;20H[34h[?25h[?25l[31mst[0m[42;67H1[36;21H[34h[?25h[?25l[31mts[0m[42;67H2[36;22H[34h[?25h[?25l[31m [0m[42;67H3[36;23H[34h[?25h[?25l[31m p[0m[42;67H4[36;24H[34h[?25h[?25l[31mpa[0m[42;67H5[36;25H[34h[?25h[?25l[31mas[0m[42;67H6[36;26H[34h[?25h[?25l[31mss[0m[42;67H7[36;27H[34h[?25h[?25l[31mse[0m[42;67H8[36;28H[34h[?25h[?25l[31med[0m[42;67H9[36;29H[34h[?25h[?25l[31md![0m[42;66H30[36;30H[34h[?25h[?25l[31m![0m[35m"[0m
+   print [1C[31mAll tests passed![0m[35m\n
+end[0m
+
+testName[42;67H1[36;31H[34h[?25h[?25l[37;41r[37;1H[L[1;42r[42;63H[K[42;63H43,1[10C85%[37;1H[34h[?25h[?25l[38;41r[38;1H[L[1;42r[42;63H[K[42;63H44,1[10C75%[38;1H[34h[?25h[?25l[39;41r[39;1H[L[1;42r[42;63H[K[42;63H45,1[10C66%[39;1H[34h[?25h[?25l[42;66H2[39;2H[34h[?25h[?25l[42;66H3[39;3H[34h[?25h[?25l[42;66H4[39;4H[34h[?25h[?25l p[42;66H5[39;5H[34h[?25h[?25lpr[42;66H6[39;6H[34h[?25h[?25lri[42;66H7[39;7H[34h[?25h[?25lin[42;66H8[39;8H[34h[?25h[?25lnt[42;66H9[39;9H[34h[?25h[?25l[42;66H10[39;10H[34h[?25h[?25l [35m"[0m
+[31m   print [0m[1C[32mAll[0m tests passed!\n
+[31mend[0m[42;67H1[39;11H[34h[?25h[?25l[35m"[0m[31mP[0m[42;67H2[39;12H[34h[?25h[?25l[31mPr[0m[42;67H3[39;13H[34h[?25h[?25l[31mro[0m[42;67H4[39;14H[34h[?25h[?25l[31moj[0m[42;67H5[39;15H[34h[?25h[?25l[31mje[0m[42;67H6[39;16H[34h[?25h[?25l[31mec[0m[42;67H7[39;17H[34h[?25h[?25l[31mct[0m[42;67H8[39;18H[34h[?25h[?25l[31mt0[0m[42;67H9[39;19H[34h[?25h[?25l[31m07[0m[42;66H20[39;20H[34h[?25h[?25l[31m [0m[42;67H1[39;21H[34h[?25h[?25l[31m t[0m[42;67H2[39;22H[34h[?25h[?25l[31mte[0m[42;67H3[39;23H[34h[?25h[?25l[31mes[0m[42;67H4[39;24H[34h[?25h[?25l[31mst[0m[42;67H5[39;25H[34h[?25h[?25l[31mts[0m[42;67H6[39;26H[34h[?25h[?25l[31m [0m[42;67H7[39;27H[34h[?25h[?25l[31m p[0m[42;67H8[39;28H[34h[?25h[?25l[31mpa[0m[42;67H9[39;29H[34h[?25h[?25l[31mas[0m[42;66H30[39;30H[34h[?25h[?25l[31mss[0m[42;67H1[39;31H[34h[?25h[?25l[31mse[0m[42;67H2[39;32H[34h[?25h[?25l[31med[0m[42;67H3[39;33H[34h[?25h[?25l[31md![0m[42;67H4[39;34H[34h[?25h[?25l[31m![0m[35m"[0m
+   print [1C[31mAll tests passed![0m[35m\n
+end[0m[42;67H5[39;35H[34h[?25h[?25l[42;64H4,1 [38;1H[34h[?25h[?25l[42;64H3[37;1H[34h[?25h[?25l[42;64H4[38;1H[34h[?25h[?25l[42;66H2[38;2H[34h[?25h[?25l[42;66H3[38;3H[34h[?25h[?25l[42;66H4[38;4H[34h[?25h[?25l a[42;66H5[38;5H[34h[?25h[?25las[42;66H6[38;6H[34h[?25h[?25lss[42;66H7[38;7H[34h[?25h[?25lse[42;66H8[38;8H[34h[?25h[?25ler[42;66H9[38;9H[34h[?25h[?25lrt[42;66H10[38;10H[34h[?25h[?25l[42;67H1[38;11H[34h[?25h[?25l n[42;67H2[38;12H[34h[?25h[?25lna[42;67H3[38;13H[34h[?25h[?25lam[42;67H4[38;14H[34h[?25h[?25lme[42;67H5[38;15H[34h[?25h[?25le,[42;67H6[38;16H[34h[?25h[?25l[38;15H[K[42;67H5[38;15H[34h[?25h[?25le.[42;67H6[38;16H[34h[?25h[?25l.f[42;67H7[38;17H[34h[?25h[?25lfi[42;67H8[38;18H[34h[?25h[?25lir[42;67H9[38;19H[34h[?25h[?25lrs[42;66H20[38;20H[34h[?25h[?25lst[42;67H1[38;21H[34h[?25h[?25l[42;67H2[38;22H[34h[?25h[?25l =[42;67H3[38;23H[34h[?25h[?25l[42;67H4[38;24H[34h[?25h[?25l [35m"[0m
+[31m   print [0m[1C[32mProject07[0m tests passed!
+[31m   print [0m[1C[32mAll[0m tests passed!\n
+[31mend[0m[42;67H5[38;25H[34h[?25h[?25l[35m"[0m[31mP[0m[42;67H6[38;26H[34h[?25h[?25l[31mPa[0m[42;67H7[38;27H[34h[?25h[?25l[31mau[0m[42;67H8[38;28H[34h[?25h[?25l[31mul[0m[42;67H9[38;29H[34h[?25h[?25l[31ml[0m[35m"[0m
+   print [1C[31mProject07 tests passed![0m
+   print [1C[31mAll tests passed![0m[35m\n
+end[0m[42;66H30[38;30H[34h[?25h[?25l[39;41r[39;1H[L[1;42r[42;63H[K[42;63H45,1[10C60%[39;1H[34h[?25h[?25l[42;64H4[38;1H[34h[?25h[?25l[42;66H2[38;2H[34h[?25h[?25l[42;66H3[38;3H[34h[?25h[?25l[42;66H4[38;4H[34h[?25h[?25l ssert name.first = [35m"[0m[31mPaul[0m[35m"[0m[38;29H[K[38;4H[34h[?25h[?25lsert name.first = [35m"[0m[31mPaul[0m[35m"[0m[38;28H[K[38;4H[34h[?25h[?25l ert name.first = [35m"[0m[31mPaul[0m[35m"[0m[38;27H[K[38;4H[34h[?25h[?25l rt name.first = [35m"[0m[31mPaul[0m[35m"[0m[38;26H[K[38;4H[34h[?25h[?25l t name.first = [35m"[0m[31mPaul[0m[35m"[0m[38;25H[K[38;4H[34h[?25h[?25l  name.first = [35m"[0m[31mPaul[0m[35m"[0m[38;24H[K[38;4H[34h[?25h[?25l name.first = [35m"[0m[31mPaul[0m[35m"[0m[38;23H[K[38;4H[34h[?25h[?25l[42;66H5[38;5H[34h[?25h[?25l[42;66H6[38;6H[34h[?25h[?25l[42;66H7[38;7H[34h[?25h[?25l[42;66H8[38;8H[34h[?25h[?25l[42;66H9[38;9H[34h[?25h[?25l[42;66H10[38;10H[34h[?25h[?25l[42;67H1[38;11H[34h[?25h[?25l[42;67H2[38;12H[34h[?25h[?25l[42;67H3[38;13H[34h[?25h[?25l[42;67H4[38;14H[34h[?25h[?25lt, = [35m"[0m[31mPaul[0m[35m"[0m[42;67H5[38;15H[34h[?25h[?25l  = [35m"[0m[31mPaul[0m[35m"[0m[42;67H6[38;16H[34h[?25h[?25l n = [35m"[0m[31mPaul[0m[35m"[0m[42;67H7[38;17H[34h[?25h[?25lna = [35m"[0m[31mPaul[0m[35m"[0m[42;67H8[38;18H[34h[?25h[?25lam = [35m"[0m[31mPaul[0m[35m"[0m[42;67H9[38;19H[34h[?25h[?25lme = [35m"[0m[31mPaul[0m[35m"[0m[42;66H20[38;20H[34h[?25h[?25le. = [35m"[0m[31mPaul[0m[35m"[0m[42;67H1[38;21H[34h[?25h[?25l.m = [35m"[0m[31mPaul[0m[35m"[0m[42;67H2[38;22H[34h[?25h[?25lmi = [35m"[0m[31mPaul[0m[35m"[0m[42;67H3[38;23H[34h[?25h[?25lid = [35m"[0m[31mPaul[0m[35m"[0m[42;67H4[38;24H[34h[?25h[?25ldd = [35m"[0m[31mPaul[0m[35m"[0m[42;67H5[38;25H[34h[?25h[?25ldl = [35m"[0m[31mPaul[0m[35m"[0m[42;67H6[38;26H[34h[?25h[?25lle = [35m"[0m[31mPaul[0m[35m"[0m[42;67H7[38;27H[34h[?25h[?25le, = [35m"[0m[31mPaul[0m[35m"[0m[42;67H8[38;28H[34h[?25h[?25l  = [35m"[0m[31mPaul[0m[35m"[0m[42;67H9[38;29H[34h[?25h[?25l n = [35m"[0m[31mPaul[0m[35m"[0m[42;66H30[38;30H[34h[?25h[?25lna = [35m"[0m[31mPaul[0m[35m"[0m[42;67H1[38;31H[34h[?25h[?25lam = [35m"[0m[31mPaul[0m[35m"[0m[42;67H2[38;32H[34h[?25h[?25lme = [35m"[0m[31mPaul[0m[35m"[0m[42;67H3[38;33H[34h[?25h[?25le. = [35m"[0m[31mPaul[0m[35m"[0m[42;67H4[38;34H[34h[?25h[?25l.l = [35m"[0m[31mPaul[0m[35m"[0m[42;67H5[38;35H[34h[?25h[?25lla = [35m"[0m[31mPaul[0m[35m"[0m[42;67H6[38;36H[34h[?25h[?25las = [35m"[0m[31mPaul[0m[35m"[0m[42;67H7[38;37H[34h[?25h[?25lst = [35m"[0m[31mPaul[0m[35m"[0m[42;67H8[38;38H[34h[?25h[?25l  = [35m"[0m[31mPaul[0m[35m"[0m[42;67H9[38;39H[34h[?25h[?25l[42;66H40[38;40H[34h[?25h[?25l[42;67H1[38;41H[34h[?25h[?25l[42;67H2[38;42H[34h[?25h[?25l[42;67H3[38;43H[34h[?25h[?25l[42;67H4[38;44H[34h[?25h[?25l[42;67H5[38;45H[34h[?25h[?25l[42;67H6[38;46H[34h[?25h[?25l[42;67H7[38;47H[34h[?25h[?25l[42;67H8[38;48H[34h[?25h[?25l[35m"[0m,[42;67H9[38;49H[34h[?25h[?25l[42;66H50[38;50H[34h[?25h[?25l [35m"[0m
+
+[31m   print [0m[1C[32mProject07[0m tests passed!
+[31m   print [0m[1C[32mAll[0m tests passed!\n[42;67H1[38;51H[34h[?25h[?25l[35m"[0m[31mJ[0m[42;67H2[38;52H[34h[?25h[?25l[31mJo[0m[42;67H3[38;53H[34h[?25h[?25l[31moh[0m[42;67H4[38;54H[34h[?25h[?25l[31mhn[0m[42;67H5[38;55H[34h[?25h[?25l[31mn[0m[35m"[0m
+
+   print [1C[31mProject07 tests passed![0m
+   print [1C[31mAll tests passed![0m[35m\n[0m[42;67H6[38;56H[34h[?25h[?25l[42;67H7[38;57H[34h[?25h[?25l[42;67H6[38;56H[34h[?25h[?25l[35m"[0m,[42;67H7[38;57H[34h[?25h[?25l[42;67H8[38;58H[34h[?25h[?25l [35m"[0m
+
+[31m   print [0m[1C[32mProject07[0m tests passed!
+[31m   print [0m[1C[32mAll[0m tests passed!\n[42;67H9[38;59H[34h[?25h[?25l[35m"[0m[31mS[0m[42;66H60[38;60H[34h[?25h[?25l[31mSm[0m[42;67H1[38;61H[34h[?25h[?25l[31mmi[0m[42;67H2[38;62H[34h[?25h[?25l[31mit[0m[42;67H3[38;63H[34h[?25h[?25l[31mth[0m[42;67H4[38;64H[34h[?25h[?25l[31mh[0m[35m"[0m
+
+   print [1C[31mProject07 tests passed![0m
+   print [1C[31mAll tests passed![0m[35m\n[0m[42;67H5[38;65H[34h[?25h[?25l[39;41r[39;1H[L[1;42r[42;63H[K[42;63H45,1[10C54%[39;1H[34h[?25h[?25l[42;64H4[38;1H[34h[?25h[?25l[42;64H3[37;1H[34h[?25h[?25l[42;64H2[36;1H[34h[?25h[?25l[42;64H1[35;1H[34h[?25h[?25l[42;64H0[34;1H[34h[?25h[?25l[42;63H39[33;1H[34h[?25h[?25l[42;64H8[32;1H[34h[?25h[?25l[42;64H7[31;1H[34h[?25h[42;1H[K[?25l[42;63H37,1[10C54%[31;1H[34h[?25h[?25l[42;64H5,36[29;36H[34h[?25h[?25l[42;66H11[29;11H[34h[?25h[?25l[42;66H4 [29;4H[34h[?25h[?25l[42;64H6,0-1[30;1H[34h[?25h[?25l[42;64H7,4  [31;4H[34h[?25h[?25l[42;66H3[31;3H[34h[?25h[?25l[42;66H2[31;2H[34h[?25h[?25l[42;66H1[31;1H[34h[?25h[?25l [7m  assert name.first == [0m[7m[35m"[0m[7m[31mJohn[0m[7m[35m"[0m[7m, [0m[7m[35m"[0m[7m[31mfirst failed[0m[7m[35m"[0m[7m [0m[42;1H[1m-- VISUAL LINE --[0m[42;63H[K[42;63H37,1[10C54%[31;1H[34h[?25h[?25l[7m 
+[0m [7m  assert name.middle == [0m[7m[35m"[0m[7m[31mPaul[0m[7m[35m"[0m[7m, [0m[7m[35m"[0m[7m[31mmiddle failed[0m[7m[35m"[0m[7m [0m[42;64H8[32;1H[34h[?25h[?25l[7m 
+[0m [7m  assert name.last == [0m[7m[35m"[0m[7m[31mJones[0m[7m[35m"[0m[7m, [0m[7m[35m"[0m[7m[31mlast failed[0m[7m[35m"[0m[7m [0m[42;64H9[33;1H[34h[?25h[?25l[31;1H   assert name.first == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m[31;47H[K[32;1H   assert name.middle == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m[32;49H[K[33;2H  assert name.last == [35m"[0m[31mJones[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m[33;46H[K[42;1H[K[42;63H37,1[10C54%3 lines yanked[42;63H[K[42;63H37,1[10C54%[31;1H[34h[?25h[?25l[42;64H8[32;1H[34h[?25h[?25l[42;64H9[33;1H[34h[?25h[?25l[42;63H40[34;1H[34h[?25h[?25l[42;64H1[35;1H[34h[?25h[?25l[42;64H2[36;1H[34h[?25h[?25l[42;64H3,0-1[37;1H[34h[?25h[?25l[42;64H4,1  [38;1H[34h[?25h[?25l[42;64H5,0-1[39;1H[34h[?25h[?25l[42;3Hmore lines[42;13H[K[40;3H assert name.first == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m[42;63H46,4[10C42%[42;63H[K[42;63H46,4[10C42%[40;4H[34h[?25h[?25l[42;64H5,0-1[39;1H[34h[?25h[?25l
+
+
+[1m-- INSERT --[0m[42;63H[K[42;63H45,1[10C42%[39;1H[34h[?25h[?25l   assert name.first == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m[40;15H.middle == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m[41;15H.last == [35m"[0m[31mJones[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m[41;46H[K[42;78H6[39;1H[34h[?25h[?25l[42;64H6[40;1H[34h[?25h[?25l[42;64H7[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H48,1[10C53%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mProject07 tests passed![0m[35m"[0m[42;63H[K[42;63H49,1[10C61%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mAll tests passed![0m[35m\n"[0m[42;63H[K[42;63H50,1[10C69%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;1H[35mend[0m[42;63H[K[42;63H51,1[10C76%[41;1H[34h[?25h[?25l[42;64H0[40;1H[34h[?25h[?25l[42;63H49[39;1H[34h[?25h[?25l[42;64H8[38;1H[34h[?25h[?25l[42;64H7[37;1H[34h[?25h[?25l[42;64H8[38;1H[34h[?25h[?25l[38;41r[41;1H
+[1;42r[42;63H[K[42;63H48,1[10C83%[38;1H[34h[?25h[?25l[42;64H9[39;1H[34h[?25h[?25l[39;4H[K[40;1H   print [35m"[0m[31mAll tests passed![0m[35m\n"
+end[0m[42;63H50[12C76[40;1H[34h[?25h[?25l[42;63H49[39;1H[34h[?25h[?25l[42;64H8[38;1H[34h[?25h[?25l[42;64H7[37;1H[34h[?25h[?25l[42;64H6[36;1H[34h[?25h[?25l[42;64H5[35;1H[34h[?25h[?25l[42;66H47[35;47H[34h[?25h[?25l[42;67H6[35;46H[34h[?25h[?25l[42;67H5[35;45H[34h[?25h[?25l[42;67H4[35;44H[34h[?25h[?25l[42;67H3[35;43H[34h[?25h[?25l[42;67H2[35;42H[34h[?25h[?25l[42;67H1[35;41H[34h[?25h[?25l[42;67H0[35;40H[34h[?25h[?25l[42;66H39[35;39H[34h[?25h[?25l[42;67H8[35;38H[34h[?25h[?25l[42;67H7[35;37H[34h[?25h[?25l[42;67H6[35;36H[34h[?25h[?25l[42;67H5[35;35H[34h[?25h[?25l[42;67H4[35;34H[34h[?25h[?25l[42;67H3[35;33H[34h[?25h[?25l[42;67H2[35;32H[34h[?25h[?25l[42;67H1[35;31H[34h[?25h[?25l[42;67H0[35;30H[34h[?25h[?25l[42;66H29[35;29H[34h[?25h[?25l[42;67H8[35;28H[34h[?25h[?25l[42;67H7[35;27H[34h[?25h[?25l[42;67H6[35;26H[34h[?25h[?25l[42;67H5[35;25H[34h[?25h[?25l[42;67H6[35;26H[34h[?25h[?25l[42;4H[1mREPLACE --[0m[42;63H[K[42;63H45,26[9C76%[35;26H[34h[?25h[?25l[35m"[0m[31mP[0m[42;67H7[35;27H[34h[?25h[?25l[31mPa[0m[42;67H8[35;28H[34h[?25h[?25l[31mau[0m[42;67H9[35;29H[34h[?25h[?25l[31mul[0m[42;66H30[35;30H[34h[?25h[?25l[42;64H6[36;30H[34h[?25h[?25l[42;66H29[36;29H[34h[?25h[?25l[42;67H8[36;28H[34h[?25h[?25l[42;67H7[36;27H[34h[?25h[?25l[35m"[0m[31mJ[0m[42;67H8[36;28H[34h[?25h[?25l[31mJo[0m[42;67H9[36;29H[34h[?25h[?25l[31moh[0m[42;66H30[36;30H[34h[?25h[?25l[31mhn[0m[42;67H1[36;31H[34h[?25h[?25l[42;64H7[37;31H[34h[?25h[?25l[42;67H0[37;30H[34h[?25h[?25l[42;66H29[37;29H[34h[?25h[?25l[42;67H8[37;28H[34h[?25h[?25l[42;67H7[37;27H[34h[?25h[?25l[42;67H6[37;26H[34h[?25h[?25l[42;67H5[37;25H[34h[?25h[?25l[35m"[0m[31mS[0m[42;67H6[37;26H[34h[?25h[?25l[31mSm[0m[42;67H7[37;27H[34h[?25h[?25l[31mmi[0m[42;67H8[37;28H[34h[?25h[?25l[31mit[0m[42;67H9[37;29H[34h[?25h[?25l[31mth[0m[42;66H30[37;30H[34h[?25h[?25l[42;66H46[37;46H[34h[?25h[?25l[38;41r[38;1H[L[1;42r[42;63H[K[42;63H48,1[10C71%[38;1H[34h[?25h[?25l[42;66H2[38;2H[34h[?25h[?25l[42;66H3[38;3H[34h[?25h[?25l[42;66H4[38;4H[34h[?25h[?25l a[42;66H5[38;5H[34h[?25h[?25las[42;66H6[38;6H[34h[?25h[?25lss[42;66H7[38;7H[34h[?25h[?25lse[42;66H8[38;8H[34h[?25h[?25ler[42;66H9[38;9H[34h[?25h[?25lrt[42;66H10[38;10H[34h[?25h[?25l[42;67H1[38;11H[34h[?25h[?25l n[42;67H2[38;12H[34h[?25h[?25lna[42;67H3[38;13H[34h[?25h[?25lam[42;67H4[38;14H[34h[?25h[?25lme[42;67H5[38;15H[34h[?25h[?25le.[42;67H6[38;16H[34h[?25h[?25l.l[42;67H7[38;17H[34h[?25h[?25llf[42;67H8[38;18H[34h[?25h[?25lfm[42;67H9[38;19H[34h[?25h[?25lmi[42;66H20[38;20H[34h[?25h[?25l[42;67H1[38;21H[34h[?25h[?25l =[42;67H2[38;22H[34h[?25h[?25l==[42;67H3[38;23H[34h[?25h[?25l[42;67H4[38;24H[34h[?25h[?25l [35m"[0m
+[31m   print [0m[1C[32mProject07[0m tests passed!
+
+[31m   print [0m[1C[32mAll[0m tests passed!\n[42;67H5[38;25H[34h[?25h[?25l[35m"[0m[31mS[0m[42;67H6[38;26H[34h[?25h[?25l[31mSm[0m[42;67H7[38;27H[34h[?25h[?25l[31mmo[0m[42;67H8[38;28H[34h[?25h[?25l[31mot[0m[42;67H9[38;29H[34h[?25h[?25l[31mth[0m[42;66H30[38;30H[34h[?25h[?25l[38;29H[K[42;66H29[38;29H[34h[?25h[?25l[38;28H[K[42;67H8[38;28H[34h[?25h[?25l[38;27H[K[42;67H7[38;27H[34h[?25h[?25l[31mmi[0m[42;67H8[38;28H[34h[?25h[?25l[31mit[0m[42;67H9[38;29H[34h[?25h[?25l[31mth[0m[42;66H30[38;30H[34h[?25h[?25l[31mh,[0m[42;67H1[38;31H[34h[?25h[?25l[31m [0m[42;67H2[38;32H[34h[?25h[?25l[31m P[0m[42;67H3[38;33H[34h[?25h[?25l[31mPa[0m[42;67H4[38;34H[34h[?25h[?25l[31mau[0m[42;67H5[38;35H[34h[?25h[?25l[31mul[0m[42;67H6[38;36H[34h[?25h[?25l[31m [0m[42;67H7[38;37H[34h[?25h[?25l[31m J[0m[42;67H8[38;38H[34h[?25h[?25l[31mJ.[0m[42;67H9[38;39H[34h[?25h[?25l[31m.[0m[35m"[0m
+   print [1C[31mProject07 tests passed![0m
+
+   print [1C[31mAll tests passed![0m[35m\n[0m[42;66H40[38;40H[34h[?25h[?25l[42;64H7[37;40H[34h[?25h[?25l[42;64H6[36;40H[34h[?25h[?25l[42;64H5[35;40H[34h[?25h[?25l[42;64H4[34;40H[34h[?25h[?25l[42;64H3,1 [33;1H[34h[?25h[?25l[42;64H2,31[32;31H[34h[?25h[?25l[42;64H1,40[31;40H[34h[?25h[?25l[42;64H0[30;40H[34h[?25h[?25l[42;63H39[29;40H[34h[?25h[?25l[42;64H8[28;40H[34h[?25h[?25l[42;64H7[27;40H[34h[?25h[?25l[42;64H6,1 [26;1H[34h[?25h[?25l[42;64H5,40[25;40H[34h[?25h[?25l[42;64H4,13[24;13H[34h[?25h[?25l[42;64H3,1 [23;1H[34h[?25h[?25l[42;64H2,4[22;4H[34h[?25h[?25l[23;41r[23;1H[L[1;42r[42;63H[K[42;63H33,1[10C66%[23;1H[34h[?25h[?25l[24;41r[24;1H[L[1;42r[42;63H[K[42;63H34,1[10C62%[24;1H[34h[?25h[?25l[42;66H2[24;2H[34h[?25h[?25l[42;66H3[24;3H[34h[?25h[?25l [34m#[0m[42;66H4[24;4H[34h[?25h[?25l[34m#p[0m[42;66H5[24;5H[34h[?25h[?25l[34mpr[0m[42;66H6[24;6H[34h[?25h[?25l[34mri[0m[42;66H7[24;7H[34h[?25h[?25l[34min[0m[42;66H8[24;8H[34h[?25h[?25l[34mnt[0m[42;66H9[24;9H[34h[?25h[?25l[34m [0m[42;66H10[24;10H[34h[?25h[?25l[34m o[0m[42;67H1[24;11H[34h[?25h[?25l[34mou[0m[42;67H2[24;12H[34h[?25h[?25l[34mut[0m[42;67H3[24;13H[34h[?25h[?25l[34m [0m[42;67H4[24;14H[34h[?25h[?25l[34m a[0m[42;67H5[24;15H[34h[?25h[?25l[34m [0m[42;67H6[24;16H[34h[?25h[?25l[34m n[0m[42;67H7[24;17H[34h[?25h[?25l[34mna[0m[42;67H8[24;18H[34h[?25h[?25l[34mam[0m[42;67H9[24;19H[34h[?25h[?25l[34mme[0m[42;66H20[24;20H[34h[?25h[?25l[34m [0m[42;67H1[24;21H[34h[?25h[?25l[34m i[0m[42;67H2[24;22H[34h[?25h[?25l[34min[0m[42;67H3[24;23H[34h[?25h[?25l[34m [0m[42;67H4[24;24H[34h[?25h[?25l[34m l[0m[42;67H5[24;25H[34h[?25h[?25l[34mla[0m[42;67H6[24;26H[34h[?25h[?25l[34mas[0m[42;67H7[24;27H[34h[?25h[?25l[34mst[0m[42;67H8[24;28H[34h[?25h[?25l[34mt,[0m[42;67H9[24;29H[34h[?25h[?25l[34m [0m[42;66H30[24;30H[34h[?25h[?25l[34m f[0m[42;67H1[24;31H[34h[?25h[?25l[34mfi[0m[42;67H2[24;32H[34h[?25h[?25l[34mir[0m[42;67H3[24;33H[34h[?25h[?25l[34mrs[0m[42;67H4[24;34H[34h[?25h[?25l[34mst[0m[42;67H5[24;35H[34h[?25h[?25l[34m [0m[42;67H6[24;36H[34h[?25h[?25l[34m ([0m[42;67H7[24;37H[34h[?25h[?25l[34m(m[0m[42;67H8[24;38H[34h[?25h[?25l[34mmi[0m[42;67H9[24;39H[34h[?25h[?25l[34mid[0m[42;66H40[24;40H[34h[?25h[?25l[34mdd[0m[42;67H1[24;41H[34h[?25h[?25l[34mdl[0m[42;67H2[24;42H[34h[?25h[?25l[34mle[0m[42;67H3[24;43H[34h[?25h[?25l[34m [0m[42;67H4[24;44H[34h[?25h[?25l[34m i[0m[42;67H5[24;45H[34h[?25h[?25l[34min[0m[42;67H6[24;46H[34h[?25h[?25l[34mni[0m[42;67H7[24;47H[34h[?25h[?25l[34mit[0m[42;67H8[24;48H[34h[?25h[?25l[34mti[0m[42;67H9[24;49H[34h[?25h[?25l[34mia[0m[42;66H50[24;50H[34h[?25h[?25l[34mal[0m[42;67H1[24;51H[34h[?25h[?25l[34ml)[0m[24;36H[34m[46m([14C)[0m[42;67H2[24;52H[34h[?25h[?25l[34m [24;36H([14C)[0m[42;67H3[24;53H[34h[?25h[?25l[34m f[0m[42;67H4[24;54H[34h[?25h[?25l[34mfo[0m[42;67H5[24;55H[34h[?25h[?25l[34mor[0m[42;67H6[24;56H[34h[?25h[?25l[34mrm[0m[42;67H7[24;57H[34h[?25h[?25l[34mma[0m[42;67H8[24;58H[34h[?25h[?25l[34mat[0m[42;67H9[24;59H[34h[?25h[?25l[34mto[0m[42;66H60[24;60H[34h[?25h[?25l[24;59H[K[42;66H59[24;59H[34h[?25h[?25l[25;41r[25;1H[L[1;42r[42;63H[K[42;63H35,1[10C58%[25;1H[34h[?25h[?25l[42;66H2[25;2H[34h[?25h[?25l[42;66H3[25;3H[34h[?25h[?25l d[42;66H4[25;4H[34h[?25h[?25lde[42;66H5[25;5H[34h[?25h[?25l[35mdef[0m[42;66H6[25;6H[34h[?25h[?25l[42;66H7[25;7H[34h[?25h[?25l [36ml[0m[42;66H8[25;8H[34h[?25h[?25l[36mlf[0m[42;66H9[25;9H[34h[?25h[?25l[36mfm[0m[42;66H10[25;10H[34h[?25h[?25l[36mmi[0m[42;67H1[25;11H[34h[?25h[?25l[26;41r[26;1H[L[1;42r[42;63H[K[42;63H36,1[10C55%[26;1H[34h[?25h[?25l[27;41r[27;1H[L[1;42r[42;63H[K[42;63H37,1[10C52%[27;1H[34h[?25h[?25l[42;66H2[27;2H[34h[?25h[?25l[42;66H3[27;3H[34h[?25h[?25l e[42;66H4[27;4H[34h[?25h[?25len[42;66H5[27;5H[34h[?25h[?25l[35mend[0m[42;66H6[27;6H[34h[?25h[?25l[42;64H6,1[26;1H[34h[?25h[?25l[42;66H2[26;2H[34h[?25h[?25l[42;66H3[26;3H[34h[?25h[?25l[42;66H4[26;4H[34h[?25h[?25l[42;66H5[26;5H[34h[?25h[?25l m[42;66H6[26;6H[34h[?25h[?25lmy[42;66H7[26;7H[34h[?25h[?25lyl[42;66H8[26;8H[34h[?25h[?25llF[42;66H9[26;9H[34h[?25h[?25l[26;8H[K[42;66H8[26;8H[34h[?25h[?25l[26;7H[K[42;66H7[26;7H[34h[?25h[?25lyL[42;66H8[26;8H[34h[?25h[?25lLF[42;66H9[26;9H[34h[?25h[?25lFM[42;66H10[26;10H[34h[?25h[?25lMI[42;67H1[26;11H[34h[?25h[?25l[42;67H2[26;12H[34h[?25h[?25l =[42;67H3[26;13H[34h[?25h[?25l[42;67H4[26;14H[34h[?25h[?25l @[42;67H5[26;15H[34h[?25h[?25l[36m@l[0m[42;67H6[26;16H[34h[?25h[?25l[36mla[0m[42;67H7[26;17H[34h[?25h[?25l[36mas[0m[42;67H8[26;18H[34h[?25h[?25l[36mst[0m[42;67H9[26;19H[34h[?25h[?25l[42;66H20[26;20H[34h[?25h[?25l +[42;67H1[26;21H[34h[?25h[?25l[42;67H2[26;22H[34h[?25h[?25l [35m"[0m
+[31m  end
+
+def testName
+   name = Name.new([0m[1C[32mJohn[0m[1C[31m, [0m[1C[32mPaul[0m[1C[31m, [0m[1C[32mJones[0m[1C[31m)
+
+   assert name.first == [0m[1C[32mJohn[0m[1C[31m, [0m[1Cfirst failed
+[31m   assert name.middle == [0m[1C[32mPaul[0m[1C[31m, [0m[1Cmiddle failed
+[31m   assert name.last == [0m[1C[32mJones[0m[1C[31m, [0m[1Clast failed
+[31m   assert name.fullName == [0m[1C[32mJohn[0m [32mPaul[0m [32mJones[0m[1C[31m, [0m[1CfullName failed
+[31m   assert name.print == [0m[1C[32mJohn[0m [32mPaul[0m [32mJones[0m[1C[31m, [0m[1Cprint failed
+[31m   print [0m[1Clab07 tests passed!
+
+[31m   name.first, name.middle, name.last  = [0m[1C[32mPaul[0m[1C[31m, [0m[1C[32mJohn[0m[1C[31m, [0m[1C[32mSmith[0m
+[31m   assert name.first == [0m[1C[32mPaul[0m[1C[31m, [0m[1Cfirst failed
+[31m   assert name.middle == [0m[1C[32mJohn[0m[1C[31m, [0m[1Cmiddle failed[42;67H3[26;23H[34h[?25h[?25l[31m [0m[42;67H4[26;24H[34h[?25h[?25l[26;23H[K[42;67H3[26;23H[34h[?25h[?25l[35m"[0m[31m,[0m[42;67H4[26;24H[34h[?25h[?25l[31m [0m[42;67H5[26;25H[34h[?25h[?25l[31m '[0m[42;67H6[26;26H[34h[?25h[?25l[26;25H[K[42;67H5[26;25H[34h[?25h[?25l[31m [0m[35m"[0m
+  [35mend
+
+def[0m [36mtestName[0m
+   name = [32mName[0m.new([1C[31mJohn[0m[1C, [1C[31mPaul[0m[1C, [1C[31mJones[0m[1C)
+
+   assert name.first == [1C[31mJohn[0m[1C, [1C[31mfirst failed[0m
+   assert name.middle == [1C[31mPaul[0m[1C, [1C[31mmiddle failed[0m
+   assert name.last == [1C[31mJones[0m[1C, [1C[31mlast failed[0m
+   assert name.fullName == [1C[31mJohn Paul Jones[0m[1C, [1C[31mfullName failed[0m
+   assert name.print == [1C[31mJohn Paul Jones[0m[1C, [1C[31mprint failed[0m
+   print [1C[31mlab07 tests passed![0m
+
+   name.first, name.middle, name.last  = [1C[31mPaul[0m[1C, [1C[31mJohn[0m[1C, [1C[31mSmith[0m
+   assert name.first == [1C[31mPaul[0m[1C, [1C[31mfirst failed[0m
+   assert name.middle == [1C[31mJohn[0m[1C, [1C[31mmiddle failed[0m[42;67H6[26;26H[34h[?25h[?25l[42;67H7[26;27H[34h[?25h[?25l +[42;67H8[26;28H[34h[?25h[?25l[42;67H9[26;29H[34h[?25h[?25l @[42;66H30[26;30H[34h[?25h[?25l[36m@f[0m[42;67H1[26;31H[34h[?25h[?25l[36mfi[0m[42;67H2[26;32H[34h[?25h[?25l[36mir[0m[42;67H3[26;33H[34h[?25h[?25l[36mrs[0m[42;67H4[26;34H[34h[?25h[?25l[36mst[0m[42;67H5[26;35H[34h[?25h[?25l[42;67H6[26;36H[34h[?25h[?25l +[42;67H7[26;37H[34h[?25h[?25l[42;67H8[26;38H[34h[?25h[?25l @[42;67H9[26;39H[34h[?25h[?25l[36m@m[0m[42;66H40[26;40H[34h[?25h[?25l[36mmi[0m[42;67H1[26;41H[34h[?25h[?25l[36mid[0m[42;67H2[26;42H[34h[?25h[?25l[36mdd[0m[42;67H3[26;43H[34h[?25h[?25l[36mdl[0m[42;67H4[26;44H[34h[?25h[?25l[36mle[0m[42;67H5[26;45H[34h[?25h[?25l[36me[0m[[42;67H6[26;46H[34h[?25h[?25l[[31m0[0m[42;67H7[26;47H[34h[?25h[?25l[31m0[0m][46m[[1C][0m[42;67H8[26;48H[34h[?25h[?25l[[1C][42;67H9[26;49H[34h[?25h[?25l +[42;66H50[26;50H[34h[?25h[?25l[42;67H1[26;51H[34h[?25h[?25l [35m"[0m
+[31m  end
+
+def testName
+   name = Name.new([0m[1C[32mJohn[0m[1C[31m, [0m[1C[32mPaul[0m[1C[31m, [0m[1C[32mJones[0m[1C[31m)
+
+   assert name.first == [0m[1C[32mJohn[0m[1C[31m, [0m[1Cfirst failed
+[31m   assert name.middle == [0m[1C[32mPaul[0m[1C[31m, [0m[1Cmiddle failed
+[31m   assert name.last == [0m[1C[32mJones[0m[1C[31m, [0m[1Clast failed
+[31m   assert name.fullName == [0m[1C[32mJohn[0m [32mPaul[0m [32mJones[0m[1C[31m, [0m[1CfullName failed
+[31m   assert name.print == [0m[1C[32mJohn[0m [32mPaul[0m [32mJones[0m[1C[31m, [0m[1Cprint failed
+[31m   print [0m[1Clab07 tests passed!
+
+[31m   name.first, name.middle, name.last  = [0m[1C[32mPaul[0m[1C[31m, [0m[1C[32mJohn[0m[1C[31m, [0m[1C[32mSmith[0m
+[31m   assert name.first == [0m[1C[32mPaul[0m[1C[31m, [0m[1Cfirst failed
+[31m   assert name.middle == [0m[1C[32mJohn[0m[1C[31m, [0m[1Cmiddle failed[42;67H2[26;52H[34h[?25h[?25l[35m"[0m[31m.[0m[42;67H3[26;53H[34h[?25h[?25l[31m.[0m[35m"[0m
+  [35mend
+
+def[0m [36mtestName[0m
+   name = [32mName[0m.new([1C[31mJohn[0m[1C, [1C[31mPaul[0m[1C, [1C[31mJones[0m[1C)
+
+   assert name.first == [1C[31mJohn[0m[1C, [1C[31mfirst failed[0m
+   assert name.middle == [1C[31mPaul[0m[1C, [1C[31mmiddle failed[0m
+   assert name.last == [1C[31mJones[0m[1C, [1C[31mlast failed[0m
+   assert name.fullName == [1C[31mJohn Paul Jones[0m[1C, [1C[31mfullName failed[0m
+   assert name.print == [1C[31mJohn Paul Jones[0m[1C, [1C[31mprint failed[0m
+   print [1C[31mlab07 tests passed![0m
+
+   name.first, name.middle, name.last  = [1C[31mPaul[0m[1C, [1C[31mJohn[0m[1C, [1C[31mSmith[0m
+   assert name.first == [1C[31mPaul[0m[1C, [1C[31mfirst failed[0m
+   assert name.middle == [1C[31mJohn[0m[1C, [1C[31mmiddle failed[0m[42;67H4[26;54H[34h[?25h[?25l[42;64H7,6 [27;6H[34h[?25h[?25l[42;64H8,1[28;1H[34h[?25h[?25l[42;64H9,13[29;13H[34h[?25h[?25l[30;19H[46m([23C)[0m[42;63H40,44[30;44H[34h[?25h[?25l[30;19H([23C)[42;63H39,13[29;13H[34h[?25h[?25l[42;64H8,1 [28;1H[34h[?25h[?25l[42;64H7,6[27;6H[34h[?25h[?25l[28;41r[28;1H[L[1;42r[42;63H[K[42;63H38,1[10C50%[28;1H[34h[?25h[?25l[29;41r[29;1H[L[1;42r[42;63H[K[42;63H39,1[10C47%[29;1H[34h[?25h[?25l[42;66H2[29;2H[34h[?25h[?25l[42;66H3[29;3H[34h[?25h[?25l[42;66H4[29;4H[34h[?25h[?25l[42;66H3[29;3H[34h[?25h[?25l [34m#[0m[42;66H4[29;4H[34h[?25h[?25l[34m#r[0m[42;66H5[29;5H[34h[?25h[?25l[34mre[0m[42;66H6[29;6H[34h[?25h[?25l[34mea[0m[42;66H7[29;7H[34h[?25h[?25l[34mad[0m[42;66H8[29;8H[34h[?25h[?25l[34m [0m[42;66H9[29;9H[34h[?25h[?25l[34m i[0m[42;66H10[29;10H[34h[?25h[?25l[34min[0m[42;67H1[29;11H[34h[?25h[?25l[34m [0m[42;67H2[29;12H[34h[?25h[?25l[34m a[0m[42;67H3[29;13H[34h[?25h[?25l[34m [0m[42;67H4[29;14H[34h[?25h[?25l[34m n[0m[42;67H5[29;15H[34h[?25h[?25l[34mne[0m[42;67H6[29;16H[34h[?25h[?25l[34mew[0m[42;67H7[29;17H[34h[?25h[?25l[34m [0m[42;67H8[29;18H[34h[?25h[?25l[34m f[0m[42;67H9[29;19H[34h[?25h[?25l[34mfu[0m[42;66H20[29;20H[34h[?25h[?25l[34mul[0m[42;67H1[29;21H[34h[?25h[?25l[34mll[0m[42;67H2[29;22H[34h[?25h[?25l[34m [0m[42;67H3[29;23H[34h[?25h[?25l[34m n[0m[42;67H4[29;24H[34h[?25h[?25l[34mna[0m[42;67H5[29;25H[34h[?25h[?25l[34mam[0m[42;67H6[29;26H[34h[?25h[?25l[34mme[0m[42;67H7[29;27H[34h[?25h[?25l[34m [0m[42;67H8[29;28H[34h[?25h[?25l[34m f[0m[42;67H9[29;29H[34h[?25h[?25l[34mfo[0m[42;66H30[29;30H[34h[?25h[?25l[34mor[0m[42;67H1[29;31H[34h[?25h[?25l[29;30H[K[42;67H0[29;30H[34h[?25h[?25l[29;29H[K[42;66H29[29;29H[34h[?25h[?25l[34mfr[0m[42;66H30[29;30H[34h[?25h[?25l[34mro[0m[42;67H1[29;31H[34h[?25h[?25l[34mom[0m[42;67H2[29;32H[34h[?25h[?25l[34m [0m[42;67H3[29;33H[34h[?25h[?25l[34m t[0m[42;67H4[29;34H[34h[?25h[?25l[34mth[0m[42;67H5[29;35H[34h[?25h[?25l[34mhe[0m[42;67H6[29;36H[34h[?25h[?25l[34m [0m[42;67H7[29;37H[34h[?25h[?25l[34m s[0m[42;67H8[29;38H[34h[?25h[?25l[34msu[0m[42;67H9[29;39H[34h[?25h[?25l[34mue[0m[42;66H40[29;40H[34h[?25h[?25l[34mer[0m[42;67H1[29;41H[34h[?25h[?25l[29;40H[K[42;67H0[29;40H[34h[?25h[?25l[29;39H[K[42;66H39[29;39H[34h[?25h[?25l[29;38H[K[42;67H8[29;38H[34h[?25h[?25l[29;37H[K[42;67H7[29;37H[34h[?25h[?25l[34m u[0m[42;67H8[29;38H[34h[?25h[?25l[34mus[0m[42;67H9[29;39H[34h[?25h[?25l[34mse[0m[42;66H40[29;40H[34h[?25h[?25l[34mer[0m[42;67H1[29;41H[34h[?25h[?25l[30;41r[30;1H[L[1;42r[42;63H[K[42;63H40,1[10C45%[30;1H[34h[?25h[?25l[42;66H2[30;2H[34h[?25h[?25l[42;66H3[30;3H[34h[?25h[?25l d[42;66H4[30;4H[34h[?25h[?25lde[42;66H5[30;5H[34h[?25h[?25l[35mdef[0m[42;66H6[30;6H[34h[?25h[?25l[42;66H7[30;7H[34h[?25h[?25l [36mr[0m[42;66H8[30;8H[34h[?25h[?25l[36mre[0m[42;66H9[30;9H[34h[?25h[?25l[36mea[0m[42;66H10[30;10H[34h[?25h[?25l[36mad[0m[42;67H1[30;11H[34h[?25h[?25l[36mdN[0m[42;67H2[30;12H[34h[?25h[?25l[36mNa[0m[42;67H3[30;13H[34h[?25h[?25l[36mam[0m[42;67H4[30;14H[34h[?25h[?25l[36mme[0m[42;67H5[30;15H[34h[?25h[?25l[31;41r[31;1H[L[1;42r[42;63H[K[42;63H41,1[10C43%[31;1H[34h[?25h[?25l[32;41r[32;1H[L[1;42r[42;63H[K[42;63H42,1[10C41%[32;1H[34h[?25h[?25l[42;66H2[32;2H[34h[?25h[?25l[42;66H3[32;3H[34h[?25h[?25l e[42;66H4[32;4H[34h[?25h[?25len[42;66H5[32;5H[34h[?25h[?25l[35mend[0m[42;66H6[32;6H[34h[?25h[?25l[42;64H1,1[31;1H[34h[?25h[?25l[42;66H2[31;2H[34h[?25h[?25l[42;66H3[31;3H[34h[?25h[?25l[42;66H4[31;4H[34h[?25h[?25l[42;66H5[31;5H[34h[?25h[?25l p[42;66H6[31;6H[34h[?25h[?25lpu[42;66H7[31;7H[34h[?25h[?25lut[42;66H8[31;8H[34h[?25h[?25lts[42;66H9[31;9H[34h[?25h[?25l[42;64H0[30;9H[34h[?25h[?25l[42;63H39[29;9H[34h[?25h[?25l[42;64H8,1[28;1H[34h[?25h[?25l[42;64H7,6[27;6H[34h[?25h[?25l[42;64H6,9[26;9H[34h[?25h[?25l[42;64H5[25;9H[34h[?25h[?25l[42;64H4[24;9H[34h[?25h[?25l[42;66H8[24;8H[34h[?25h[?25l[42;66H7[24;7H[34h[?25h[?25l[42;66H6[24;6H[34h[?25h[?25l[42;66H5[24;5H[34h[?25h[?25l[42;66H4[24;4H[34h[?25h[?25l[42;4H[1mINSERT -[0m[42;13H[K[42;63H34,4[10C41%[24;4H[34h[?25h[?25l[34m#rprint out a name in last, first (middle initial) format[0m[42;66H5[24;5H[34h[?25h[?25l[34mreprint out a name in last, first (middle initial) format[0m[42;66H6[24;6H[34h[?25h[?25l[34metprint out a name in last, first (middle initial) format[0m[42;66H7[24;7H[34h[?25h[?25l[34mtuprint out a name in last, first (middle initial) format[0m[42;66H8[24;8H[34h[?25h[?25l[34murprint out a name in last, first (middle initial) format[0m[42;66H9[24;9H[34h[?25h[?25l[34mrnprint out a name in last, first (middle initial) format[0m[42;66H10[24;10H[34h[?25h[?25l[34mnrint out a name in last, first (middle initial) format[0m[24;64H[K[24;10H[34h[?25h[?25l[34mnint out a name in last, first (middle initial) format[0m[24;63H[K[24;10H[34h[?25h[?25l[34mnnt out a name in last, first (middle initial) format[0m[24;62H[K[24;10H[34h[?25h[?25l[34mnt out a name in last, first (middle initial) format[0m[24;61H[K[24;10H[34h[?25h[?25l[34mn out a name in last, first (middle initial) format[0m[24;60H[K[24;10H[34h[?25h[?25l[34mnout a name in last, first (middle initial) format[0m[24;59H[K[24;10H[34h[?25h[?25l[34mnut a name in last, first (middle initial) format[0m[24;58H[K[24;10H[34h[?25h[?25l[34mnt a name in last, first (middle initial) format[0m[24;57H[K[24;10H[34h[?25h[?25l[34mn a name in last, first (middle initial) format[0m[24;56H[K[24;10H[34h[?25h[?25l[42;64H5[25;10H[34h[?25h[?25l[42;64H6[26;10H[34h[?25h[?25l[42;64H7,6 [27;6H[34h[?25h[?25l[42;64H8,1[28;1H[34h[?25h[?25l[42;64H9,10[29;10H[34h[?25h[?25l[42;63H40[30;10H[34h[?25h[?25l[42;64H1,9 [31;9H[34h[?25h[?25l[42;64H2,6[32;6H[34h[?25h[?25l[42;64H1,9[31;9H[34h[?25h[?25ls([42;66H10[31;10H[34h[?25h[?25l([32mE[0m[42;67H1[31;11H[34h[?25h[?25l[32mEn[0m[42;67H2[31;12H[34h[?25h[?25l[32mnt[0m[42;67H3[31;13H[34h[?25h[?25l[32mte[0m[42;67H4[31;14H[34h[?25h[?25l[32mer[0m[42;67H5[31;15H[34h[?25h[?25l[42;67H6[31;16H[34h[?25h[?25l a[42;67H7[31;17H[34h[?25h[?25l[42;67H8[31;18H[34h[?25h[?25l n[42;67H9[31;19H[34h[?25h[?25lne[42;66H20[31;20H[34h[?25h[?25lew[42;67H1[31;21H[34h[?25h[?25l[42;67H2[31;22H[34h[?25h[?25l f[42;67H3[31;23H[34h[?25h[?25lfu[42;67H4[31;24H[34h[?25h[?25lul[42;67H5[31;25H[34h[?25h[?25lll[42;67H6[31;26H[34h[?25h[?25l[42;67H7[31;27H[34h[?25h[?25l n[42;67H8[31;28H[34h[?25h[?25lna[42;67H9[31;29H[34h[?25h[?25lam[42;66H30[31;30H[34h[?25h[?25lme[42;67H1[31;31H[34h[?25h[?25le[35m"[0m
+[31m  end
+
+def testName
+   name = Name.new([0m[1C[32mJohn[0m[1C[31m, [0m[1C[32mPaul[0m[1C[31m, [0m[1C[32mJones[0m[1C[31m)
+
+   assert name.first == [0m[1C[32mJohn[0m[1C[31m, [0m[1Cfirst failed
+[31m   assert name.middle == [0m[1C[32mPaul[0m[1C[31m, [0m[1Cmiddle failed
+[31m   assert name.last == [0m[1C[32mJones[0m[1C[31m, [0m[1Clast failed
+[31m   assert name.fullName == [0m[1C[32mJohn[0m [32mPaul[0m [32mJones[0m[1C[31m, [0m[1CfullName failed
+[31m   assert name.print == [0m[1C[32mJohn[0m [32mPaul[0m [32mJones[0m[1C[31m, [0m[1Cprint failed[42;67H2[31;32H[34h[?25h[?25l[42;67H1[31;31H[34h[?25h[?25l[42;67H0[31;30H[34h[?25h[?25l[42;66H29[31;29H[34h[?25h[?25l[42;67H8[31;28H[34h[?25h[?25l[42;67H7[31;27H[34h[?25h[?25l[42;67H6[31;26H[34h[?25h[?25l[42;67H5[31;25H[34h[?25h[?25l[42;67H4[31;24H[34h[?25h[?25l[42;67H3[31;23H[34h[?25h[?25l[42;67H2[31;22H[34h[?25h[?25l[42;67H1[31;21H[34h[?25h[?25l[42;67H0[31;20H[34h[?25h[?25l[42;66H19[31;19H[34h[?25h[?25l[42;67H8[31;18H[34h[?25h[?25l[42;67H7[31;17H[34h[?25h[?25l[42;67H6[31;16H[34h[?25h[?25l[42;67H5[31;15H[34h[?25h[?25l[42;67H4[31;14H[34h[?25h[?25l[42;67H3[31;13H[34h[?25h[?25l[42;67H2[31;12H[34h[?25h[?25l[42;67H1[31;11H[34h[?25h[?25l[42;67H0[31;10H[34h[?25h[?25l[42;66H9 [31;9H[34h[?25h[?25l[42;66H8[31;8H[34h[?25h[?25l[42;66H7[31;7H[34h[?25h[?25l[42;66H8[31;8H[34h[?25h[?25l[42;66H9[31;9H[34h[?25h[?25l[42;66H10[31;10H[34h[?25h[?25l([35m"[0m[31mEnter a new full name[0m[35m"[0m
+  [35mend
+
+def[0m [36mtestName[0m
+   name = [32mName[0m.new([1C[31mJohn[0m[1C, [1C[31mPaul[0m[1C, [1C[31mJones[0m[1C)
+
+   assert name.first == [1C[31mJohn[0m[1C, [1C[31mfirst failed[0m
+   assert name.middle == [1C[31mPaul[0m[1C, [1C[31mmiddle failed[0m
+   assert name.last == [1C[31mJones[0m[1C, [1C[31mlast failed[0m
+   assert name.fullName == [1C[31mJohn Paul Jones[0m[1C, [1C[31mfullName failed[0m
+   assert name.print == [1C[31mJohn Paul Jones[0m[1C, [1C[31mprint failed[0m[42;67H1[31;11H[34h[?25h[?25l[42;66H33[31;33H[34h[?25h[?25l[35m"[0m)[31;9H[46m([23C)[0m[42;67H4[31;34H[34h[?25h[?25l[42;67H3[31;33H[34h[?25h[?25l[31;9H([23C)[42;67H2[31;32H[34h[?25h[?25l[31me:[0m[35m"[0m)[42;67H3[31;33H[34h[?25h[?25l[31m:\")
+  end
+
+def testName
+   name = Name.new([0m[1C[32mJohn[0m[1C[31m, [0m[1C[32mPaul[0m[1C[31m, [0m[1C[32mJones[0m[1C[31m)
+
+   assert name.first == [0m[1C[32mJohn[0m[1C[31m, [0m[1Cfirst failed
+[31m   assert name.middle == [0m[1C[32mPaul[0m[1C[31m, [0m[1Cmiddle failed
+[31m   assert name.last == [0m[1C[32mJones[0m[1C[31m, [0m[1Clast failed
+[31m   assert name.fullName == [0m[1C[32mJohn[0m [32mPaul[0m [32mJones[0m[1C[31m, [0m[1CfullName failed
+[31m   assert name.print == [0m[1C[32mJohn[0m [32mPaul[0m [32mJones[0m[1C[31m, [0m[1Cprint failed[42;67H4[31;34H[34h[?25h[?25l[35m\n"[0m)
+  [35mend
+
+def[0m [36mtestName[0m
+   name = [32mName[0m.new([1C[31mJohn[0m[1C, [1C[31mPaul[0m[1C, [1C[31mJones[0m[1C)
+
+   assert name.first == [1C[31mJohn[0m[1C, [1C[31mfirst failed[0m
+   assert name.middle == [1C[31mPaul[0m[1C, [1C[31mmiddle failed[0m
+   assert name.last == [1C[31mJones[0m[1C, [1C[31mlast failed[0m
+   assert name.fullName == [1C[31mJohn Paul Jones[0m[1C, [1C[31mfullName failed[0m
+   assert name.print == [1C[31mJohn Paul Jones[0m[1C, [1C[31mprint failed[0m[42;67H5[31;35H[34h[?25h[?25l[42;67H4[31;34H[34h[?25h[?25l[42;67H3[31;33H[34h[?25h[?25l[42;67H2[31;32H[34h[?25h[?25l[42;67H1[31;31H[34h[?25h[?25l[42;67H0[31;30H[34h[?25h[?25l[42;66H29[31;29H[34h[?25h[?25l[42;67H8[31;28H[34h[?25h[?25l[42;67H7[31;27H[34h[?25h[?25l[42;67H6[31;26H[34h[?25h[?25l[42;67H5[31;25H[34h[?25h[?25l[42;67H4[31;24H[34h[?25h[?25l[42;67H3[31;23H[34h[?25h[?25l[42;67H2[31;22H[34h[?25h[?25l[42;67H1[31;21H[34h[?25h[?25l[42;67H0[31;20H[34h[?25h[?25l[42;66H19[31;19H[34h[?25h[?25l[42;67H8[31;18H[34h[?25h[?25l[42;67H7[31;17H[34h[?25h[?25l[42;67H6[31;16H[34h[?25h[?25l[42;67H5[31;15H[34h[?25h[?25l[42;67H4[31;14H[34h[?25h[?25l[42;67H3[31;13H[34h[?25h[?25l[42;67H2[31;12H[34h[?25h[?25l[42;67H1[31;11H[34h[?25h[?25l[35m"[0m[31m\Enter a new full name:[0m[35m\n"[0m)[42;67H2[31;12H[34h[?25h[?25l[35m\n[0m[31mEnter a new full name:[0m[35m\n"[0m)[42;67H3[31;13H[34h[?25h[?25l[46m([28C)[0m[42;66H39[31;39H[34h[?25h[?25l[32;41r[32;1H[L[1;42r[42;63H[K[42;63H42,1[10C40%[31;9H([28C)
+[34h[?25h[?25l[42;66H2[32;2H[34h[?25h[?25l[42;66H3[32;3H[34h[?25h[?25l[42;66H4[32;4H[34h[?25h[?25l[42;66H5[32;5H[34h[?25h[?25l g[42;66H6[32;6H[34h[?25h[?25lge[42;66H7[32;7H[34h[?25h[?25let[42;66H8[32;8H[34h[?25h[?25lts[42;66H9[32;9H[34h[?25h[?25ls([42;66H10[32;10H[34h[?25h[?25l(n[42;67H1[32;11H[34h[?25h[?25lna[42;67H2[32;12H[34h[?25h[?25lam[42;67H3[32;13H[34h[?25h[?25lme[42;67H4[32;14H[34h[?25h[?25le.
+  end[42;67H5[32;15H[34h[?25h[?25l.f
+  [35mend[0m[42;67H6[32;16H[34h[?25h[?25lfi[42;67H7[32;17H[34h[?25h[?25lir[42;67H8[32;18H[34h[?25h[?25lrs[42;67H9[32;19H[34h[?25h[?25lst[42;66H20[32;20H[34h[?25h[?25lt)[32;9H[46m([10C)[0m[42;67H1[32;21H[34h[?25h[?25l[32;20H[K[32;9H([42;67H0[32;20H[34h[?25h[?25lt.
+  end[42;67H1[32;21H[34h[?25h[?25l.t
+  [35mend[0m[42;67H2[32;22H[34h[?25h[?25lto[42;67H3[32;23H[34h[?25h[?25lo_[42;67H4[32;24H[34h[?25h[?25l_s[42;67H5[32;25H[34h[?25h[?25ls)[32;9H[46m([15C)[0m[42;67H6[32;26H[34h[?25h[?25l[33;41r[33;1H[L[1;42r[42;63H[K[42;63H43,1[10C38%[32;9H([15C)
+[34h[?25h[?25l[42;66H2[33;2H[34h[?25h[?25l[42;66H3[33;3H[34h[?25h[?25l[42;66H4[33;4H[34h[?25h[?25l[42;66H5[33;5H[34h[?25h[?25l g[42;66H6[33;6H[34h[?25h[?25lge[42;66H7[33;7H[34h[?25h[?25let[42;66H8[33;8H[34h[?25h[?25lts[42;66H9[33;9H[34h[?25h[?25ls([42;66H10[33;10H[34h[?25h[?25l(n[42;67H1[33;11H[34h[?25h[?25lna[42;67H2[33;12H[34h[?25h[?25lam[42;67H3[33;13H[34h[?25h[?25lme[42;67H4[33;14H[34h[?25h[?25le.
+  end[42;67H5[33;15H[34h[?25h[?25l.m
+  [35mend[0m[42;67H6[33;16H[34h[?25h[?25lmi[42;67H7[33;17H[34h[?25h[?25lid[42;67H8[33;18H[34h[?25h[?25ldd[42;67H9[33;19H[34h[?25h[?25ldl[42;66H20[33;20H[34h[?25h[?25lle[42;67H1[33;21H[34h[?25h[?25l[33;20H[K[42;67H0[33;20H[34h[?25h[?25l[33;19H[K[42;66H19[33;19H[34h[?25h[?25l[33;18H[K[42;67H8[33;18H[34h[?25h[?25l[33;17H[K[42;67H7[33;17H[34h[?25h[?25l[33;16H[K[42;67H6[33;16H[34h[?25h[?25l[33;15H[K[34;3Hend[42;67H5[33;15H[34h[?25h[?25l[33;14H[K[34;3H[35mend[0m[42;67H4[33;14H[34h[?25h[?25l[33;13H[K[42;67H3[33;13H[34h[?25h[?25l[33;12H[K[42;67H2[33;12H[34h[?25h[?25l[33;11H[K[42;67H1[33;11H[34h[?25h[?25l[33;10H[K[42;67H0[33;10H[34h[?25h[?25l[33;9H[K[42;66H9 [33;9H[34h[?25h[?25l[33;8H[K[42;66H8[33;8H[34h[?25h[?25l[33;7H[K[42;66H7[33;7H[34h[?25h[?25l[33;6H[K[42;66H6[33;6H[34h[?25h[?25l[33;5H[K[42;66H5[33;5H[34h[?25h[?25l[42;66H4[33;4H[34h[?25h[?25l[42;66H3[33;3H[34h[?25h[?25l[42;66H2[33;2H[34h[?25h[?25l[42;66H1[33;1H[34h[?25h[?25l[32;41r[41;1H
+[1;42r[32;4H gets(name.first.to_s)[41;3H assert name.fullName == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mfullName failed[0m[35m"[0m[42;63H[K[42;63H42,26[9C40%[32;9H[46m([15C)[34h[?25h[?25l[0m[32;25H[K[32;9H([42;67H5[32;25H[34h[?25h[?25l[42;67H4[32;24H[34h[?25h[?25l[42;67H3[32;23H[34h[?25h[?25l[42;67H2[32;22H[34h[?25h[?25l[42;67H1[32;21H[34h[?25h[?25l[42;67H0[32;20H[34h[?25h[?25ls.to_s[32;24H[K[42;66H19[32;19H[34h[?25h[?25lr.to_s[32;23H[K[42;67H8[32;18H[34h[?25h[?25li.to_s[32;22H[K[42;67H7[32;17H[34h[?25h[?25lf.to_s[32;21H[K[42;67H6[32;16H[34h[?25h[?25l..to_s[32;20H[K[42;67H5[32;15H[34h[?25h[?25l.to_s[32;19H[K[42;67H4[32;14H[34h[?25h[?25lm.to_s[32;18H[K[42;67H3[32;13H[34h[?25h[?25la.to_s[32;17H[K[42;67H2[32;12H[34h[?25h[?25ln.to_s[32;16H[K[42;67H1[32;11H[34h[?25h[?25l(.to_s[32;15H[K[42;67H0[32;10H[34h[?25h[?25ls.to_s[32;14H[K[42;66H9 [32;9H[34h[?25h[?25lt.to_s[32;13H[K[42;66H8[32;8H[34h[?25h[?25lts.to_s[42;66H9[32;9H[34h[?25h[?25l[42;66H8[32;8H[34h[?25h[?25l[42;66H7[32;7H[34h[?25h[?25l[42;66H6[32;6H[34h[?25h[?25l[42;66H5[32;5H[34h[?25h[?25l ngets.to_s[42;66H6[32;6H[34h[?25h[?25lnagets.to_s[42;66H7[32;7H[34h[?25h[?25lamgets.to_s[42;66H8[32;8H[34h[?25h[?25lmegets.to_s[42;66H9[32;9H[34h[?25h[?25le.gets.to_s[42;66H10[32;10H[34h[?25h[?25l[31;9H[46m([28C)[0m[42;64H1[31;10H[34h[?25h[?25l([28C)[42;64H0[30;10H[34h[?25h[?25l[42;63H39[29;10H[34h[?25h[?25l[42;67H1[29;11H[34h[?25h[?25l[42;67H2[29;12H[34h[?25h[?25l[42;67H3[29;13H[34h[?25h[?25l[42;67H4[29;14H[34h[?25h[?25l[42;63H40[30;14H[34h[?25h[?25l[42;67H5[30;15H[34h[?25h[?25l[36me[0m([42;67H6[30;16H[34h[?25h[?25l(n[42;67H7[30;17H[34h[?25h[?25lna[42;67H8[30;18H[34h[?25h[?25lam[42;67H9[30;19H[34h[?25h[?25lme[42;66H20[30;20H[34h[?25h[?25le)[46m([0mname[46m)[0m[42;67H1[30;21H[34h[?25h[?25l(name)[42;64H1[31;21H[34h[?25h[?25l[42;67H0[31;20H[34h[?25h[?25l[42;66H19[31;19H[34h[?25h[?25l[42;67H8[31;18H[34h[?25h[?25l[42;67H7[31;17H[34h[?25h[?25l[42;67H6[31;16H[34h[?25h[?25l[42;67H5[31;15H[34h[?25h[?25l[42;67H4[31;14H[34h[?25h[?25l[42;67H3[31;13H[34h[?25h[?25l[42;67H2[31;12H[34h[?25h[?25l[42;67H1[31;11H[34h[?25h[?25l[42;64H2[32;11H[34h[?25h[?25l[42;67H0[32;10H[34h[?25h[?25l[42;66H9 [32;9H[34h[?25h[?25l..gets.to_s[42;66H10[32;10H[34h[?25h[?25l.gets.to_s[32;19H[K[32;10H[34h[?25h[?25l.fgets.to_s[42;67H1[32;11H[34h[?25h[?25lfigets.to_s[42;67H2[32;12H[34h[?25h[?25lirgets.to_s[42;67H3[32;13H[34h[?25h[?25lrsgets.to_s[42;67H4[32;14H[34h[?25h[?25lstgets.to_s[42;67H5[32;15H[34h[?25h[?25lt gets.to_s[42;67H6[32;16H[34h[?25h[?25l =gets.to_s[42;67H7[32;17H[34h[?25h[?25l= gets.to_s[42;67H8[32;18H[34h[?25h[?25l[42;66H27[32;27H[34h[?25h[?25l[33;41r[33;1H[L[1;42r[42;63H[K[42;63H43,1[10C38%[33;1H[34h[?25h[?25l[42;66H2[33;2H[34h[?25h[?25l[42;66H3[33;3H[34h[?25h[?25l[42;66H4[33;4H[34h[?25h[?25l[42;66H5[33;5H[34h[?25h[?25l a[42;66H6[33;6H[34h[?25h[?25l[33;5H[K[42;66H5[33;5H[34h[?25h[?25l n[42;66H6[33;6H[34h[?25h[?25lna[42;66H7[33;7H[34h[?25h[?25lam[42;66H8[33;8H[34h[?25h[?25lme[42;66H9[33;9H[34h[?25h[?25le.
+  end[42;66H10[33;10H[34h[?25h[?25l.m
+  [35mend[0m[42;67H1[33;11H[34h[?25h[?25lmi[42;67H2[33;12H[34h[?25h[?25lid[42;67H3[33;13H[34h[?25h[?25ldd[42;67H4[33;14H[34h[?25h[?25ldl[42;67H5[33;15H[34h[?25h[?25lle[42;67H6[33;16H[34h[?25h[?25l[42;67H7[33;17H[34h[?25h[?25l =[42;67H8[33;18H[34h[?25h[?25l[42;67H9[33;19H[34h[?25h[?25l g[42;66H20[33;20H[34h[?25h[?25lge[42;67H1[33;21H[34h[?25h[?25let[42;67H2[33;22H[34h[?25h[?25lts[42;67H3[33;23H[34h[?25h[?25ls.
+  end[42;67H4[33;24H[34h[?25h[?25l.t
+  [35mend[0m[42;67H5[33;25H[34h[?25h[?25lto[42;67H6[33;26H[34h[?25h[?25lo_[42;67H7[33;27H[34h[?25h[?25l_s[42;67H8[33;28H[34h[?25h[?25l[33;27H[K[42;67H7[33;27H[34h[?25h[?25l[33;26H[K[42;67H6[33;26H[34h[?25h[?25l[33;25H[K[42;67H5[33;25H[34h[?25h[?25l[33;24H[K[34;3Hend[42;67H4[33;24H[34h[?25h[?25l[33;23H[K[34;3H[35mend[0m[42;67H3[33;23H[34h[?25h[?25l[42;64H2[32;23H[34h[?25h[?25l.o_s[32;26H[K[32;23H[34h[?25h[?25l._s[32;25H[K[32;23H[34h[?25h[?25l.s[32;24H[K[32;23H[34h[?25h[?25lss[32;23H[K[42;67H2[32;22H[34h[?25h[?25l[32;22H[K[32;22H[34h[?25h[?25l[42;64H3[33;22H[34h[?25h[?25l[42;67H3[33;23H[34h[?25h[?25l[34;41r[34;1H[L[1;42r[42;63H[K[42;63H44,1[10C37%[34;1H[34h[?25h[?25l[42;66H2[34;2H[34h[?25h[?25l[42;66H3[34;3H[34h[?25h[?25l[42;66H4[34;4H[34h[?25h[?25l[42;66H5[34;5H[34h[?25h[?25l n[42;66H6[34;6H[34h[?25h[?25lna[42;66H7[34;7H[34h[?25h[?25lam[42;66H8[34;8H[34h[?25h[?25lme[42;66H9[34;9H[34h[?25h[?25le.
+  end[42;66H10[34;10H[34h[?25h[?25l.l
+  [35mend[0m[42;67H1[34;11H[34h[?25h[?25lla[42;67H2[34;12H[34h[?25h[?25las[42;67H3[34;13H[34h[?25h[?25lst[42;67H4[34;14H[34h[?25h[?25l[42;67H5[34;15H[34h[?25h[?25l =[42;67H6[34;16H[34h[?25h[?25l[42;67H7[34;17H[34h[?25h[?25l g[42;67H8[34;18H[34h[?25h[?25lgt[42;67H9[34;19H[34h[?25h[?25l[34;18H[K[42;67H8[34;18H[34h[?25h[?25lge[42;67H9[34;19H[34h[?25h[?25let[42;66H20[34;20H[34h[?25h[?25lts[42;67H1[34;21H[34h[?25h[?25l[42;64H5,6 [35;6H[34h[?25h[?25l[42;64H6,1[36;1H[34h[?25h[?25l[42;64H7,13[37;13H[34h[?25h[?25l[42;64H6,1 [36;1H[34h[?25h[?25l[42;64H5,6[35;6H[34h[?25h[?25l[42;64H4,21[34;21H[34h[?25h[?25l[42;64H3[33;21H[34h[?25h[?25l[42;64H2[32;21H[34h[?25h[?25l[42;64H1[31;21H[34h[?25h[?25l[30;15H[46m([0mname[46m)[0m[42;64H0[30;21H[34h[?25h[?25l(name)[42;63H39[29;21H[34h[?25h[?25l[30;15H[46m([0mname[46m)[0m[42;63H40[30;21H[34h[?25h[?25l[30;20H[K[30;15H([42;67H0[30;20H[34h[?25h[?25l[30;18H[K[42;66H18[30;18H[34h[?25h[?25l[30;17H[K[42;67H7[30;17H[34h[?25h[?25l[30;16H[K[42;67H6[30;16H[34h[?25h[?25l[30;15H[K[42;67H5[30;15H[34h[?25h[42;1H[K[30;14H[?25l[42;63H40,14[9C37%[30;14H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 68L, 1765C written[33C40,14[9C37%[42;63H[K[42;63H40,14[9C37%[30;14H[34h[?25h[?25l[42;64H1[31;14H[34h[?25h[?25l[42;64H2[32;14H[34h[?25h[?25l[42;64H3[33;14H[34h[?25h[?25l[42;64H4[34;14H[34h[?25h[?25l[42;64H5,5 [35;5H[34h[?25h[?25l[42;64H6,0-1[36;1H[34h[?25h[?25l[42;64H7,12 [37;12H[34h[?25h[?25l[42;64H8,14[38;14H[34h[?25h[?25l[42;64H9,0-1[39;1H[34h[?25h[?25l[42;63H50,14 [40;14H[34h[?25h[?25l[42;64H1[41;14H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.last == [35m"[0m[31mJones[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m[42;1H[K[42;63H52,14[9C40%[41;14H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.fullName == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mfullName failed[0m[35m"[0m[42;63H[K[42;63H53,14[9C44%[41;14H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.print == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mprint failed[0m[35m"[0m[42;63H[K[42;63H54,14[9C48%[41;14H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mlab07 tests passed![0m[35m"[0m[42;63H[K[42;63H55,14[9C51%[41;14H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H56,0-1[8C55%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H name.first, name.middle, name.last  = [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mSmith[0m[35m"[0m[42;63H[K[42;63H57,14[9C59%[41;14H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.first == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m[42;63H[K[42;63H58,14[9C62%[41;14H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.middle == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m[42;63H[K[42;63H59,14[9C66%[41;14H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.last == [35m"[0m[31mSmith[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m[42;63H[K[42;63H60,14[9C70%[41;14H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m[42;63H[K[42;63H61,14[9C74%[41;14H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mProject07 tests passed![0m[35m"[0m[42;63H[K[42;63H62,14[9C77%[41;14H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H63,0-1[8C81%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mAll tests passed![0m[35m\n"[0m[42;63H[K[42;63H64,14[9C85%[41;14H[34h[?25h[?25l[42;64H3,0-1[40;1H[34h[?25h[?25l[42;64H2,14 [39;14H[34h[?25h[?25l[42;64H1[38;14H[34h[?25h[?25l[42;67H3[38;13H[34h[?25h[?25l[42;67H2[38;12H[34h[?25h[?25l[42;67H1[38;11H[34h[?25h[?25l ame.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m[38;39H[K[38;11H[34h[?25h[?25l me.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m[38;38H[K[38;11H[34h[?25h[?25l e.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m[38;37H[K[38;11H[34h[?25h[?25l .lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m[38;36H[K[38;11H[34h[?25h[?25l lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m[38;35H[K[38;11H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 68L, 1760C written[33C61,11[9C85%[42;63H[K[42;63H61,11[9C85%[38;11H[34h[?25h[?25l[42;64H0[37;11H[34h[?25h[?25l[42;63H59[36;11H[34h[?25h[?25l[42;64H8[35;11H[34h[?25h[?25l[42;64H7[34;11H[34h[?25h[?25l[42;64H6,0-1[33;1H[34h[?25h[?25l[42;64H5,11 [32;11H[34h[?25h[?25l[42;64H4[31;11H[34h[?25h[?25l[42;64H3[30;11H[34h[?25h[?25l[42;64H2[29;11H[34h[?25h[?25l[42;64H1[28;11H[34h[?25h[?25l[42;64H0[27;11H[34h[?25h[?25l[42;63H49,0-1[26;1H[34h[?25h[?25l[42;64H8,11 [25;11H[34h[?25h[?25l[42;64H7[24;11H[34h[?25h[?25l[42;64H6,0-1[23;1H[34h[?25h[?25l[42;64H5,5  [22;5H[34h[?25h[?25l[42;64H4,11[21;11H[34h[?25h[?25l[42;64H3[20;11H[34h[?25h[?25l[42;64H2[19;11H[34h[?25h[?25l[42;64H1[18;11H[34h[?25h[?25l[42;64H0[17;11H[34h[?25h[?25l[42;63H39[16;11H[34h[?25h[?25l[42;64H8,0-1[15;1H[34h[?25h[?25l[42;64H7,5  [14;5H[34h[?25h[?25l[42;64H6,11[13;11H[34h[?25h[?25l[42;64H5,10[12;10H[34h[?25h[?25l[42;64H4,11[11;11H[34h[?25h[?25l[42;64H3,0-1[10;1H[34h[?25h[?25l[42;64H2,3  [9;3H[34h[?25h[?25l[42;64H1,5[8;5H[34h[?25h[?25l[42;64H0,11[7;11H[34h[?25h[?25l[42;63H29[6;11H[34h[?25h[?25l[42;64H8[5;11H[34h[?25h[?25l[42;64H7[4;11H[34h[?25h[?25l[42;64H6[3;11H[34h[?25h[?25l[42;64H5,0-1[2;1H[34h[?25h[?25l[42;64H4,5  [1;5H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;4H myFullName = [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m + [35m"[0m[31m [0m[35m"[0m + [36m@last[0m[42;1H[K[42;63H23,11[9C81%[1;11H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mdef[0m [36mfullName[0m[42;63H[K[42;63H22,11[9C77%[1;11H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#full name of the person[0m[42;63H[K[42;63H21,11[9C74%[1;11H[34h[?25h[?25l[42;64H2[2;11H[34h[?25h[?25l[42;64H3[3;11H[34h[?25h[?25l[42;64H4,5 [4;5H[34h[?25h[?25l[42;64H5,0-1[5;1H[34h[?25h[?25l[42;64H6,11 [6;11H[34h[?25h[?25l[42;64H7[7;11H[34h[?25h[?25l[42;64H8[8;11H[34h[?25h[?25l[42;64H9[9;11H[34h[?25h[?25l[42;63H30[10;11H[34h[?25h[?25l[42;64H1,5 [11;5H[34h[?25h[?25l[42;64H2,3[12;3H[34h[?25h[?25l[42;64H3,0-1[13;1H[34h[?25h[?25l[42;64H4,11 [14;11H[34h[?25h[?25l[42;64H5,10[15;10H[34h[?25h[?25l[42;64H6,11[16;11H[34h[?25h[?25l[42;64H7,5 [17;5H[34h[?25h[?25l[42;64H8,0-1[18;1H[34h[?25h[?25l[42;64H9,11 [19;11H[34h[?25h[?25l[42;63H40[20;11H[34h[?25h[?25l[42;64H1[21;11H[34h[?25h[?25l[42;64H2[22;11H[34h[?25h[?25l[42;64H3[23;11H[34h[?25h[?25l[42;64H4[24;11H[34h[?25h[?25l[42;64H5,5 [25;5H[34h[?25h[?25l[42;64H6,0-1[26;1H[34h[?25h[?25l[42;64H7,11 [27;11H[34h[?25h[?25l[42;64H8[28;11H[34h[?25h[?25l[42;64H9,0-1[29;1H[34h[?25h[?25l[42;63H50,11 [30;11H[34h[?25h[?25l[42;64H1[31;11H[34h[?25h[?25l[42;64H2[32;11H[34h[?25h[?25l[42;64H3[33;11H[34h[?25h[?25l[42;64H4[34;11H[34h[?25h[?25l[42;64H5[35;11H[34h[?25h[?25l[42;64H6,0-1[36;1H[34h[?25h[?25l[42;64H5,11 [35;11H[34h[?25h[?25l[42;64H4[34;11H[34h[?25h[?25l[42;64H3[33;11H[34h[?25h[?25l[42;64H2[32;11H[34h[?25h[?25l[42;64H1[31;11H[34h[?25h[?25l[42;64H2[32;11H[34h[?25h[?25l[42;64H3[33;11H[34h[?25h[?25l[42;64H4[34;11H[34h[?25h[?25l[42;64H5[35;11H[34h[?25h[?25l[42;64H6,0-1[36;1H[34h[?25h[?25l[42;64H7,11 [37;11H[34h[?25h[?25l[42;64H8[38;11H[34h[?25h[?25l[42;64H9[39;11H[34h[?25h[?25l[42;63H60[40;11H[34h[?25h[?25l[42;64H1[41;11H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mProject07 tests passed![0m[35m"[0m[42;63H[K[42;63H62,11[9C77%[41;11H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H63,0-1[8C81%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mAll tests passed![0m[35m\n"[0m[42;63H[K[42;63H64,11[9C85%[41;11H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;1H[35mend[0m[42;63H[K[42;63H65,3[10C88%[41;3H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H66,0-1[8C92%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;1HtestName[42;63H[K[42;63H67,8[10C96%[41;8H[34h[?25h[?25l[42;64H6,0-1[40;1H[34h[?25h[?25l[42;64H5,3  [39;3H[34h[?25h[?25l[42;64H4,11[38;11H[34h[?25h[?25l[42;64H3,0-1[37;1H[34h[?25h[?25l[42;64H2,11 [36;11H[34h[?25h[?25l[42;64H1[35;11H[34h[?25h[?25l[42;64H0[34;11H[34h[?25h[?25l[42;64H1[35;11H[34h[?25h[?25l[42;66H34[35;34H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;63H[K[42;63H61,34[9C96%[35;34H[34h[?25h[?25l[42;67H5[35;35H[34h[?25h[?25l[35m"[0m.[42;67H6[35;36H[34h[?25h[?25l[35;35H[K[42;67H5[35;35H[34h[?25h[?25l[35m"[0m,[42;67H6[35;36H[34h[?25h[?25l[42;67H7[35;37H[34h[?25h[?25l [35m"[0m
+[31m   print [0m[1C[32mProject07[0m tests passed!
+
+[31m   print [0m[1C[32mAll[0m tests passed!\n
+[31mend
+
+testName[0m[42;67H8[35;38H[34h[?25h[?25l[35m"[0m[31ml[0m[42;67H9[35;39H[34h[?25h[?25l[31mlf[0m[42;66H40[35;40H[34h[?25h[?25l[31mfm[0m[42;67H1[35;41H[34h[?25h[?25l[31mmi[0m[42;67H2[35;42H[34h[?25h[?25l[31m [0m[42;67H3[35;43H[34h[?25h[?25l[31m f[0m[42;67H4[35;44H[34h[?25h[?25l[31mfa[0m[42;67H5[35;45H[34h[?25h[?25l[31mai[0m[42;67H6[35;46H[34h[?25h[?25l[31mil[0m[42;67H7[35;47H[34h[?25h[?25l[31mle[0m[42;67H8[35;48H[34h[?25h[?25l[31med[0m[42;67H9[35;49H[34h[?25h[?25l[31md[0m[35m"[0m
+   print [1C[31mProject07 tests passed![0m
+
+   print [1C[31mAll tests passed![0m[35m\n
+end[0m
+
+testName[42;66H50[35;50H[34h[?25h[42;1H[K[35;49H[?25l[42;63H61,49[9C96%[35;49H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 68L, 1775C written[33C61,49[9C96%[42;63H[K[42;63H61,49[9C96%[35;49H[34h[?25h[?25l[42;67H8[35;48H[34h[?25h[?25l[42;64H0,45[34;45H[34h[?25h[?25l[42;63H59,48[33;48H[34h[?25h[?25l[42;64H8,46[32;46H[34h[?25h[?25l[42;64H7,48[31;48H[34h[?25h[?25l[42;64H6,0-1[30;1H[34h[?25h[?25l[42;64H5,30 [29;30H[34h[?25h[?25l[42;64H4,48[28;48H[34h[?25h[?25l[42;64H3[27;48H[34h[?25h[?25l[42;64H2,45[26;45H[34h[?25h[?25l[42;64H1,48[25;48H[34h[?25h[?25l[42;64H0,46[24;46H[34h[?25h[?25l[42;63H49,0-1[23;1H[34h[?25h[?25l[22;19H[46m([23C)[0m[42;64H8,43 [22;43H[34h[?25h[?25l[22;19H([23C)[42;64H7,12[21;12H[34h[?25h[?25l[42;64H6,0-1[20;1H[34h[?25h[?25l[42;64H5,5  [19;5H[34h[?25h[?25l[42;64H4,20[18;20H[34h[?25h[?25l[42;64H3,22[17;22H[34h[?25h[?25l[42;64H2,21[16;21H[34h[?25h[?25l[15;9H[46m([28C)[0m[42;64H1,38[15;38H[34h[?25h[?25l[15;9H([28C)[42;64H0,14[14;14H[34h[?25h[?25l[42;63H39,40[13;40H[34h[?25h[?25l[42;64H8,0-1[12;1H[34h[?25h[?25l[42;64H7,5  [11;5H[34h[?25h[?25l[42;64H6,48[10;48H[34h[?25h[?25l[42;64H5,10[9;10H[34h[?25h[?25l[42;64H6,48[10;48H[34h[?25h[?25l[46m[[1C][0m[42;67H7[10;47H[34h[?25h[?25l[[1C][42;67H6[10;46H[34h[?25h[?25l[46m[[1C][0m[42;67H5[10;45H[34h[?25h[?25l[[1C][42;67H4[10;44H[34h[?25h[?25l[42;67H3[10;43H[34h[?25h[?25l[42;67H2[10;42H[34h[?25h[?25l[42;67H1[10;41H[34h[?25h[?25l[42;67H0[10;40H[34h[?25h[?25l[42;66H39[10;39H[34h[?25h[?25l[42;67H8[10;38H[34h[?25h[?25l[42;67H7[10;37H[34h[?25h[?25l[42;67H8[10;38H[34h[?25h[?25l[42;64H7,5 [11;5H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;13H[K[42;63H37,5[10C96%[11;5H[34h[?25h[?25l[42;64H6[10;5H[34h[?25h[?25l[42;64H5[9;5H[34h[?25h[?25l[42;64H6[10;5H[34h[?25h[?25l[42;67H4[10;54H[34h[?25h[?25l[42;67H3[10;53H[34h[?25h[?25l[42;67H2[10;52H[34h[?25h[?25l[42;67H1[10;51H[34h[?25h[?25l[42;67H0[10;50H[34h[?25h[?25l[42;66H49[10;49H[34h[?25h[?25l[46m[[1C][0m[42;67H8[10;48H[34h[?25h[?25l[42;67H6[10;46H[34h[?25h[?25l[42;67H5[10;45H[34h[?25h[?25l[[1C][42;67H4[10;44H[34h[?25h[?25l[42;67H3[10;43H[34h[?25h[?25l[42;67H2[10;42H[34h[?25h[?25l[42;67H1[10;41H[34h[?25h[?25l[42;67H0[10;40H[34h[?25h[?25l[42;66H39[10;39H[34h[?25h[?25l[42;67H8[10;38H[34h[?25h[?25l[42;67H7[10;37H[34h[?25h[?25l[42;67H6[10;36H[34h[?25h[?25l[42;67H7[10;37H[34h[?25h[?25l[42;67H8[10;38H[34h[?25h[?25l  [36m@middle[0m[[31m0[0m] + [35m"[0m[31m.[0m[35m"[0m[42;67H9[10;39H[34h[?25h[?25l [36m@middle[0m[[31m0[0m] + [35m"[0m[31m.[0m[35m"[0m[10;54H[K[42;67H8[10;38H[34h[?25h[?25l [35m"[0m[31m@middle[0] + [0m[35m"[0m.[35m"[0m
+[31m  end
+
+  #read in a new full name from the user
+  def readName
+    puts([0m[1C\nEnter a new full name:\n[1C[31m)
+    name.first = gets
+    name.middle = gets
+    name.last = gets
+  end
+
+def testName
+   name = Name.new([0m[1C[32mJohn[0m[1C[31m, [0m[1C[32mPaul[0m[1C[31m, [0m[1C[32mJones[0m[1C[31m)
+
+   assert name.first == [0m[1C[32mJohn[0m[1C[31m, [0m[1Cfirst failed
+[31m   assert name.middle == [0m[1C[32mPaul[0m[1C[31m, [0m[1Cmiddle failed
+[31m   assert name.last == [0m[1C[32mJones[0m[1C[31m, [0m[1Clast failed
+[31m   assert name.fullName == [0m[1C[32mJohn[0m [32mPaul[0m [32mJones[0m[1C[31m, [0m[1CfullName failed
+[31m   assert name.print == [0m[1C[32mJohn[0m [32mPaul[0m [32mJones[0m[1C[31m, [0m[1Cprint failed
+[31m   print [0m[1Clab07 tests passed!
+
+[31m   name.first, name.middle, name.last  = [0m[1C[32mPaul[0m[1C[31m, [0m[1C[32mJohn[0m[1C[31m, [0m[1C[32mSmith[0m
+[31m   assert name.first == [0m[1C[32mPaul[0m[1C[31m, [0m[1Cfirst failed
+[31m   assert name.middle == [0m[1C[32mJohn[0m[1C[31m, [0m[1Cmiddle failed
+[31m   assert name.last == [0m[1C[32mSmith[0m[1C[31m, [0m[1Clast failed
+[31m   assert lfmi == [0m[1C[32mSmith[0m, [32mPaul[0m [32mJ[0m.[1C[31m, [0m[1Clfmi failed
+[31m   print [0m[1C[32mProject07[0m tests passed!
+
+[31m   print [0m[1C[32mAll[0m tests passed!\n
+[31mend
+
+testName[0m[42;67H9[10;39H[34h[?25h[?25l[35m"[0m[31m @middle[0] + [0m[35m"[0m.[35m"[0m[42;66H40[10;40H[34h[?25h[?25l[31m [0m[35m"[0m[36m@middle[0m[[31m0[0m] + [35m"[0m[31m.[0m[35m"[0m
+  [35mend[0m
+
+  [34m#read in a new full name from the user[0m
+  [35mdef[0m [36mreadName[0m
+    puts([1C[35m\n[0m[31mEnter a new full name:[0m[35m\n[0m[1C)
+    name.first = gets
+    name.middle = gets
+    name.last = gets
+  [35mend
+
+def[0m [36mtestName[0m
+   name = [32mName[0m.new([1C[31mJohn[0m[1C, [1C[31mPaul[0m[1C, [1C[31mJones[0m[1C)
+
+   assert name.first == [1C[31mJohn[0m[1C, [1C[31mfirst failed[0m
+   assert name.middle == [1C[31mPaul[0m[1C, [1C[31mmiddle failed[0m
+   assert name.last == [1C[31mJones[0m[1C, [1C[31mlast failed[0m
+   assert name.fullName == [1C[31mJohn Paul Jones[0m[1C, [1C[31mfullName failed[0m
+   assert name.print == [1C[31mJohn Paul Jones[0m[1C, [1C[31mprint failed[0m
+   print [1C[31mlab07 tests passed![0m
+
+   name.first, name.middle, name.last  = [1C[31mPaul[0m[1C, [1C[31mJohn[0m[1C, [1C[31mSmith[0m
+   assert name.first == [1C[31mPaul[0m[1C, [1C[31mfirst failed[0m
+   assert name.middle == [1C[31mJohn[0m[1C, [1C[31mmiddle failed[0m
+   assert name.last == [1C[31mSmith[0m[1C, [1C[31mlast failed[0m
+   assert lfmi == [1C[31mSmith, Paul J.[0m[1C, [1C[31mlfmi failed[0m
+   print [1C[31mProject07 tests passed![0m
+
+   print [1C[31mAll tests passed![0m[35m\n
+end[0m
+
+testName[42;67H1[10;41H[34h[?25h[?25l[35m"[0m [36m@middle[0m[[31m0[0m] + [35m"[0m[31m.[0m[35m"[0m[42;67H2[10;42H[34h[?25h[?25l +[36m@middle[0m[[31m0[0m] + [35m"[0m[31m.[0m[35m"[0m[42;67H3[10;43H[34h[?25h[?25l+ [36m@middle[0m[[31m0[0m] + [35m"[0m[31m.[0m[35m"[0m[42;67H4[10;44H[34h[?25h[?25l[42;67H3[10;43H[34h[?25h[?25l[42;67H2[10;42H[34h[?25h[?25l[42;67H1[10;41H[34h[?25h[?25l[42;67H0[10;40H[34h[?25h[?25l[42;66H39[10;39H[34h[?25h[?25l[42;67H8[10;38H[34h[?25h[?25l[42;67H7[10;37H[34h[?25h[?25l[42;67H6[10;36H[34h[?25h[?25l[42;67H5[10;35H[34h[?25h[?25l[42;67H4[10;34H[34h[?25h[?25l[42;67H3[10;33H[34h[?25h[?25l[42;67H2[10;32H[34h[?25h[?25l[42;67H1[10;31H[34h[?25h[?25l[42;67H0[10;30H[34h[?25h[?25l[42;66H29[10;29H[34h[?25h[?25l[42;67H8[10;28H[34h[?25h[?25l[42;67H7[10;27H[34h[?25h[?25l[42;67H6[10;26H[34h[?25h[?25l[42;67H5[10;25H[34h[?25h[?25l[42;67H4[10;24H[34h[?25h[?25l[42;67H3[10;23H[34h[?25h[?25l[42;67H4[10;24H[34h[?25h[?25l[35m"[0m[31m [0m[35m"[0m + [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m[[31m0[0m] + [35m"[0m[31m.[0m[35m"[0m[10;59H[K[42;67H3[10;23H[34h[?25h[?25l[42;67H4[10;24H[34h[?25h[?25l[42;67H5[10;25H[34h[?25h[?25l[42;67H6[10;26H[34h[?25h[?25l[42;67H7[10;27H[34h[?25h[?25l[42;67H8[10;28H[34h[?25h[?25l[42;67H9[10;29H[34h[?25h[?25l[42;66H30[10;30H[34h[?25h[?25l[42;67H1[10;31H[34h[?25h[?25l[42;67H2[10;32H[34h[?25h[?25l[42;67H3[10;33H[34h[?25h[?25l[42;67H4[10;34H[34h[?25h[?25l[42;67H5[10;35H[34h[?25h[?25l[42;67H6[10;36H[34h[?25h[?25l[42;67H7[10;37H[34h[?25h[?25l[42;67H8[10;38H[34h[?25h[?25l[42;67H9[10;39H[34h[?25h[?25l[42;66H40[10;40H[34h[?25h[?25l[42;67H1[10;41H[34h[?25h[?25l[42;67H2[10;42H[34h[?25h[?25l[42;67H3[10;43H[34h[?25h[?25l[42;67H4[10;44H[34h[?25h[?25l[42;67H5[10;45H[34h[?25h[?25l[42;67H6[10;46H[34h[?25h[?25l[42;67H7[10;47H[34h[?25h[?25l[42;67H8[10;48H[34h[?25h[?25l[42;67H9[10;49H[34h[?25h[?25l[1C[46m[[1C][0m[42;66H50[10;50H[34h[?25h[?25l[42;67H2[10;52H[34h[?25h[?25l[42;67H3[10;53H[34h[?25h[?25l[[1C][42;67H4[10;54H[34h[?25h[?25l[42;67H5[10;55H[34h[?25h[?25l[42;67H6[10;56H[34h[?25h[?25l[42;67H7[10;57H[34h[?25h[?25l[35m""[0m[10;58H[K[10;57H[34h[?25h[?25l[35m"[0m[31m [0m[35m"[0m[42;67H8[10;58H[34h[?25h[42;1H[K[?25l[42;63H36,57[9C96%[10;57H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 68L, 1780C written[33C36,57[9C96%[42;63H[K[42;63H36,57[9C96%[10;57H[34h[?25h[?25l[42;67H6[10;56H[34h[?25h[?25l[42;67H5[10;55H[34h[?25h[?25l[42;67H4[10;54H[34h[?25h[?25l[42;67H3[10;53H[34h[?25h[?25l[46m[[1C][0m[42;67H2[10;52H[34h[?25h[?25l[[1C][42;67H1[10;51H[34h[?25h[?25l[46m[[1C][0m[42;67H0[10;50H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;13H[K[42;63H36,50[9C96%[10;50H[34h[?25h[?25l[36me[0m[36m[46m0[0m][46m [0m+ [35m"[0m[31m [0m[35m"[0m[10;58H[K[10;50H[36m0[0m] [34h[?25h[?25l[36me[0m] + [35m"[0m[31m [0m[35m"[0m[10;57H[K[10;50H[34h[?25h[?25l[36me[0m + [35m"[0m[31m [0m[35m"[0m[10;56H[K[10;50H[34h[?25h[?25l[36me[0m. + [35m"[0m[31m [0m[35m"[0m[42;67H1[10;51H[34h[?25h[?25l.c + [35m"[0m[31m [0m[35m"[0m[42;67H2[10;52H[34h[?25h[?25lch + [35m"[0m[31m [0m[35m"[0m[42;67H3[10;53H[34h[?25h[?25lha + [35m"[0m[31m [0m[35m"[0m[42;67H4[10;54H[34h[?25h[?25lar + [35m"[0m[31m [0m[35m"[0m[42;67H5[10;55H[34h[?25h[?25lrs + [35m"[0m[31m [0m[35m"[0m[42;67H6[10;56H[34h[?25h[?25ls. + [35m"[0m[31m [0m[35m"[0m[42;67H7[10;57H[34h[?25h[?25l.f + [35m"[0m[31m [0m[35m"[0m[42;67H8[10;58H[34h[?25h[?25lfi + [35m"[0m[31m [0m[35m"[0m[42;67H9[10;59H[34h[?25h[?25lir + [35m"[0m[31m [0m[35m"[0m[42;66H60[10;60H[34h[?25h[?25lrs + [35m"[0m[31m [0m[35m"[0m[42;67H1[10;61H[34h[?25h[?25lst + [35m"[0m[31m [0m[35m"[0m[42;67H2[10;62H[34h[?25h[42;1H[K[10;61H[?25l[42;63H36,61[9C96%[10;61H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 68L, 1789C written[33C36,61[9C96%[42;63H[K[42;63H36,61[9C96%[10;61H[34h[?25h[?25l[42;64H7,5 [11;5H[34h[?25h[?25l[42;64H8,0-1[12;1H[34h[?25h[?25l[42;64H9,40 [13;40H[34h[?25h[?25l[42;64H8,0-1[12;1H[34h[?25h[?25l[42;64H7,5  [11;5H[34h[?25h[?25l[42;64H6,61[10;61H[34h[?25h[?25l[42;67H0[10;60H[34h[?25h[?25l[42;66H59[10;59H[34h[?25h[?25l[42;67H8[10;58H[34h[?25h[?25l[42;67H7[10;57H[34h[?25h[?25l[42;67H6[10;56H[34h[?25h[?25l[42;67H5[10;55H[34h[?25h[?25l[42;67H4[10;54H[34h[?25h[?25l[42;67H3[10;53H[34h[?25h[?25l[42;67H2[10;52H[34h[?25h[?25l[42;67H1[10;51H[34h[?25h[?25l[42;67H0[10;50H[34h[?25h[?25l[42;66H49[10;49H[34h[?25h[?25l[42;67H8[10;48H[34h[?25h[?25l[42;67H7[10;47H[34h[?25h[?25l[42;67H6[10;46H[34h[?25h[?25l[42;67H5[10;45H[34h[?25h[?25l[42;67H4[10;44H[34h[?25h[?25l[42;67H3[10;43H[34h[?25h[?25l[42;67H2[10;42H[34h[?25h[?25l[42;67H1[10;41H[34h[?25h[?25l[42;67H0[10;40H[34h[?25h[?25l[42;66H39[10;39H[34h[?25h[?25l[42;67H8[10;38H[34h[?25h[?25l[42;67H7[10;37H[34h[?25h[?25l[42;67H6[10;36H[34h[?25h[?25l[42;67H5[10;35H[34h[?25h[?25l[42;67H4[10;34H[34h[?25h[?25l[42;67H3[10;33H[34h[?25h[?25l[42;67H2[10;32H[34h[?25h[?25l[42;67H1[10;31H[34h[?25h[?25l[42;67H0[10;30H[34h[?25h[?25l[42;66H29[10;29H[34h[?25h[?25l[42;67H8[10;28H[34h[?25h[?25l[42;67H7[10;27H[34h[?25h[?25l[42;67H6[10;26H[34h[?25h[?25l[42;67H5[10;25H[34h[?25h[?25l[42;67H4[10;24H[34h[?25h[?25l[42;67H3[10;23H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;13H[K[42;63H36,23[9C96%[10;23H[34h[?25h[?25l[35m"[0m[31mi [0m[35m"[0m + [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m.chars.first + [35m"[0m[31m [0m[35m"[0m[42;67H4[10;24H[34h[?25h[?25l[35m"[0m[31m [0m[35m"[0m + [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m.chars.first + [35m"[0m[31m [0m[35m"[0m[10;68H[K[42;67H3[10;23H[34h[?25h[?25l[35m"[0m[31m, [0m[35m"[0m + [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m.chars.first + [35m"[0m[31m [0m[35m"[0m[42;67H4[10;24H[34h[?25h[?25l[42;67H5[10;25H[34h[?25h[?25l[42;67H6[10;26H[34h[?25h[?25l[42;67H7[10;27H[34h[?25h[?25l[42;67H8[10;28H[34h[?25h[?25l[42;67H9[10;29H[34h[?25h[?25l[42;66H30[10;30H[34h[?25h[?25l[42;67H1[10;31H[34h[?25h[?25l[42;67H2[10;32H[34h[?25h[?25l[42;67H3[10;33H[34h[?25h[?25l[42;67H4[10;34H[34h[?25h[?25l[42;67H5[10;35H[34h[?25h[?25l[42;67H6[10;36H[34h[?25h[?25l[42;67H7[10;37H[34h[?25h[?25l[42;67H8[10;38H[34h[?25h[?25l[42;67H9[10;39H[34h[?25h[?25l[42;66H40[10;40H[34h[?25h[?25l[42;67H1[10;41H[34h[?25h[?25l[42;67H2[10;42H[34h[?25h[?25l[42;67H3[10;43H[34h[?25h[?25l[42;67H4[10;44H[34h[?25h[?25l[42;67H5[10;45H[34h[?25h[?25l[42;67H6[10;46H[34h[?25h[?25l[42;67H7[10;47H[34h[?25h[?25l[42;67H8[10;48H[34h[?25h[?25l[42;67H9[10;49H[34h[?25h[?25l[42;66H50[10;50H[34h[?25h[?25l[42;67H1[10;51H[34h[?25h[?25l[42;67H2[10;52H[34h[?25h[?25l[42;67H3[10;53H[34h[?25h[?25l[42;67H4[10;54H[34h[?25h[?25l[42;67H5[10;55H[34h[?25h[?25l[42;67H6[10;56H[34h[?25h[?25l[42;67H7[10;57H[34h[?25h[?25l[42;67H8[10;58H[34h[?25h[?25l[42;67H9[10;59H[34h[?25h[?25l[42;66H60[10;60H[34h[?25h[?25l[42;67H1[10;61H[34h[?25h[?25l[42;67H2[10;62H[34h[?25h[?25l[42;67H3[10;63H[34h[?25h[?25l[42;67H4[10;64H[34h[?25h[?25l[42;67H5[10;65H[34h[?25h[?25l[42;67H6[10;66H[34h[?25h[?25l[42;67H7[10;67H[34h[?25h[?25l[35m"[0m[31m. [0m[35m"[0m[42;67H8[10;68H[34h[?25h[?25l[31m.[0m[35m"[0m[10;69H[K[10;68H[34h[?25h[42;1H[K[10;67H[?25l[42;63H36,67[9C96%[10;67H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 68L, 1790C written[33C36,67[9C96%[42;63H[K[42;63H36,67[9C96%[10;67H[34h[?25h[?25l[42;64H7,5 [11;5H[34h[?25h[?25l[42;64H8,0-1[12;1H[34h[?25h[?25l[42;64H9,40 [13;40H[34h[?25h[?25l[42;63H40,14[14;14H[34h[?25h[?25l[15;9H[46m([28C)[0m[42;64H1,38[15;38H[34h[?25h[?25l[15;9H([28C)[42;64H2,21[16;21H[34h[?25h[?25l[42;64H3,22[17;22H[34h[?25h[?25l[42;64H4,20[18;20H[34h[?25h[?25l[42;64H5,5 [19;5H[34h[?25h[?25l[42;64H6,0-1[20;1H[34h[?25h[?25l[42;64H7,12 [21;12H[34h[?25h[?25l[22;19H[46m([23C)[0m[42;64H8,43[22;43H[34h[?25h[?25l[22;19H([23C)[42;64H9,0-1[23;1H[34h[?25h[?25l[42;63H50,46 [24;46H[34h[?25h[?25l[42;64H1,48[25;48H[34h[?25h[?25l[42;64H2,45[26;45H[34h[?25h[?25l[42;64H3,63[27;63H[34h[?25h[?25l[42;64H4,57[28;57H[34h[?25h[?25l[42;64H5,30[29;30H[34h[?25h[?25l[42;64H6,0-1[30;1H[34h[?25h[?25l[42;64H7,64 [31;64H[34h[?25h[?25l[42;64H8,46[32;46H[34h[?25h[?25l[42;64H9,48[33;48H[34h[?25h[?25l[42;63H60,45[34;45H[34h[?25h[?25l[42;64H1,49[35;49H[34h[?25h[?25l[42;64H2,34[36;34H[34h[?25h[?25l[42;64H1,49[35;49H[34h[?25h[?25l[42;64H0,45[34;45H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;13H[K[42;63H60,45[9C96%[34;45H[34h[?25h[?25l[42;67H6[34;46H[34h[?25h[?25l[35;41r[35;1H[L[1;42r[42;63H[K[42;63H61,1[10C92%[35;1H[34h[?25h[?25l[42;66H2[35;2H[34h[?25h[?25l[42;66H3[35;3H[34h[?25h[?25l[42;66H4[35;4H[34h[?25h[?25l l[42;66H5[35;5H[34h[?25h[?25llm[42;66H6[35;6H[34h[?25h[?25lmf[42;66H7[35;7H[34h[?25h[?25lfi[42;66H8[35;8H[34h[?25h[?25l[42;64H0[34;8H[34h[?25h[?25l[42;63H59[33;8H[34h[?25h[?25l[42;64H8[32;8H[34h[?25h[?25l[42;64H7[31;8H[34h[?25h[?25l[42;64H6,1[30;1H[34h[?25h[?25l[42;64H5,8[29;8H[34h[?25h[?25l[42;64H4[28;8H[34h[?25h[?25l[42;64H3[27;8H[34h[?25h[?25l[42;64H2[26;8H[34h[?25h[?25l[42;64H1[25;8H[34h[?25h[?25l[42;64H0[24;8H[34h[?25h[?25l[42;63H49,1[23;1H[34h[?25h[?25l[42;64H8,8[22;8H[34h[?25h[?25l[42;64H7[21;8H[34h[?25h[?25l[42;64H6,1[20;1H[34h[?25h[?25l[42;64H5,6[19;6H[34h[?25h[?25l[42;64H4,8[18;8H[34h[?25h[?25l[42;64H3[17;8H[34h[?25h[?25l[42;64H2[16;8H[34h[?25h[?25l[42;64H1[15;8H[34h[?25h[?25l[42;64H0[14;8H[34h[?25h[?25l[42;63H39[13;8H[34h[?25h[?25l[42;64H8,1[12;1H[34h[?25h[?25l[42;64H7,6[11;6H[34h[?25h[?25l[42;64H6,8[10;8H[34h[?25h[?25l[42;64H5[9;8H[34h[?25h[?25l[42;64H4[8;8H[34h[?25h[?25l[42;64H3,1[7;1H[34h[?25h[?25l[42;64H2,4[6;4H[34h[?25h[?25l[42;64H1,6[5;6H[34h[?25h[?25l[42;64H0,8[4;8H[34h[?25h[?25l[42;63H29[3;8H[34h[?25h[?25l[42;64H8[2;8H[34h[?25h[?25l[42;64H7[1;8H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#print prints the full name out[0m[42;63H[K[42;63H26,8[10C89%[1;8H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[42;63H[K[42;63H25,1[10C85%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mend[0m[42;63H[K[42;63H24,6[10C82%[1;6H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;4H myFullName = [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m + [35m"[0m[31m [0m[35m"[0m + [36m@last[0m[42;63H[K[42;63H23,8[10C78%[1;8H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mdef[0m [36mfullName[0m[42;63H[K[42;63H22,8[10C75%[1;8H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#full name of the person[0m[42;63H[K[42;63H21,8[10C71%[1;8H[34h[?25h[?25l[42;64H2[2;8H[34h[?25h[?25l[42;64H3[3;8H[34h[?25h[?25l[42;64H4,6[4;6H[34h[?25h[?25l[42;64H5,1[5;1H[34h[?25h[?25l[42;64H6,8[6;8H[34h[?25h[?25l[42;64H7[7;8H[34h[?25h[?25l[42;64H8[8;8H[34h[?25h[?25l[42;64H9[9;8H[34h[?25h[?25l[42;63H30[10;8H[34h[?25h[?25l[42;64H1,6[11;6H[34h[?25h[?25l[42;64H2,4[12;4H[34h[?25h[?25l[42;64H3,1[13;1H[34h[?25h[?25l[42;64H4,8[14;8H[34h[?25h[?25l[42;64H5[15;8H[34h[?25h[?25l[42;64H6[16;8H[34h[?25h[?25l[42;64H7,6[17;6H[34h[?25h[?25l[42;64H8,1[18;1H[34h[?25h[?25l[42;64H9,8[19;8H[34h[?25h[?25l[42;63H40[20;8H[34h[?25h[?25l[42;64H1[21;8H[34h[?25h[?25l[42;64H2[22;8H[34h[?25h[?25l[42;64H3[23;8H[34h[?25h[?25l[42;64H4[24;8H[34h[?25h[?25l[42;64H5,6[25;6H[34h[?25h[?25l[42;64H6,1[26;1H[34h[?25h[?25l[42;64H7,8[27;8H[34h[?25h[?25l[42;64H8[28;8H[34h[?25h[?25l[42;64H9,1[29;1H[34h[?25h[?25l[42;63H50,8[30;8H[34h[?25h[?25l[42;64H1[31;8H[34h[?25h[?25l[42;64H2[32;8H[34h[?25h[?25l[42;64H3[33;8H[34h[?25h[?25l[42;64H4[34;8H[34h[?25h[?25l[42;64H5[35;8H[34h[?25h[?25l[42;64H6,1[36;1H[34h[?25h[?25l[42;64H7,8[37;8H[34h[?25h[?25l[42;64H8[38;8H[34h[?25h[?25l[42;64H9[39;8H[34h[?25h[?25l[42;63H60[40;8H[34h[?25h[?25l[42;64H1[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m[42;63H[K[42;63H62,8[10C75%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mProject07 tests passed![0m[35m"[0m[42;63H[K[42;63H63,8[10C78%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H64,1[10C82%[41;1H[34h[?25h[?25l[42;64H3,8[40;8H[34h[?25h[?25l[42;64H2[39;8H[34h[?25h[?25l[42;66H9[39;9H[34h[?25h[?25l[42;66H10[39;10H[34h[?25h[?25l[42;67H1[39;11H[34h[?25h[?25l nlfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m[42;67H2[39;12H[34h[?25h[?25lnalfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m[42;67H3[39;13H[34h[?25h[?25lamlfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m[42;67H4[39;14H[34h[?25h[?25lmelfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m[42;67H5[39;15H[34h[?25h[?25le.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m[42;67H6[39;16H[34h[?25h[?25l[42;64H1,8 [38;8H[34h[?25h[?25l[42;66H7[38;7H[34h[?25h[?25l[42;66H6[38;6H[34h[?25h[?25l[42;66H5[38;5H[34h[?25h[?25l[42;66H4[38;4H[34h[?25h[?25l plmfi[42;66H5[38;5H[34h[?25h[?25lprlmfi[42;66H6[38;6H[34h[?25h[?25lrilmfi[42;66H7[38;7H[34h[?25h[?25linlmfi[42;66H8[38;8H[34h[?25h[?25lntlmfi[42;66H9[38;9H[34h[?25h[?25lt lmfi[42;66H10[38;10H[34h[?25h[?25ltlmfi[38;13H[K[42;66H9 [38;9H[34h[?25h[?25lt(lmfi[42;66H10[38;10H[34h[?25h[?25l(nlmfi[42;67H1[38;11H[34h[?25h[?25lnalmfi[42;67H2[38;12H[34h[?25h[?25la.lmfi[42;67H3[38;13H[34h[?25h[?25l.elmfi[42;67H4[38;14H[34h[?25h[?25l.lmfi[38;17H[K[42;67H3[38;13H[34h[?25h[?25lalmfi[38;16H[K[42;67H2[38;12H[34h[?25h[?25lamlmfi[42;67H3[38;13H[34h[?25h[?25lmelmfi[42;67H4[38;14H[34h[?25h[?25le.lmfi[42;67H5[38;15H[34h[?25h[?25l[42;67H6[38;16H[34h[?25h[?25l[42;67H7[38;17H[34h[?25h[?25l[42;67H8[38;18H[34h[?25h[?25l[42;67H9[38;19H[34h[?25h[?25li)[38;9H[46m([9C)[0m[42;66H20[38;20H[34h[?25h[42;1H[K[38;19H[?25l[42;63H61,19[9C82%[38;19H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 69L, 1815C written[33C61,19[9C82%[42;63H[K[42;63H61,19[9C82%[38;19H[34h[?25h[?25l[38;9H([38;19H[K[42;67H8[38;18H[34h[?25h[?25l[42;64H4,0-1[41;1H[34h[?25h[?25l
+[1m-- INSERT --[0m[42;13H[K[42;63H64,1[10C82%[41;1H[34h[?25h[?25l[42;64H3[40;1H[34h[?25h[?25l[42;64H2[39;1H[34h[?25h[?25l[42;64H1[38;1H[34h[?25h[?25l[42;66H2[38;2H[34h[?25h[?25l[42;66H3[38;3H[34h[?25h[?25l[42;66H4[38;4H[34h[?25h[?25l rint(name.lmfi[38;18H[K[38;4H[34h[?25h[?25l int(name.lmfi[38;17H[K[38;4H[34h[?25h[?25l nt(name.lmfi[38;16H[K[38;4H[34h[?25h[?25l t(name.lmfi[38;15H[K[38;4H[34h[?25h[?25l (name.lmfi[38;14H[K[38;4H[34h[?25h[?25l name.lmfi[38;13H[K[38;4H[34h[?25h[?25l pname.lmfi[42;66H5[38;5H[34h[?25h[?25lpuname.lmfi[42;66H6[38;6H[34h[?25h[?25lutname.lmfi[42;66H7[38;7H[34h[?25h[?25ltsname.lmfi[42;66H8[38;8H[34h[?25h[?25ls name.lmfi[42;66H9[38;9H[34h[?25h[?25lsname.lmfi[38;17H[K[42;66H8[38;8H[34h[?25h[?25ls(name.lmfi[42;66H9[38;9H[34h[?25h[?25l[42;66H10[38;10H[34h[?25h[?25l[42;67H1[38;11H[34h[?25h[?25l[42;67H2[38;12H[34h[?25h[?25l[42;67H3[38;13H[34h[?25h[?25l[42;67H4[38;14H[34h[?25h[?25l[42;67H5[38;15H[34h[?25h[?25l[42;67H6[38;16H[34h[?25h[?25l[42;67H7[38;17H[34h[?25h[?25l[42;67H8[38;18H[34h[?25h[?25li)[38;8H[46m([9C)[0m[42;67H9[38;19H[34h[?25h[42;1H[K[38;18H[?25l[42;63H61,18[9C82%[38;18H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 69L, 1814C written[33C61,18[9C82%[42;63H[K[42;63H61,18[9C82%[38;18H[34h[?25h[?25l[38;8H([9C)[42;67H7[38;17H[34h[?25h[?25l[42;67H6[38;16H[34h[?25h[?25l[42;67H7[38;17H[34h[?25h[?25l[42;67H6[38;16H[34h[?25h[?25l[42;67H5[38;15H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;13H[K[42;63H61,15[9C82%[38;15H[34h[?25h[?25l[42;4H[1mREPLACE --[0m[42;63H[K[42;63H61,15[9C82%[38;15H[34h[?25h[?25llf[42;67H6[38;16H[34h[?25h[?25lfm[42;67H7[38;17H[34h[?25h[42;1H[K[38;16H[?25l[42;63H61,16[9C82%[38;16H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 69L, 1814C written[33C61,16[9C82%[42;63H[K[42;63H61,16[9C82%[38;16H[34h[?25h[?25l[42;64H0[37;16H[34h[?25h[?25l[42;63H59[36;16H[34h[?25h[?25l[42;64H8[35;16H[34h[?25h[?25l[42;64H7[34;16H[34h[?25h[?25l[42;64H6,0-1[33;1H[34h[?25h[?25l[42;64H5,16 [32;16H[34h[?25h[?25l[42;64H4[31;16H[34h[?25h[?25l[42;64H3[30;16H[34h[?25h[?25l[42;64H2[29;16H[34h[?25h[?25l[42;64H1[28;16H[34h[?25h[?25l[42;64H0[27;16H[34h[?25h[?25l[42;63H49,0-1[26;1H[34h[?25h[?25l[42;64H8,16 [25;16H[34h[?25h[?25l[42;64H7,12[24;12H[34h[?25h[?25l[42;64H6,0-1[23;1H[34h[?25h[?25l[42;64H5,5  [22;5H[34h[?25h[?25l[42;64H4,16[21;16H[34h[?25h[?25l[42;64H3[20;16H[34h[?25h[?25l[42;64H2[19;16H[34h[?25h[?25l[42;64H1[18;16H[34h[?25h[?25l[42;64H0,14[17;14H[34h[?25h[?25l[42;63H39,16[16;16H[34h[?25h[?25l[42;64H8,0-1[15;1H[34h[?25h[?25l[42;64H7,5  [14;5H[34h[?25h[?25l[42;64H6,16[13;16H[34h[?25h[?25l[42;64H5,10[12;10H[34h[?25h[?25l[42;64H4,16[11;16H[34h[?25h[?25l[42;64H3,0-1[10;1H[34h[?25h[?25l[42;64H2,3  [9;3H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;13H[K[42;63H32,3[10C82%[9;3H[34h[?25h[?25len[9;3H[K[9;3H[34h[?25h[?25l[9;2H[K[42;66H2[9;2H[34h[?25h[?25l[9;1H[K[42;66H1[9;1H[34h[?25h[?25l[42;64H3[10;1H[34h[?25h[?25l[10;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mAll tests passed![0m[35m\n"[0m[42;63H[K[42;63H33,1[10C85%[10;1H[34h[?25h[?25l[42;64H4[11;1H[34h[?25h[?25l[42;64H5[12;1H[34h[?25h[?25l[42;64H6[13;1H[34h[?25h[?25l[42;64H7[14;1H[34h[?25h[?25l[42;64H8[15;1H[34h[?25h[?25l[42;64H9[16;1H[34h[?25h[?25l[42;63H40[17;1H[34h[?25h[?25l[42;64H1[18;1H[34h[?25h[?25l[42;64H2[19;1H[34h[?25h[?25l[42;64H3[20;1H[34h[?25h[?25l[42;64H4[21;1H[34h[?25h[?25l[42;64H5[22;1H[34h[?25h[?25l[42;64H6[23;1H[34h[?25h[?25l[42;64H7[24;1H[34h[?25h[?25l[42;64H6[23;1H[34h[?25h[?25l[42;64H5[22;1H[34h[?25h[?25l[23;41r[23;1H[L[1;42r[42;63H[K[42;63H46,1[10C82%[23;1H[34h[?25h[?25l[42;64H5[22;1H[34h[?25h[?25le[42;66H2[22;2H[34h[?25h[?25len[42;66H3[22;3H[34h[?25h[?25l[35mend[0m[42;66H4[22;4H[34h[?25h[42;1H[K[22;3H[?25l[42;63H45,3[10C82%[22;3H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 69L, 1814C written[33C45,3[10C82%[42;63H[K[42;63H45,3[10C82%[22;3H[34h[?25h[?25l[42;64H6,0-1[23;1H[34h[?25h[?25l[42;64H7,3  [24;3H[34h[?25h[?25l[42;64H8[25;3H[34h[?25h[?25l[42;64H9,0-1[26;1H[34h[?25h[?25l[42;63H50,3  [27;3H[34h[?25h[?25l[42;64H1[28;3H[34h[?25h[?25l[42;64H2[29;3H[34h[?25h[?25l[42;64H3[30;3H[34h[?25h[?25l[42;64H4[31;3H[34h[?25h[?25l[42;64H5[32;3H[34h[?25h[?25l[42;64H6,0-1[33;1H[34h[?25h[?25l[42;64H7,3  [34;3H[34h[?25h[?25l[42;64H8[35;3H[34h[?25h[?25l[42;64H9[36;3H[34h[?25h[?25l[42;63H60[37;3H[34h[?25h[?25l[42;64H1[38;3H[34h[?25h[?25l[42;64H2[39;3H[34h[?25h[?25l[42;64H1[38;3H[34h[?25h[?25l[42;64H0[37;3H[34h[?25h[?25l[42;63H59[36;3H[34h[?25h[?25l[42;64H8[35;3H[34h[?25h[?25l[42;64H7[34;3H[34h[?25h[?25l[42;64H6,0-1[33;1H[34h[?25h[?25l[42;64H5,3  [32;3H[34h[?25h[?25l[42;67H0[32;30H[34h[?25h[?25l[42;66H29[32;29H[34h[?25h[?25l[42;67H8[32;28H[34h[?25h[?25l[42;67H7[32;27H[34h[?25h[?25l[42;67H6[32;26H[34h[?25h[?25l[42;67H5[32;25H[34h[?25h[?25l[42;67H4[32;24H[34h[?25h[?25l[42;67H3[32;23H[34h[?25h[?25l[42;67H2[32;22H[34h[?25h[?25l[42;67H1[32;21H[34h[?25h[?25l[42;67H0[32;20H[34h[?25h[?25l[42;66H19[32;19H[34h[?25h[?25l[42;67H8[32;18H[34h[?25h[?25l[42;67H7[32;17H[34h[?25h[?25l[42;67H6[32;16H[34h[?25h[?25l[42;67H5[32;15H[34h[?25h[?25l[42;67H4[32;14H[34h[?25h[?25l[42;67H3[32;13H[34h[?25h[?25l[42;67H2[32;12H[34h[?25h[?25l[42;67H1[32;11H[34h[?25h[?25l[42;1H/\<echo\>[42;10H[K[42;1H[31msearch hit BOTTOM, continuing at TOP[0m[1m[37m[41mE486: Pattern not found: \<echo\>[0m[42;34H[K[42;63H55,11[9C82%[32;11H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;13H[K[42;63H55,11[9C82%[32;11H[34h[?25h[?25l[35m"[0m[31m\lab07 tests passed![0m[35m"[0m[42;67H2[32;12H[34h[?25h[?25l[35m\n[0m[31mlab07 tests passed![0m[35m"[0m[42;67H3[32;13H[34h[?25h[?25l[42;67H4[32;14H[34h[?25h[?25l[42;67H5[32;15H[34h[?25h[?25l[42;67H6[32;16H[34h[?25h[?25l[42;67H7[32;17H[34h[?25h[?25l[42;67H8[32;18H[34h[?25h[?25l[42;67H9[32;19H[34h[?25h[?25l[42;66H20[32;20H[34h[?25h[?25l[42;67H1[32;21H[34h[?25h[?25l[42;67H2[32;22H[34h[?25h[?25l[42;67H3[32;23H[34h[?25h[?25l[42;67H4[32;24H[34h[?25h[?25l[42;67H5[32;25H[34h[?25h[?25l[42;67H6[32;26H[34h[?25h[?25l[42;67H7[32;27H[34h[?25h[?25l[42;67H8[32;28H[34h[?25h[?25l[42;67H9[32;29H[34h[?25h[?25l[42;66H30[32;30H[34h[?25h[?25l[42;67H1[32;31H[34h[?25h[?25l[42;67H2[32;32H[34h[?25h[?25l[31m!\"
+
+   name.first, name.middle, name.last  = [0m[1C[32mPaul[0m[1C[31m, [0m[1C[32mJohn[0m[1C[31m, [0m[1C[32mSmith[0m
+[31m   assert name.first == [0m[1C[32mPaul[0m[1C[31m, [0m[1Cfirst failed
+[31m   assert name.middle == [0m[1C[32mJohn[0m[1C[31m, [0m[1Cmiddle failed
+[31m   assert name.last == [0m[1C[32mSmith[0m[1C[31m, [0m[1Clast failed
+[31m   puts(name.lfmi)
+   assert name.lfmi == [0m[1C[32mSmith[0m, [32mPaul[0m [32mJ[0m.[1C[31m, [0m[1Clfmi failed
+[31m   print [0m[1C[32mProject07[0m tests passed![42;67H3[32;33H[34h[?25h[?25l[35m\n"[0m
+
+   name.first, name.middle, name.last  = [1C[31mPaul[0m[1C, [1C[31mJohn[0m[1C, [1C[31mSmith[0m
+   assert name.first == [1C[31mPaul[0m[1C, [1C[31mfirst failed[0m
+   assert name.middle == [1C[31mJohn[0m[1C, [1C[31mmiddle failed[0m
+   assert name.last == [1C[31mSmith[0m[1C, [1C[31mlast failed[0m
+   puts(name.lfmi)
+   assert name.lfmi == [1C[31mSmith, Paul J.[0m[1C, [1C[31mlfmi failed[0m
+   print [1C[31mProject07 tests passed![0m[42;67H4[32;34H[34h[?25h[?25l[42;64H6,1 [33;1H[34h[?25h[?25l[42;64H7,34[34;34H[34h[?25h[?25l[42;64H8[35;34H[34h[?25h[?25l[42;64H9[36;34H[34h[?25h[?25l[42;63H60[37;34H[34h[?25h[?25l[38;8H[46m([9C)[0m[42;64H1,19[38;19H[34h[?25h[?25l[38;8H([9C)[42;64H2,34[39;34H[34h[?25h[?25l[42;64H3[40;34H[34h[?25h[?25l[42;64H4,1 [41;1H[34h[?25h[?25l[42;64H3,34[40;34H[34h[?25h[?25l[42;67H3[40;33H[34h[?25h[?25l[42;67H2[40;32H[34h[?25h[?25l[42;67H1[40;31H[34h[?25h[?25l[42;67H0[40;30H[34h[?25h[?25l[42;66H29[40;29H[34h[?25h[?25l[42;67H8[40;28H[34h[?25h[?25l[42;67H7[40;27H[34h[?25h[?25l[42;67H6[40;26H[34h[?25h[?25l[42;67H5[40;25H[34h[?25h[?25l[42;67H4[40;24H[34h[?25h[?25l[42;67H3[40;23H[34h[?25h[?25l[42;67H2[40;22H[34h[?25h[?25l[42;67H1[40;21H[34h[?25h[?25l[42;67H0[40;20H[34h[?25h[?25l[42;66H19[40;19H[34h[?25h[?25l[42;67H8[40;18H[34h[?25h[?25l[42;67H7[40;17H[34h[?25h[?25l[42;67H6[40;16H[34h[?25h[?25l[42;67H5[40;15H[34h[?25h[?25l[42;67H4[40;14H[34h[?25h[?25l[42;67H3[40;13H[34h[?25h[?25l[42;67H2[40;12H[34h[?25h[?25l[42;67H1[40;11H[34h[?25h[?25l[35m"[0m[31m\Project07 tests passed![0m[35m"[0m[42;67H2[40;12H[34h[?25h[?25l[35m\n[0m[31mProject07 tests passed![0m[35m"[0m[42;67H3[40;13H[34h[?25h[?25l[42;67H4[40;14H[34h[?25h[?25l[42;67H5[40;15H[34h[?25h[?25l[42;67H6[40;16H[34h[?25h[?25l[42;67H7[40;17H[34h[?25h[?25l[42;67H8[40;18H[34h[?25h[?25l[42;67H9[40;19H[34h[?25h[?25l[42;66H20[40;20H[34h[?25h[?25l[42;67H1[40;21H[34h[?25h[?25l[42;67H2[40;22H[34h[?25h[?25l[42;67H3[40;23H[34h[?25h[?25l[42;67H4[40;24H[34h[?25h[?25l[42;67H5[40;25H[34h[?25h[?25l[42;67H6[40;26H[34h[?25h[?25l[42;67H7[40;27H[34h[?25h[?25l[42;67H8[40;28H[34h[?25h[?25l[42;67H9[40;29H[34h[?25h[?25l[42;66H30[40;30H[34h[?25h[?25l[42;67H1[40;31H[34h[?25h[?25l[42;67H2[40;32H[34h[?25h[?25l[42;67H3[40;33H[34h[?25h[?25l[42;67H4[40;34H[34h[?25h[?25l[42;67H5[40;35H[34h[?25h[?25l[42;67H6[40;36H[34h[?25h[?25l[31m!\"[0m[42;67H7[40;37H[34h[?25h[?25l[35m\n"[0m[42;67H8[40;38H[34h[?25h[42;1H[K[40;37H[?25l[42;63H63,37[9C82%[40;37H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 69L, 1822C written[33C63,37[9C82%[42;63H[K[42;63H63,37[9C82%[40;37H[34h[?25h[?25l[42;64H2[39;37H[34h[?25h[?25l[38;8H[46m([9C)[0m[42;64H1,18[38;18H[34h[?25h[?25l[38;8H([9C)[42;64H0,37[37;37H[34h[?25h[?25l[42;63H59[36;37H[34h[?25h[?25l[42;64H8[35;37H[34h[?25h[?25l[42;64H7[34;37H[34h[?25h[?25l[42;64H6,0-1[33;1H[34h[?25h[?25l[42;64H5,34 [32;34H[34h[?25h[?25l[42;64H4,37[31;37H[34h[?25h[?25l[42;64H5,34[32;34H[34h[?25h[?25l[42;67H3[32;33H[34h[?25h[?25l[42;67H2[32;32H[34h[?25h[?25l[42;67H1[32;31H[34h[?25h[?25l[42;67H0[32;30H[34h[?25h[?25l[42;66H29[32;29H[34h[?25h[?25l[42;67H8[32;28H[34h[?25h[?25l[42;67H7[32;27H[34h[?25h[?25l[42;67H6[32;26H[34h[?25h[?25l[42;67H5[32;25H[34h[?25h[?25l[42;67H4[32;24H[34h[?25h[?25l[42;67H3[32;23H[34h[?25h[?25l[42;67H2[32;22H[34h[?25h[?25l[42;67H1[32;21H[34h[?25h[?25l[42;67H0[32;20H[34h[?25h[?25l[42;66H19[32;19H[34h[?25h[?25l[42;67H8[32;18H[34h[?25h[?25l[42;67H7[32;17H[34h[?25h[?25l[42;67H6[32;16H[34h[?25h[?25l[42;67H5[32;15H[34h[?25h[?25l[42;67H4[32;14H[34h[?25h[?25l[42;67H3[32;13H[34h[?25h[?25l[42;67H2[32;12H[34h[?25h[?25l[42;67H1[32;11H[34h[?25h[?25l[42;67H0[32;10H[34h[?25h[?25l[42;67H1[32;11H[34h[?25h[?25l[35m"[0m[31mnlab07 tests passed![0m[35m\n"[0m[32;34H[K[32;11H[34h[?25h[?25l[35m"[0m[31mlab07 tests passed![0m[35m\n"[0m[32;33H[K[32;11H[34h[?25h[?25l[42;64H6,0-1[33;1H[34h[?25h[?25l[42;64H7,11 [34;11H[34h[?25h[?25l[42;64H8[35;11H[34h[?25h[?25l[42;64H9[36;11H[34h[?25h[?25l[42;63H60[37;11H[34h[?25h[?25l[42;64H1[38;11H[34h[?25h[?25l[42;64H2[39;11H[34h[?25h[?25l[42;64H3[40;11H[34h[?25h[?25l[42;64H4,0-1[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mAll tests passed![0m[35m\n"[0m[42;1H[K[42;63H65,11[9C85%[41;11H[34h[?25h[?25l[42;64H4,0-1[40;1H[34h[?25h[?25l[42;64H3,11 [39;11H[34h[?25h[?25l[35m"[0m[31mnProject07 tests passed![0m[35m\n"[0m[39;38H[K[39;11H[34h[?25h[?25l[35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;37H[K[39;11H[34h[?25h[?25l[42;67H0[39;10H[34h[?25h[?25l[42;66H9 [39;9H[34h[?25h[?25l[42;66H8[39;8H[34h[?25h[?25l[42;66H7[39;7H[34h[?25h[?25l[42;66H6[39;6H[34h[?25h[?25l[42;66H5[39;5H[34h[?25h[?25l
+
+
+[1m-- INSERT --[0m[42;63H[K[42;63H63,5[10C85%[39;5H[34h[?25h[?25l rint [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;36H[K[42;66H4[39;4H[34h[?25h[?25l rint [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;35H[K[42;66H3[39;3H[34h[?25h[?25l  rint [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H4[39;4H[34h[?25h[?25l int [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;35H[K[39;4H[34h[?25h[?25l nt [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;34H[K[39;4H[34h[?25h[?25l pnt [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H5[39;5H[34h[?25h[?25lpunt [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H6[39;6H[34h[?25h[?25lutnt [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H7[39;7H[34h[?25h[?25ltsnt [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H8[39;8H[34h[?25h[?25ltnt [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;37H[K[42;66H7[39;7H[34h[?25h[?25lunt [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;36H[K[42;66H6[39;6H[34h[?25h[?25lutnt [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H7[39;7H[34h[?25h[?25ltsnt [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H8[39;8H[34h[?25h[?25lst [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;37H[K[39;8H[34h[?25h[?25ls [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;36H[K[39;8H[34h[?25h[?25ls( [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H9[39;9H[34h[?25h[?25l([35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;36H[K[39;9H[34h[?25h[?25l[42;66H36[39;36H[34h[?25h[?25l[35m"[0m)[39;8H[46m([27C)[0m[42;67H7[39;37H[34h[?25h[?25l[39;8H([27C)[42;64H4,1 [40;1H[34h[?25h[?25l[42;64H5,31[41;31H[34h[?25h[?25l[42;64H4,1 [40;1H[34h[?25h[?25l[39;8H[46m([27C)[0m[42;64H3,37[39;37H[34h[?25h[?25l[39;36H[K[39;8H([42;67H6[39;36H[34h[?25h[?25l[42;67H5[39;35H[34h[?25h[?25l[42;67H4[39;34H[34h[?25h[?25l[42;67H3[39;33H[34h[?25h[?25l[42;67H2[39;32H[34h[?25h[?25l[42;67H1[39;31H[34h[?25h[?25l[42;67H0[39;30H[34h[?25h[?25l[42;66H29[39;29H[34h[?25h[?25l[42;67H8[39;28H[34h[?25h[?25l[42;67H7[39;27H[34h[?25h[?25l[42;67H6[39;26H[34h[?25h[?25l[42;67H5[39;25H[34h[?25h[?25l[42;67H4[39;24H[34h[?25h[?25l[42;67H3[39;23H[34h[?25h[?25l[42;67H2[39;22H[34h[?25h[?25l[42;67H1[39;21H[34h[?25h[?25l[42;67H0[39;20H[34h[?25h[?25l[42;66H19[39;19H[34h[?25h[?25l[42;67H8[39;18H[34h[?25h[?25l[42;67H7[39;17H[34h[?25h[?25l[42;67H6[39;16H[34h[?25h[?25l[42;67H5[39;15H[34h[?25h[?25l[42;67H4[39;14H[34h[?25h[?25l[42;67H3[39;13H[34h[?25h[?25l[42;67H2[39;12H[34h[?25h[?25l[42;67H1[39;11H[34h[?25h[?25l[42;67H0[39;10H[34h[?25h[?25l[42;66H9 [39;9H[34h[?25h[?25l[42;66H8[39;8H[34h[?25h[?25lt([35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;35H[K[42;66H7[39;7H[34h[?25h[?25lt[35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;34H[K[39;7H[34h[?25h[?25lu[35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;33H[K[42;66H6[39;6H[34h[?25h[?25lp[35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[39;32H[K[42;66H5[39;5H[34h[?25h[?25lpr[35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H6[39;6H[34h[?25h[?25lri[35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H7[39;7H[34h[?25h[?25lin[35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H8[39;8H[34h[?25h[?25lnt[35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H9[39;9H[34h[?25h[?25lt [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;66H10[39;10H[34h[?25h[?25l[42;64H4,1 [40;1H[34h[?25h[?25l[42;64H5,10[41;10H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;1H[35mend[0m[42;63H[K[42;63H66,4[10C89%[41;4H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H67,1[10C92%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;1HtestName[42;63H[K[42;63H68,9[10C96%[41;9H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H69,1[10CBot[41;1H[34h[?25h[42;1H[K[41;1H[?25l[42;63H69,0-1[8CBot[41;1H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 69L, 1818C written[33C69,0-1[8CBot[42;63H[K[42;63H69,0-1[8CBot[41;1H[34h[?25h[?25l[42;64H8,1  [40;1H[34h[?25h[?25l[42;64H7,0-1[39;1H[34h[?25h[?25l[42;64H6,1  [38;1H[34h[?25h[?25l[42;64H5[37;1H[34h[?25h[?25l[42;64H4,0-1[36;1H[34h[?25h[?25l[42;64H3,1  [35;1H[34h[?25h[?25l[42;64H2[34;1H[34h[?25h[?25l[42;64H1[33;1H[34h[?25h[?25l[42;64H0[32;1H[34h[?25h[?25l[42;63H59[31;1H[34h[?25h[?25l[42;64H8[30;1H[34h[?25h[?25l[42;64H7[29;1H[34h[?25h[?25l[42;64H6,0-1[28;1H[34h[?25h[?25l[42;64H5,1  [27;1H[34h[?25h[?25l[42;64H4[26;1H[34h[?25h[?25l[42;64H5[27;1H[34h[?25h[?25l[42;66H32[27;32H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;13H[K[42;63H55,32[9CBot[27;32H[34h[?25h[?25l[35mn[0m[31m\"
+
+   name.first, name.middle, name.last  = [0m[1C[32mPaul[0m[1C[31m, [0m[1C[32mJohn[0m[1C[31m, [0m[1C[32mSmith[0m
+[31m   assert name.first == [0m[1C[32mPaul[0m[1C[31m, [0m[1Cfirst failed
+[31m   assert name.middle == [0m[1C[32mJohn[0m[1C[31m, [0m[1Cmiddle failed
+[31m   assert name.last == [0m[1C[32mSmith[0m[1C[31m, [0m[1Clast failed
+[31m   puts(name.lfmi)
+   assert name.lfmi == [0m[1C[32mSmith[0m, [32mPaul[0m [32mJ[0m.[1C[31m, [0m[1Clfmi failed
+[31m   print [0m[1C[32mProject07[0m tests passed!\n
+
+[31m   print [0m[1C[32mAll[0m tests passed!\n
+[31mend
+
+testName[0m[42;67H3[27;33H[34h[?25h[?25l[35m\n"[0m
+
+   name.first, name.middle, name.last  = [1C[31mPaul[0m[1C, [1C[31mJohn[0m[1C, [1C[31mSmith[0m
+   assert name.first == [1C[31mPaul[0m[1C, [1C[31mfirst failed[0m
+   assert name.middle == [1C[31mJohn[0m[1C, [1C[31mmiddle failed[0m
+   assert name.last == [1C[31mSmith[0m[1C, [1C[31mlast failed[0m
+   puts(name.lfmi)
+   assert name.lfmi == [1C[31mSmith, Paul J.[0m[1C, [1C[31mlfmi failed[0m
+   print [1C[31mProject07 tests passed![0m[35m\n[0m
+
+   print [1C[31mAll tests passed![0m[35m\n
+end[0m
+
+testName[42;67H4[27;34H[34h[?25h[42;1H[K[27;33H[?25l[42;63H55,33[9CBot[27;33H[34h[?25h[?25l[42;64H6,0-1[28;1H[34h[?25h[?25l[42;64H7,33 [29;33H[34h[?25h[?25l[42;64H8[30;33H[34h[?25h[?25l[42;64H9[31;33H[34h[?25h[?25l[42;63H60[32;33H[34h[?25h[?25l[33;8H[46m([9C)[0m[42;64H1,18[33;18H[34h[?25h[?25l[33;41r[41;1H
+[1;42r[41;1H[1m[34m~                                                                               [0m[42;63H[K[42;63H61,4[10CBot[33;4H[34h[?25h[?25l[42;66H54[33;54H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;63H[K[42;63H61,54[9CBot[33;54H[34h[?25h[?25l[42;67H5[33;55H[34h[?25h[?25l[34;41r[34;1H[L[1;42r[42;63H[K[42;63H62,1[10CBot[34;1H[34h[?25h[?25l[42;66H2[34;2H[34h[?25h[?25l[42;66H3[34;3H[34h[?25h[?25l[42;66H4[34;4H[34h[?25h[?25l a[42;66H5[34;5H[34h[?25h[?25las[42;66H6[34;6H[34h[?25h[?25lss[42;66H7[34;7H[34h[?25h[?25lse[42;66H8[34;8H[34h[?25h[?25ler[42;66H9[34;9H[34h[?25h[?25lrt[42;66H10[34;10H[34h[?25h[?25l[42;67H1[34;11H[34h[?25h[?25l n[42;67H2[34;12H[34h[?25h[?25lna[42;67H3[34;13H[34h[?25h[?25lam[42;67H4[34;14H[34h[?25h[?25lme[42;67H5[34;15H[34h[?25h[?25le.[42;67H6[34;16H[34h[?25h[?25l.r[42;67H7[34;17H[34h[?25h[?25lre[42;67H8[34;18H[34h[?25h[?25lea[42;67H9[34;19H[34h[?25h[?25lad[42;66H20[34;20H[34h[?25h[?25ldN[42;67H1[34;21H[34h[?25h[?25lNa[42;67H2[34;22H[34h[?25h[?25lam[42;67H3[34;23H[34h[?25h[?25lme[42;67H4[34;24H[34h[?25h[?25l[34;41r[41;1H
+[1;42r[34;3H assert name.readName   print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[41;1H[1m[34m~                                                                               [0m[42;63H[K[42;63H62,24[9CBot[34;24H[34h[?25h[?25l[35;41r[35;1H[L[1;42r[34;27H[K[35;3H print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;63H[K[42;63H63,1[10CBot[35;1H[34h[?25h[?25l[42;64H2[34;1H[34h[?25h[?25l[42;66H2[34;2H[34h[?25h[?25l[42;66H3[34;3H[34h[?25h[?25l[42;66H4[34;4H[34h[?25h[?25l ssert name.readName[34;23H[K[34;4H[34h[?25h[?25lsert name.readName[34;22H[K[34;4H[34h[?25h[?25l ert name.readName[34;21H[K[34;4H[34h[?25h[?25l rt name.readName[34;20H[K[34;4H[34h[?25h[?25l t name.readName[34;19H[K[34;4H[34h[?25h[?25l  name.readName[34;18H[K[34;4H[34h[?25h[?25l name.readName[34;17H[K[34;4H[34h[?25h[?25l[42;66H5[34;5H[34h[?25h[?25l[42;66H17[34;17H[34h[?25h[?25l[35;41r[35;1H[L[1;42r[42;63H[K[42;63H63,1[10C96%[35;1H[34h[?25h[42;1H[K[35;1H[?25l[42;63H63,0-1[8C96%[35;1H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 70L, 1819C written[33C63,0-1[8C96%[42;63H[K[42;63H63,0-1[8C96%[35;1H[34h[?25h[23m[24m[0m[H[J[?25l[1;4H myLFMI = [36m@last[0m + [35m"[0m[31m, [0m[35m"[0m + [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m.chars.first + [35m"[0m[31m.[0m[35m"[0m
+  [35mend[0m
+
+  [34m#read in a new full name from the user[0m
+  [35mdef[0m [36mreadName[0m
+    puts([35m"\n[0m[31mEnter a new full name:[0m[35m\n"[0m)
+    name.first = gets
+    name.middle = gets
+    name.last = gets
+  [35mend
+end
+
+def[0m [36mtestName[0m
+   name = [32mName[0m.new([35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJones[0m[35m"[0m)
+
+   assert name.first == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mJones[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m
+   assert name.fullName == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mfullName failed[0m[35m"[0m
+   assert name.print == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mprint failed[0m[35m"[0m
+   print [35m"[0m[31mlab07 tests passed![0m[35m\n\n"[0m
+
+   name.first, name.middle, name.last  = [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mSmith[0m[35m"[0m
+   assert name.first == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mSmith[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m
+   assert name.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m
+   name.readName
+
+   print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m
+
+   print [35m"[0m[31mAll tests passed![0m[35m\n"
+end[0m[35;63H63,0-1[8C94%[29;1H[34h[?25h[23m[24m[0m[H[J[?25l[1;2H [35mdef[0m [36mprint[0m
+    puts(fullName)
+    fullName
+  [35mend[0m
+
+  [34m#return a name in last, first (middle initial) format[0m
+  [35mdef[0m [36mlfmi[0m
+    myLFMI = [36m@last[0m + [35m"[0m[31m, [0m[35m"[0m + [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m.chars.first + [35m"[0m[31m.[0m[35m"[0m
+  [35mend[0m
+
+  [34m#read in a new full name from the user[0m
+  [35mdef[0m [36mreadName[0m
+    puts([35m"\n[0m[31mEnter a new full name:[0m[35m\n"[0m)
+    name.first = gets
+    name.middle = gets
+    name.last = gets
+  [35mend
+end
+
+def[0m [36mtestName[0m
+   name = [32mName[0m.new([35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJones[0m[35m"[0m)
+
+   assert name.first == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mJones[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m
+   assert name.fullName == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mfullName failed[0m[35m"[0m
+   assert name.print == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mprint failed[0m[35m"[0m
+   print [35m"[0m[31mlab07 tests passed![0m[35m\n\n"[0m
+
+   name.first, name.middle, name.last  = [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mSmith[0m[35m"[0m
+   assert name.first == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mSmith[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m
+   assert name.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m
+   name.readName
+
+   print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m
+
+   print [35m"[0m[31mAll tests passed![0m[35m\n"
+end[0m
+
+testName[43;63H63,0-1[8C96%[36;1H[34h[?25h[23m[24m[0m[H[J[?25l[1;4H puts(fullName)
+    fullName
+  [35mend[0m
+
+  [34m#return a name in last, first (middle initial) format[0m
+  [35mdef[0m [36mlfmi[0m
+    myLFMI = [36m@last[0m + [35m"[0m[31m, [0m[35m"[0m + [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m.chars.first + [35m"[0m[31m.[0m[35m"[0m
+  [35mend[0m
+
+  [34m#read in a new full name from the user[0m
+  [35mdef[0m [36mreadName[0m
+    puts([35m"\n[0m[31mEnter a new full name:[0m[35m\n"[0m)
+    name.first = gets
+    name.middle = gets
+    name.last = gets
+  [35mend
+end
+
+def[0m [36mtestName[0m
+   name = [32mName[0m.new([35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJones[0m[35m"[0m)
+
+   assert name.first == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mJones[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m
+   assert name.fullName == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mfullName failed[0m[35m"[0m
+   assert name.print == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mprint failed[0m[35m"[0m
+   print [35m"[0m[31mlab07 tests passed![0m[35m\n\n"[0m
+
+   name.first, name.middle, name.last  = [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mSmith[0m[35m"[0m
+   assert name.first == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mSmith[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m
+   assert name.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m
+   name.readName
+
+   print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m
+
+   print [35m"[0m[31mAll tests passed![0m[35m\n"
+end[0m
+
+testName[42;63H63,0-1[8C96%[35;1H[34h[?25h[?25l[42;64H2,1  [34;1H[34h[?25h[?25l[42;64H1[33;1H[34h[?25h[?25l[42;64H0[32;1H[34h[?25h[?25l[42;63H59[31;1H[34h[?25h[?25l[42;64H8[30;1H[34h[?25h[?25l[42;64H7[29;1H[34h[?25h[?25l[42;64H6,0-1[28;1H[34h[?25h[?25l[42;64H5,1  [27;1H[34h[?25h[?25l[42;64H4[26;1H[34h[?25h[?25l[42;64H3[25;1H[34h[?25h[?25l[42;64H2[24;1H[34h[?25h[?25l[42;64H1[23;1H[34h[?25h[?25l[42;64H0[22;1H[34h[?25h[?25l[42;63H49,0-1[21;1H[34h[?25h[?25l[42;64H8,1  [20;1H[34h[?25h[?25l[42;64H7[19;1H[34h[?25h[?25l[42;64H6,0-1[18;1H[34h[?25h[?25l[42;64H5,1  [17;1H[34h[?25h[?25l[42;64H4[16;1H[34h[?25h[?25l[42;64H3[15;1H[34h[?25h[?25l[42;64H2[14;1H[34h[?25h[?25l[42;64H1[13;1H[34h[?25h[?25l[42;64H0[12;1H[34h[?25h[?25l[42;63H39[11;1H[34h[?25h[?25l[42;63H40[12;1H[34h[?25h[?25l[42;64H1[13;1H[34h[?25h[?25l[42;64H2[14;1H[34h[?25h[?25l[42;64H1[13;1H[34h[?25h[?25l[42;64H0[12;1H[34h[?25h[?25l[42;63H39[11;1H[34h[?25h[?25l[42;64H8[10;1H[34h[?25h[?25l[42;64H7,0-1[9;1H[34h[?25h[?25l[42;64H6,1  [8;1H[34h[?25h[?25l[42;64H5[7;1H[34h[?25h[?25l[42;64H4[6;1H[34h[?25h[?25l[42;64H3[5;1H[34h[?25h[?25l[42;64H2,0-1[4;1H[34h[?25h[?25l[42;64H1,1  [3;1H[34h[?25h[?25l[42;64H0[2;1H[34h[?25h[?25l[42;63H29[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mdef[0m [36mprint[0m[42;63H[K[42;63H28,1[10C93%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#and returns the name as a string[0m[42;63H[K[42;63H27,1[10C89%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#print prints the full name out[0m[42;63H[K[42;63H26,1[10C86%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[42;63H[K[42;63H25,0-1[8C82%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mend[0m[42;63H[K[42;63H24,1[10C79%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;4H myFullName = [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m + [35m"[0m[31m [0m[35m"[0m + [36m@last[0m[42;63H[K[42;63H23,1[10C75%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mdef[0m [36mfullName[0m[42;63H[K[42;63H22,1[10C72%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#full name of the person[0m[42;63H[K[42;63H21,1[10C68%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#fullName creates a string which contains the[0m[42;63H[K[42;63H20,1[10C65%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[42;63H[K[42;63H19,0-1[8C62%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [33mattr_accessor[0m [31m:first[0m, [31m:middle[0m, [31m:last[0m[42;63H[K[42;63H18,1[10C58%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#getters and setters for the instance variables[0m[42;63H[K[42;63H17,1[10C55%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[42;63H[K[42;63H16,0-1[8C51%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mend[0m[42;63H[K[42;63H15,1[10C48%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;4H [36m@first[0m, [36m@middle[0m, [36m@last[0m = first, middle, last[42;63H[K[42;63H14,1[10C44%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mdef[0m [36minitialize[0m(first, middle, last)[42;63H[K[42;63H13,1[10C41%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#default constructor[0m[42;63H[K[42;63H12,1[10C37%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;1H[35mclass[0m [32mName[0m[42;63H[K[42;63H11,1[10C34%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[42;63H[K[42;63H10,0-1[8C31%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;1H[35minclude[0m [32mTest[0m::[32mUnit[0m::[32mAssertions[0m[42;63H[K[42;63H9,1[11C27%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;1H[35mrequire[0m [35m'[0m[31mtest/unit/assertions[0m[35m'[0m   [34m# needed for assert[0m[42;63H[K[42;63H8,1[11C24%[1;1H[34h[?25h[?25l[42;63H9[2;1H[34h[?25h[?25l[42;63H10,0-1[3;1H[34h[?25h[?25l[42;64H1,1  [4;1H[34h[?25h[?25l[42;64H2[5;1H[34h[?25h[?25l[42;64H3[6;1H[34h[?25h[?25l[42;64H4[7;1H[34h[?25h[?25l[42;64H5[8;1H[34h[?25h[?25l[42;64H6,0-1[9;1H[34h[?25h[?25l[42;64H7,1  [10;1H[34h[?25h[?25l[42;64H8[11;1H[34h[?25h[?25l[42;64H9,0-1[12;1H[34h[?25h[?25l[42;63H20,1  [13;1H[34h[?25h[?25l[42;64H1[14;1H[34h[?25h[?25l[42;64H2[15;1H[34h[?25h[?25l[42;64H3[16;1H[34h[?25h[?25l[42;64H4[17;1H[34h[?25h[?25l[42;64H5,0-1[18;1H[34h[?25h[?25l[42;64H6,1  [19;1H[34h[?25h[?25l[42;64H7[20;1H[34h[?25h[?25l[42;64H8[21;1H[34h[?25h[?25l[42;64H9[22;1H[34h[?25h[?25l[42;63H30[23;1H[34h[?25h[?25l[42;64H1[24;1H[34h[?25h[?25l[42;64H2,0-1[25;1H[34h[?25h[?25l[42;64H3,1  [26;1H[34h[?25h[?25l[42;64H4[27;1H[34h[?25h[?25l[42;64H5[28;1H[34h[?25h[?25l[42;64H6[29;1H[34h[?25h[?25l[42;64H7,0-1[30;1H[34h[?25h[?25l[42;64H8,1  [31;1H[34h[?25h[?25l[42;64H9[32;1H[34h[?25h[?25l[42;66H2[32;2H[34h[?25h[?25l[42;66H3[32;3H[34h[?25h[?25l[42;66H4[32;4H[34h[?25h[?25l[42;66H5[32;5H[34h[?25h[?25l[42;66H6[32;6H[34h[?25h[?25l[42;66H7[32;7H[34h[?25h[?25l[42;66H8[32;8H[34h[?25h[?25l[42;66H9[32;9H[34h[?25h[?25l[42;66H10[32;10H[34h[?25h[?25l[42;67H1[32;11H[34h[?25h[?25l[42;67H2[32;12H[34h[?25h[?25l[42;67H3[32;13H[34h[?25h[?25l[42;67H4[32;14H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;63H[K[42;63H39,14[9C24%[32;14H[34h[?25h[?25l[42;67H5[32;15H[34h[?25h[?25l[36me[0m([42;67H6[32;16H[34h[?25h[?25l(t[42;67H7[32;17H[34h[?25h[?25lth[42;67H8[32;18H[34h[?25h[?25l[32;17H[K[42;67H7[32;17H[34h[?25h[?25l[32;16H[K[42;67H6[32;16H[34h[?25h[?25l(t[42;67H7[32;17H[34h[?25h[?25lth[42;67H8[32;18H[34h[?25h[?25lhe[42;67H9[32;19H[34h[?25h[?25leN[42;66H20[32;20H[34h[?25h[?25lNa[42;67H1[32;21H[34h[?25h[?25lam[42;67H2[32;22H[34h[?25h[?25lme[42;67H3[32;23H[34h[?25h[?25le)[32;15H[46m([7C)[0m[42;67H4[32;24H[34h[?25h[?25l[32;15H([7C)[42;63H40[33;24H[34h[?25h[?25l[42;64H1,22[34;22H[34h[?25h[?25l[42;67H1[34;21H[34h[?25h[?25l[42;67H0[34;20H[34h[?25h[?25l[42;66H19[34;19H[34h[?25h[?25l[42;67H8[34;18H[34h[?25h[?25l[42;67H7[34;17H[34h[?25h[?25l[42;67H6[34;16H[34h[?25h[?25l[42;67H5[34;15H[34h[?25h[?25l[42;67H4[34;14H[34h[?25h[?25l[42;67H3[34;13H[34h[?25h[?25l[42;67H2[34;12H[34h[?25h[?25l[42;67H1[34;11H[34h[?25h[?25l[42;67H0[34;10H[34h[?25h[?25l[42;66H9 [34;9H[34h[?25h[?25l[42;66H8[34;8H[34h[?25h[?25l[42;66H7[34;7H[34h[?25h[?25l[42;66H6[34;6H[34h[?25h[?25l[42;66H5[34;5H[34h[?25h[?25l tname.first = gets[42;66H6[34;6H[34h[?25h[?25lthname.first = gets[42;66H7[34;7H[34h[?25h[?25lhename.first = gets[42;66H8[34;8H[34h[?25h[?25leNname.first = gets[42;66H9[34;9H[34h[?25h[?25lName.first = gets[34;25H[K[34;9H[34h[?25h[?25l[42;64H2[35;9H[34h[?25h[?25l[42;66H8[35;8H[34h[?25h[?25l[42;66H7[35;7H[34h[?25h[?25l[42;66H6[35;6H[34h[?25h[?25l[42;66H5[35;5H[34h[?25h[?25l tname.middle = gets[42;66H6[35;6H[34h[?25h[?25lthname.middle = gets[42;66H7[35;7H[34h[?25h[?25lhename.middle = gets[42;66H8[35;8H[34h[?25h[?25leNname.middle = gets[42;66H9[35;9H[34h[?25h[?25lName.middle = gets[35;26H[K[35;9H[34h[?25h[?25l[42;64H3[36;9H[34h[?25h[?25l[42;66H8[36;8H[34h[?25h[?25l[42;66H7[36;7H[34h[?25h[?25l[42;66H6[36;6H[34h[?25h[?25l[42;66H5[36;5H[34h[?25h[?25l tname.last = gets[42;66H6[36;6H[34h[?25h[?25lthname.last = gets[42;66H7[36;7H[34h[?25h[?25lhename.last = gets[42;66H8[36;8H[34h[?25h[?25leNname.last = gets[42;66H9[36;9H[34h[?25h[?25lName.last = gets[36;24H[K[36;9H[34h[?25h[42;1H[K[36;8H[?25l[42;63H43,8[10C24%[36;8H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 70L, 1837C written[33C43,8[10C24%[42;63H[K[42;63H43,8[10C24%[36;8H[34h[?25h[?25l[42;64H4,5[37;5H[34h[?25h[?25l[42;64H5,3[38;3H[34h[?25h[?25l[42;64H6,0-1[39;1H[34h[?25h[?25l[42;64H7,8  [40;8H[34h[?25h[?25l[42;64H8[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;1H[K[42;63H49,0-1[8C27%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.first == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m[42;63H[K[42;63H50,8[10C31%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.middle == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m[42;63H[K[42;63H51,8[10C34%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.last == [35m"[0m[31mJones[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m[42;63H[K[42;63H52,8[10C37%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.fullName == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mfullName failed[0m[35m"[0m[42;63H[K[42;63H53,8[10C41%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.print == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mprint failed[0m[35m"[0m[42;63H[K[42;63H54,8[10C44%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mlab07 tests passed![0m[35m\n\n"[0m[42;63H[K[42;63H55,8[10C48%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H56,0-1[8C51%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H name.first, name.middle, name.last  = [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mSmith[0m[35m"[0m[42;63H[K[42;63H57,8[10C55%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.first == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m[42;63H[K[42;63H58,8[10C58%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.middle == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m[42;63H[K[42;63H59,8[10C62%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.last == [35m"[0m[31mSmith[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m[42;63H[K[42;63H60,8[10C65%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m[42;63H[K[42;63H61,8[10C68%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H name.readName[42;63H[K[42;63H62,8[10C72%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H63,0-1[8C75%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;63H[K[42;63H64,8[10C79%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H65,0-1[8C82%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mAll tests passed![0m[35m\n"[0m[42;63H[K[42;63H66,8[10C86%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;1H[35mend[0m[42;63H[K[42;63H67,3[10C89%[41;3H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H68,0-1[8C93%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;1HtestName[42;63H[K[42;63H69,8[10C96%[41;8H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H70,0-1[8CBot[41;1H[34h[?25h[23m[24m[0m[H[J[?25l[1;2H [34m#read in a new full name from the user[0m
+  [35mdef[0m [36mreadName[0m(theName)
+    puts([35m"\n[0m[31mEnter a new full name:[0m[35m\n"[0m)
+    theName.first = gets
+    theName.middle = gets
+    theName.last = gets
+  [35mend
+end
+
+def[0m [36mtestName[0m
+   name = [32mName[0m.new([35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJones[0m[35m"[0m)
+
+   assert name.first == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mJones[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m
+   assert name.fullName == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mfullName failed[0m[35m"[0m
+   assert name.print == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mprint failed[0m[35m"[0m
+   print [35m"[0m[31mlab07 tests passed![0m[35m\n\n"[0m
+
+   name.first, name.middle, name.last  = [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mSmith[0m[35m"[0m
+   assert name.first == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mSmith[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m
+   assert name.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m
+   name.readName
+
+   print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m
+
+   print [35m"[0m[31mAll tests passed![0m[35m\n"
+end[0m
+
+testName[34;63H70,0-1[8CBot[33;1H[34h[?25h[?25l[34;63H69,8  [32;8H[34h[?25h[?25l[34;64H8,0-1[31;1H[34h[?25h[?25l[34;64H7,3  [30;3H[34h[?25h[?25l[34;64H6,8[29;8H[34h[?25h[?25l[34;64H5,0-1[28;1H[34h[?25h[?25l[34;64H4,8  [27;8H[34h[?25h[?25l[34;64H3,0-1[26;1H[34h[?25h[?25l[34;64H2,8  [25;8H[34h[?25h[?25l[34;66H9[25;9H[34h[?25h[?25l[34;66H8[25;8H[34h[?25h[?25l[34;66H7[25;7H[34h[?25h[?25l[34;66H6[25;6H[34h[?25h[?25l[34;66H5[25;5H[34h[?25h[?25l[34;66H4[25;4H[34h[?25h[?25l ame.readName[25;16H[K[25;4H[34h[?25h[?25l me.readName[25;15H[K[25;4H[34h[?25h[?25l e.readName[25;14H[K[25;4H[34h[?25h[?25l .readName[25;13H[K[25;4H[34h[?25h[?25l readName[25;12H[K[25;4H[34h[?25h[?25l[34;66H11[25;11H[34h[?25h[?25l[34;1H[1m-- INSERT --[0m[34;63H[K[34;63H62,11[9CBot[25;11H[34h[?25h[?25lm e[34;67H2[25;12H[34h[?25h[?25lme[25;12H[K[34;67H1[25;11H[34h[?25h[?25l[34;67H2[25;12H[34h[?25h[?25le([34;67H3[25;13H[34h[?25h[?25l(n[34;67H4[25;14H[34h[?25h[?25lna[34;67H5[25;15H[34h[?25h[?25lam[34;67H6[25;16H[34h[?25h[?25lme[34;67H7[25;17H[34h[?25h[?25le)[46m([0mname[46m)[0m[34;67H8[25;18H[34h[?25h[34;1H[K[25;17H[?25l[34;63H62,17[9CBot[25;17H[34h[?25h[?25l[34;63H[K[34;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 70L, 1838C written[33C62,17[9CBot[34;63H[K[34;63H62,17[9CBot[25;17H[34h[?25h[23m[24m[0m[H[J[?25l[2;2H [34m#return a name in last, first (middle initial) format[0m
+  [35mdef[0m [36mlfmi[0m
+    myLFMI = [36m@last[0m + [35m"[0m[31m, [0m[35m"[0m + [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m.chars.first + [35m"[0m[31m.[0m[35m"[0m
+  [35mend[0m
+
+  [34m#read in a new full name from the user[0m
+  [35mdef[0m [36mreadName[0m(theName)
+    puts([35m"\n[0m[31mEnter a new full name:[0m[35m\n"[0m)
+    theName.first = gets
+    theName.middle = gets
+    theName.last = gets
+  [35mend
+end
+
+def[0m [36mtestName[0m
+   name = [32mName[0m.new([35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJones[0m[35m"[0m)
+
+   assert name.first == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mJones[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m
+   assert name.fullName == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mfullName failed[0m[35m"[0m
+   assert name.print == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mprint failed[0m[35m"[0m
+   print [35m"[0m[31mlab07 tests passed![0m[35m\n\n"[0m
+
+   name.first, name.middle, name.last  = [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mSmith[0m[35m"[0m
+   assert name.first == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m
+   assert name.middle == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mSmith[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m
+   assert name.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m
+   readName[46m([0mname[46m)[0m
+
+   print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m
+
+   print [35m"[0m[31mAll tests passed![0m[35m\n"
+end[0m
+
+testName
+
+[1m[34m~                                                                               [41;1H~                                                                               [0m[42;63H62,17[9CBot[31;17H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 70L, 1838C written[33C62,17[9CBot[42;63H[K[42;63H62,17[9CBot[31;17H[34h[?25h[?25l(name)[42;64H3,0-1[32;1H[34h[?25h[?25l[31;12H[46m([0mname[46m)[0m[42;64H2,17 [31;17H[34h[?25h[?25l(name)[42;64H1[30;17H[34h[?25h[?25l[42;64H0[29;17H[34h[?25h[?25l[42;63H59[28;17H[34h[?25h[?25l[42;64H8[27;17H[34h[?25h[?25l[42;64H7[26;17H[34h[?25h[?25l[42;64H6,0-1[25;1H[34h[?25h[?25l[42;64H5,17 [24;17H[34h[?25h[?25l[42;64H4[23;17H[34h[?25h[?25l[42;64H3[22;17H[34h[?25h[?25l[42;64H2[21;17H[34h[?25h[?25l[42;64H1[20;17H[34h[?25h[?25l[42;64H0[19;17H[34h[?25h[?25l[42;63H49,0-1[18;1H[34h[?25h[?25l[42;64H8,17 [17;17H[34h[?25h[?25l[42;64H7,12[16;12H[34h[?25h[?25l[42;64H6,0-1[15;1H[34h[?25h[?25l[42;64H5,3  [14;3H[34h[?25h[?25l[42;64H4,5[13;5H[34h[?25h[?25l[42;64H3,17[12;17H[34h[?25h[?25l[42;64H2[11;17H[34h[?25h[?25l[42;64H1[10;17H[34h[?25h[?25l[42;64H0[9;17H[34h[?25h[?25l[42;63H39[8;17H[34h[?25h[?25l[42;64H8[7;17H[34h[?25h[?25l[42;64H7,0-1[6;1H[34h[?25h[?25l[42;64H6,5  [5;5H[34h[?25h[?25l[42;64H5,17[4;17H[34h[?25h[?25l[42;64H4,10[3;10H[34h[?25h[?25l[42;64H3,17[2;17H[34h[?25h[?25l[42;64H2,0-1[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mend[0m[42;1H[K[42;63H31,5[10CBot[1;5H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;4H fullName[42;63H[K[42;63H30,12[9CBot[1;12H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;4H puts(fullName)[42;63H[K[42;63H29,17[9C96%[1;17H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mdef[0m [36mprint[0m[42;63H[K[42;63H28,11[9C93%[1;11H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#and returns the name as a string[0m[42;63H[K[42;63H27,17[9C89%[1;17H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#print prints the full name out[0m[42;63H[K[42;63H26,17[9C86%[1;17H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[42;63H[K[42;63H25,0-1[8C82%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mend[0m[42;63H[K[42;63H24,5[10C79%[1;5H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;4H myFullName = [36m@first[0m + [35m"[0m[31m [0m[35m"[0m + [36m@middle[0m + [35m"[0m[31m [0m[35m"[0m + [36m@last[0m[42;63H[K[42;63H23,17[9C75%[1;17H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mdef[0m [36mfullName[0m[42;63H[K[42;63H22,14[9C72%[1;14H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#full name of the person[0m[42;63H[K[42;63H21,17[9C68%[1;17H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#fullName creates a string which contains the[0m[42;63H[K[42;63H20,17[9C65%[1;17H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[42;63H[K[42;63H19,0-1[8C62%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [33mattr_accessor[0m [31m:first[0m, [31m:middle[0m, [31m:last[0m[42;63H[K[42;63H18,17[9C58%[1;17H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#getters and setters for the instance variables[0m[42;63H[K[42;63H17,17[9C55%[1;17H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[42;63H[K[42;63H16,0-1[8C51%[1;1H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mend[0m[42;63H[K[42;63H15,5[10C48%[1;5H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;4H [36m@first[0m, [36m@middle[0m, [36m@last[0m = first, middle, last[42;63H[K[42;63H14,17[9C44%[1;17H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [35mdef[0m [36minitialize[0m[46m([0mfirst, middle, last[46m)[0m[42;63H[K[42;63H13,17[9C41%[1;17H[34h[?25h[?25l[1;41r[1;1H[L[1;42r[1;2H [34m#default constructor[0m[2;17H([19C)[42;63H[K[42;63H12,17[9C37%[1;17H[34h[?25h[?25l[2;17H[46m([19C)[0m[42;64H3[2;17H[34h[?25h[?25l([19C)[42;64H4[3;17H[34h[?25h[?25l[42;64H5,5 [4;5H[34h[?25h[?25l[42;64H6,0-1[5;1H[34h[?25h[?25l[42;64H7,17 [6;17H[34h[?25h[?25l[42;64H8[7;17H[34h[?25h[?25l[42;64H9,0-1[8;1H[34h[?25h[?25l[42;63H20,17 [9;17H[34h[?25h[?25l[42;64H1[10;17H[34h[?25h[?25l[42;64H2,14[11;14H[34h[?25h[?25l[42;64H3,17[12;17H[34h[?25h[?25l[42;64H4,5 [13;5H[34h[?25h[?25l[42;64H5,0-1[14;1H[34h[?25h[?25l[42;64H6,17 [15;17H[34h[?25h[?25l[42;64H7[16;17H[34h[?25h[?25l[42;64H8,11[17;11H[34h[?25h[?25l[42;64H9,17[18;17H[34h[?25h[?25l[42;63H30,12[19;12H[34h[?25h[?25l[42;64H1,5 [20;5H[34h[?25h[?25l[42;64H2,0-1[21;1H[34h[?25h[?25l[42;64H3,17 [22;17H[34h[?25h[?25l[42;64H4,10[23;10H[34h[?25h[?25l[42;64H5,17[24;17H[34h[?25h[?25l[42;64H6,5 [25;5H[34h[?25h[?25l[42;64H7,0-1[26;1H[34h[?25h[?25l[42;64H8,17 [27;17H[34h[?25h[?25l[42;64H9[28;17H[34h[?25h[?25l[42;63H40[29;17H[34h[?25h[?25l[42;64H1[30;17H[34h[?25h[?25l[42;67H6[30;16H[34h[?25h[?25l[42;67H5[30;15H[34h[?25h[?25l[42;67H4[30;14H[34h[?25h[?25l[42;67H3[30;13H[34h[?25h[?25l[42;67H2[30;12H[34h[?25h[?25l[42;67H1[30;11H[34h[?25h[?25l[42;67H0[30;10H[34h[?25h[?25l[42;66H9 [30;9H[34h[?25h[?25l[42;66H8[30;8H[34h[?25h[?25l[42;66H7[30;7H[34h[?25h[?25l[42;66H6[30;6H[34h[?25h[?25l[42;66H5[30;5H[34h[?25h[?25l heName.first = gets[30;24H[K[30;5H[34h[?25h[?25l eName.first = gets[30;23H[K[30;5H[34h[?25h[?25l [32mName[0m.first = gets[30;22H[K[30;5H[34h[?25h[?25l ame.first = gets[30;21H[K[30;5H[34h[?25h[?25l me.first = gets[30;20H[K[30;5H[34h[?25h[?25l e.first = gets[30;19H[K[30;5H[34h[?25h[?25l .first = gets[30;18H[K[30;5H[34h[?25h[?25l first = gets[30;17H[K[30;5H[34h[?25h[?25l irst = gets[30;16H[K[30;5H[34h[?25h[?25l rst = gets[30;15H[K[30;5H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;63H[K[42;63H41,5[10C37%[30;5H[34h[?25h[?25l st = gets[30;14H[K[30;5H[34h[?25h[?25l t = gets[30;13H[K[30;5H[34h[?25h[?25l  = gets[30;12H[K[30;5H[34h[?25h[?25l @ = gets[42;66H6[30;6H[34h[?25h[?25l[36m@f[0m = gets[42;66H7[30;7H[34h[?25h[?25l[36mfr[0m = gets[42;66H8[30;8H[34h[?25h[?25l[36mf[0m = gets[30;14H[K[42;66H7[30;7H[34h[?25h[?25l[36mfi[0m = gets[42;66H8[30;8H[34h[?25h[?25l[36mir[0m = gets[42;66H9[30;9H[34h[?25h[?25l[36mrs[0m = gets[42;66H10[30;10H[34h[?25h[?25l[36mst[0m = gets[42;67H1[30;11H[34h[?25h[?25l[42;64H2[31;11H[34h[?25h[?25lm.middle = gets[31;25H[K[31;11H[34h[?25h[?25lmmiddle = gets[31;24H[K[31;11H[34h[?25h[?25lmiddle = gets[31;23H[K[42;67H0[31;10H[34h[?25h[?25lNmiddle = gets[31;22H[K[42;66H9 [31;9H[34h[?25h[?25lemiddle = gets[31;21H[K[42;66H8[31;8H[34h[?25h[?25lhmiddle = gets[31;20H[K[42;66H7[31;7H[34h[?25h[?25ltmiddle = gets[31;19H[K[42;66H6[31;6H[34h[?25h[?25l middle = gets[31;18H[K[42;66H5[31;5H[34h[?25h[?25l [36m@middle[0m = gets[42;66H6[31;6H[34h[?25h[?25l[42;64H3[32;6H[34h[?25h[?25l[42;66H5[32;5H[34h[?25h[?25l[42;66H4[32;4H[34h[?25h[?25l[42;66H5[32;5H[34h[?25h[?25l heName.last = gets[32;23H[K[32;5H[34h[?25h[?25l eName.last = gets[32;22H[K[32;5H[34h[?25h[?25l [32mName[0m.last = gets[32;21H[K[32;5H[34h[?25h[?25l ame.last = gets[32;20H[K[32;5H[34h[?25h[?25l me.last = gets[32;19H[K[32;5H[34h[?25h[?25l e.last = gets[32;18H[K[32;5H[34h[?25h[?25l .last = gets[32;17H[K[32;5H[34h[?25h[?25l last = gets[32;16H[K[32;5H[34h[?25h[?25l ast = gets[32;15H[K[32;5H[34h[?25h[?25l st = gets[32;14H[K[32;5H[34h[?25h[?25l t = gets[32;13H[K[32;5H[34h[?25h[?25l  = gets[32;12H[K[32;5H[34h[?25h[?25l @ = gets[42;66H6[32;6H[34h[?25h[?25l[36m@l[0m = gets[42;66H7[32;7H[34h[?25h[?25l[36mla[0m = gets[42;66H8[32;8H[34h[?25h[?25l[36mas[0m = gets[42;66H9[32;9H[34h[?25h[?25l[36mst[0m = gets[42;66H10[32;10H[34h[?25h[?25l[42;64H2[31;10H[34h[?25h[?25l[42;64H1[30;10H[34h[?25h[?25l[29;9H[46m([28C)[0m[42;64H0[29;10H[34h[?25h[?25l([28C)[42;67H1[29;11H[34h[?25h[?25l[42;67H2[29;12H[34h[?25h[?25l[42;67H3[29;13H[34h[?25h[?25l[42;63H39[28;13H[34h[?25h[?25l[42;67H4[28;14H[34h[?25h[?25l[1C[46m([7C)[0m[42;67H5[28;15H[34h[?25h[?25l[36me[0m[36m[46mt[0m[36mheName[0m)[46m [0m[28;15H[36mt[0m[28;23H[K[28;15H[34h[?25h[?25l[36meheName[0m)[28;22H[K[28;15H[34h[?25h[?25l[36meeName[0m)[28;21H[K[28;15H[34h[?25h[?25l[36meName[0m)[28;20H[K[28;15H[34h[?25h[?25l[36meame[0m)[28;19H[K[28;15H[34h[?25h[?25l[36meme[0m)[28;18H[K[28;15H[34h[?25h[?25l[36mee[0m)[28;17H[K[28;15H[34h[?25h[?25l[36me[0m)[28;16H[K[28;15H[34h[?25h[?25l[28;15H[K[28;15H[34h[?25h[?25l[28;41r[41;1H
+[1;42r[28;2H [35mdef[0m [36mreadName[0m    puts([35m"\n[0m[31mEnter a new full name:[0m[35m\n"[0m)[41;3H assert name.fullName == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mfullName failed[0m[35m"[0m[42;63H[K[42;63H39,15[9C39%[28;15H[34h[?25h[?25l[29;41r[29;1H[L[1;42r[28;19H[K[29;4H puts([35m"\n[0m[31mEnter a new full name:[0m[35m\n"[0m)[42;63H[K[42;63H40,1[10C37%[29;1H[34h[?25h[42;1H[K[29;1H[?25l[42;63H40,1[10C37%[29;1H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 70L, 1808C written[33C40,1[10C37%[42;63H[K[42;63H40,1[10C37%[29;1H[34h[?25h[?25l[42;64H1[30;1H[34h[?25h[?25l[42;64H2[31;1H[34h[?25h[?25l[42;64H3[32;1H[34h[?25h[?25l[42;64H4[33;1H[34h[?25h[?25l[42;64H5[34;1H[34h[?25h[?25l[42;64H6,0-1[35;1H[34h[?25h[?25l[42;64H7,1  [36;1H[34h[?25h[?25l[42;64H8[37;1H[34h[?25h[?25l[42;64H9,0-1[38;1H[34h[?25h[?25l[42;63H50,1  [39;1H[34h[?25h[?25l[42;64H1[40;1H[34h[?25h[?25l[42;64H2[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.fullName == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mfullName failed[0m[35m"[0m[42;1H[K[42;63H53,1[10C41%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.print == [35m"[0m[31mJohn Paul Jones[0m[35m"[0m, [35m"[0m[31mprint failed[0m[35m"[0m[42;63H[K[42;63H54,1[10C44%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mlab07 tests passed![0m[35m\n\n"[0m[42;63H[K[42;63H55,1[10C48%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H56,0-1[8C51%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H name.first, name.middle, name.last  = [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mSmith[0m[35m"[0m[42;63H[K[42;63H57,1[10C55%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.first == [35m"[0m[31mPaul[0m[35m"[0m, [35m"[0m[31mfirst failed[0m[35m"[0m[42;63H[K[42;63H58,1[10C58%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.middle == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m[42;63H[K[42;63H59,1[10C62%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.last == [35m"[0m[31mSmith[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m[42;63H[K[42;63H60,1[10C65%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H assert name.lfmi == [35m"[0m[31mSmith, Paul J.[0m[35m"[0m, [35m"[0m[31mlfmi failed[0m[35m"[0m[42;63H[K[42;63H61,1[10C68%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H readName(name)[42;63H[K[42;63H62,1[10C72%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H63,0-1[8C75%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;63H[K[42;63H64,1[10C79%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H65,0-1[8C82%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;3H print [35m"[0m[31mAll tests passed![0m[35m\n"[0m[42;63H[K[42;63H66,1[10C86%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;1H[35mend[0m[42;63H[K[42;63H67,1[10C89%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H68,0-1[8C93%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[41;1HtestName[42;63H[K[42;63H69,1[10C96%[41;1H[34h[?25h[?25l[1;41r[41;1H
+[1;42r[42;63H[K[42;63H70,0-1[8CBot[41;1H[34h[?25h[?25l[42;63H69,1  [40;1H[34h[?25h[?25l[42;64H8,0-1[39;1H[34h[?25h[?25l[42;64H7,1  [38;1H[34h[?25h[?25l[42;64H6[37;1H[34h[?25h[?25l[42;64H5,0-1[36;1H[34h[?25h[?25l[42;64H4,1  [35;1H[34h[?25h[?25l[42;64H3,0-1[34;1H[34h[?25h[?25l[42;64H2,1  [33;1H[34h[?25h[?25l[11C[46m([0mname[46m)[0m[42;67H7[33;17H[34h[?25h[?25l(name)[42;67H6[33;16H[34h[?25h[?25l[46m([0mname[46m)[0m[42;67H7[33;17H[34h[?25h[?25l([33;17H[K[42;67H6[33;16H[34h[?25h[?25l[42;67H5[33;15H[34h[?25h[?25l[42;67H4[33;14H[34h[?25h[?25l[42;67H3[33;13H[34h[?25h[?25l[42;67H2[33;12H[34h[?25h[?25lename[33;16H[K[33;12H[34h[?25h[?25leame[33;15H[K[33;12H[34h[?25h[?25leme[33;14H[K[33;12H[34h[?25h[?25lee[33;13H[K[33;12H[34h[?25h[?25l[33;12H[K[42;67H1[33;11H[34h[?25h[?25l[33;11H[K[42;67H0[33;10H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;63H[K[42;63H62,10[9CBot[33;10H[34h[?25h[?25l[42;67H1[33;11H[34h[?25h[?25lme[42;67H2[33;12H[34h[?25h[?25l[42;67H1[33;11H[34h[?25h[?25l[42;67H0[33;10H[34h[?25h[?25l[42;66H9 [33;9H[34h[?25h[?25l[42;66H8[33;8H[34h[?25h[?25l[42;66H7[33;7H[34h[?25h[?25l[42;66H6[33;6H[34h[?25h[?25l[42;66H5[33;5H[34h[?25h[?25l[42;66H4[33;4H[34h[?25h[?25l[42;66H3[33;3H[34h[?25h[?25l[42;66H4[33;4H[34h[?25h[?25l nreadName[42;66H5[33;5H[34h[?25h[?25lnareadName[42;66H6[33;6H[34h[?25h[?25lamreadName[42;66H7[33;7H[34h[?25h[?25lmereadName[42;66H8[33;8H[34h[?25h[?25le.readName[42;66H9[33;9H[34h[?25h[42;1H[K[33;8H[?25l[42;63H62,8[10CBot[33;8H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 70L, 1807C written[33C62,8[10CBot[42;63H[K[42;63H62,8[10CBot[33;8H[34h[?25h[?25l[42;64H3,0-1[34;1H[34h[?25h[?25l[42;64H4,4  [35;4H[34h[?25h[?25l[42;64H3,0-1[34;1H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;13H[K[42;63H63,1[10CBot[34;1H[34h[?25h[?25l[35;41r[35;1H[L[1;42r[42;63H[K[42;63H64,1[10C96%[35;1H[34h[?25h[?25l[34;41r[41;1H
+[1;42r[42;63H[K[42;63H63,1[10CBot[34;1H[34h[?25h[?25l[42;66H2[34;2H[34h[?25h[?25l[42;66H3[34;3H[34h[?25h[?25l[42;66H4[34;4H[34h[?25h[?25l a[42;66H5[34;5H[34h[?25h[?25las[42;66H6[34;6H[34h[?25h[?25lss[42;66H7[34;7H[34h[?25h[?25lse[42;66H8[34;8H[34h[?25h[?25let[42;66H9[34;9H[34h[?25h[?25l[42;66H10[34;10H[34h[?25h[?25l[42;66H9 [34;9H[34h[?25h[?25l[34;8H[K[42;66H8[34;8H[34h[?25h[?25ler[42;66H9[34;9H[34h[?25h[?25lrt[42;66H10[34;10H[34h[?25h[?25l[42;67H1[34;11H[34h[?25h[?25l n[42;67H2[34;12H[34h[?25h[?25lna[42;67H3[34;13H[34h[?25h[?25lam[42;67H4[34;14H[34h[?25h[?25lme[42;67H5[34;15H[34h[?25h[?25le.[42;67H6[34;16H[34h[?25h[?25l.f[42;67H7[34;17H[34h[?25h[?25lfi[42;67H8[34;18H[34h[?25h[?25lir[42;67H9[34;19H[34h[?25h[?25lrs[42;66H20[34;20H[34h[?25h[?25lst[42;67H1[34;21H[34h[?25h[?25l[42;67H2[34;22H[34h[?25h[?25l =[42;67H3[34;23H[34h[?25h[?25l==[42;67H4[34;24H[34h[?25h[?25l[42;67H5[34;25H[34h[?25h[?25l[42;67H4[34;24H[34h[?25h[?25l[34;23H[K[42;67H3[34;23H[34h[?25h[?25l[34;22H[K[42;67H2[34;22H[34h[?25h[?25l ![42;67H3[34;23H[34h[?25h[?25l!=[42;67H4[34;24H[34h[?25h[?25l[42;67H5[34;25H[34h[?25h[?25l [35m"[0m
+[31m   print [0m[1C[32mProject07[0m tests passed!\n
+
+[31m   print [0m[1C[32mAll[0m tests passed!\n
+[31mend
+
+testName[0m[42;67H6[34;26H[34h[?25h[?25l[35m"[0m[31mP[0m[42;67H7[34;27H[34h[?25h[?25l[31mPa[0m[42;67H8[34;28H[34h[?25h[?25l[31mau[0m[42;67H9[34;29H[34h[?25h[?25l[31mul[0m[42;66H30[34;30H[34h[?25h[?25l[31ml[0m[35m"[0m
+   print [1C[31mProject07 tests passed![0m[35m\n[0m
+
+   print [1C[31mAll tests passed![0m[35m\n
+end[0m
+
+testName[42;67H1[34;31H[34h[?25h[?25l[35m"[0m,[42;67H2[34;32H[34h[?25h[?25l[42;67H3[34;33H[34h[?25h[?25l [35m"[0m
+[31m   print [0m[1C[32mProject07[0m tests passed!\n
+
+[31m   print [0m[1C[32mAll[0m tests passed!\n
+[31mend
+
+testName[0m[42;67H4[34;34H[34h[?25h[?25l[35m"[0m[31mf[0m[42;67H5[34;35H[34h[?25h[?25l[31mfi[0m[42;67H6[34;36H[34h[?25h[?25l[31mir[0m[42;67H7[34;37H[34h[?25h[?25l[31mrs[0m[42;67H8[34;38H[34h[?25h[?25l[31mst[0m[42;67H9[34;39H[34h[?25h[?25l[31m [0m[42;66H40[34;40H[34h[?25h[?25l[31m f[0m[42;67H1[34;41H[34h[?25h[?25l[31mfa[0m[42;67H2[34;42H[34h[?25h[?25l[31mai[0m[42;67H3[34;43H[34h[?25h[?25l[31mil[0m[42;67H4[34;44H[34h[?25h[?25l[31mle[0m[42;67H5[34;45H[34h[?25h[?25l[31med[0m[42;67H6[34;46H[34h[?25h[?25l[31md[0m[35m"[0m
+   print [1C[31mProject07 tests passed![0m[35m\n[0m
+
+   print [1C[31mAll tests passed![0m[35m\n
+end[0m
+
+testName[42;67H7[34;47H[34h[?25h[?25l[35;41r[35;1H[L[1;42r[42;63H[K[42;63H64,1[10C96%[35;1H[34h[?25h[?25l[42;66H2[35;2H[34h[?25h[?25l[42;66H3[35;3H[34h[?25h[?25l[42;66H4[35;4H[34h[?25h[42;1H[K[35;3H[?25l[42;63H64,3[10C96%[35;3H[34h[?25h[?25l[42;64H3[34;3H[34h[?25h[?25l[42;64H2[33;3H[34h[?25h[?25l[42;64H1[32;3H[34h[?25h[?25l[42;64H0[31;3H[34h[?25h[?25l[42;63H59[30;3H[34h[?25h[?25l[42;66H4[30;4H[34h[?25h[?25l[7m   [0ma[7mssert name.middle == [0m[7m[35m"[0m[7m[31mJohn[0m[7m[35m"[0m[7m, [0m[7m[35m"[0m[7m[31mmiddle failed[0m[7m[35m"[0m[7m [0m[42;1H[1m-- VISUAL LINE --[0m[42;63H[K[42;63H59,4[10C96%[30;4H[34h[?25h[?25l[7ma
+   [0ma[7mssert name.last == [0m[7m[35m"[0m[7m[31mSmith[0m[7m[35m"[0m[7m, [0m[7m[35m"[0m[7m[31mlast failed[0m[7m[35m"[0m[7m [0m[42;63H60[31;4H[34h[?25h[?25l[30;1H   assert name.middle == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m[30;49H[K[31;1H   assert name.last == [35m"[0m[31mSmith[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m[31;46H[K[42;1H[K[42;63H59,1[10C96%[30;1H[34h[?25h[?25l[42;63H60[31;1H[34h[?25h[?25l[42;64H1[32;1H[34h[?25h[?25l[42;64H2[33;1H[34h[?25h[?25l[42;64H3[34;1H[34h[?25h[?25l[42;64H4[35;1H[34h[?25h[?25l[42;64H5[36;1H[34h[?25h[?25l[42;64H4[35;1H[34h[?25h[?25l[35;41r[35;1H[2L[1;42r[35;3H assert name.middle == [35m"[0m[31mJohn[0m[35m"[0m, [35m"[0m[31mmiddle failed[0m[35m"[0m
+   assert name.last == [35m"[0m[31mSmith[0m[35m"[0m, [35m"[0m[31mlast failed[0m[35m"[0m[42;63H[K[42;63H64,4[10C90%[35;4H[34h[?25h[?25l[42;64H5[36;4H[34h[?25h[?25l[42;64H6,3[37;3H[34h[?25h[?25l[42;64H7,4[38;4H[34h[?25h[?25l[42;64H6,3[37;3H[34h[?25h[?25l[42;1H[1m-- INSERT --[0m[42;63H[K[42;63H66,3[10C90%[37;3H[34h[?25h[?25l[34h[?25h[?25l[37;41r[41;1H
+[1;42r[37;3H   print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[42;63H[K[42;63H66,3[10C93%[37;3H[34h[?25h[?25l  print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[37;38H[K[37;3H[34h[?25h[?25l print [35m"[0m[31mProject07 tests passed![0m[35m\n"[0m[37;37H[K[37;3H[34h[?25h[?25l[42;64H5[36;3H[34h[?25h[?25l[42;66H4[36;4H[34h[?25h[?25l[42;66H5[36;5H[34h[?25h[?25l[42;66H6[36;6H[34h[?25h[?25l[42;66H7[36;7H[34h[?25h[?25l[42;66H8[36;8H[34h[?25h[?25l[42;66H9[36;9H[34h[?25h[?25l[42;66H10[36;10H[34h[?25h[?25l[42;67H1[36;11H[34h[?25h[?25l[42;67H2[36;12H[34h[?25h[?25l[42;67H3[36;13H[34h[?25h[?25l[42;67H4[36;14H[34h[?25h[?25l[42;67H5[36;15H[34h[?25h[?25l[42;67H6[36;16H[34h[?25h[?25l[42;67H7[36;17H[34h[?25h[?25l[42;67H9[36;19H[34h[?25h[?25l[42;66H20[36;20H[34h[?25h[?25l[42;67H1[36;21H[34h[?25h[?25l[42;67H2[36;22H[34h[?25h[?25l[42;67H1[36;21H[34h[?25h[?25l[42;4H[1mREPLACE --[0m[42;63H[K[42;63H65,21[9C93%[36;21H[34h[?25h[?25l ![42;67H2[36;22H[34h[?25h[?25l[42;64H4[35;22H[34h[?25h[?25l[42;67H3[35;23H[34h[?25h[?25l ![42;67H4[35;24H[34h[?25h[42;1H[K[35;23H[?25l[42;63H64,23[9C93%[35;23H[34h[?25h[?25l[42;63H[K[42;1H:[34h[?25hw[?25l[34h[?25h[?25l"namer.rb" 72L, 1948C written[33C64,23[9C93%[42;63H[K[42;63H64,23[9C93%[35;23H[34h[?25h[?25l[42;1H[K[42;1H:[34h[?25hq[?25l[34h[?25h[?25l[42;1H[K[42;1H[?1l>[34h[?25h[?1049ltheo@theo-VBox:~/Documents/cs214/code/07$ ls -l
+total 116
+-rw-rw-r-- 1 theo theo  6866 Apr  9 19:25 ada.script
+-rwxrwxr-x 1 theo theo 19765 Apr  9 09:56 [0m[01;32mcpp_namer[0m
+drwxrwxr-x 3 theo theo  4096 Apr  9 09:54 [01;34mlab07-scripts[0m
+-rw-rw-r-- 1 theo theo   625 Apr  6 21:23 Makefile
+-rwxrwxr-x 1 theo theo 29790 Apr  9 19:22 [01;32mnamer[0m
+-rw-rw-r-- 1 theo theo  6131 Apr  9 19:22 namer.adb
+-rw-rw-r-- 1 theo theo  3697 Apr  9 19:22 namer.ali
+-rw-rw-r-- 1 theo theo  5196 Apr  9 09:31 namer.cpp
+-rw-rw-r-- 1 theo theo  2987 Apr  6 21:23 namer.el
+-rw-rw-r-- 1 theo theo  9664 Apr  9 19:22 namer.o
+-rw-rw-r-- 1 theo theo  1948 Apr 10 08:42 namer.rb
+drwxrwxr-x 2 theo theo  4096 Apr  9 09:56 [01;34mproject07-scripts[0m
+-rw-rw-r-- 1 theo theo  2419 Apr 10 08:43 ruby.script
+theo@theo-VBox:~/Documents/cs214/code/07$ mv ru[K[K[K ru[K[K*.script[1P*.script[1P.script[1Pscript[1Pcript[1Pript[1Pipt[1Ppt[1Pt[K -h
+mv: invalid option -- 'h'
+Try `mv --help' for more information.
+theo@theo-VBox:~/Documents/cs214/code/07$ mv --help
+Usage: mv [OPTION]... [-T] SOURCE DEST
+  or:  mv [OPTION]... SOURCE... DIRECTORY
+  or:  mv [OPTION]... -t DIRECTORY SOURCE...
+Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY.
+
+ManScript started on Wed 09 Apr 2014 07:24:45 PM EDT
+theo@theo-VBox:~/Documents/cs214/code/07$ cat namer.adb
+-- namer.adb "test-drives" the Name type.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date: 09 April 2014
+----------------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure namer is
+
+  NAME_SIZE : constant Integer := 8;
+
+  type Name is
+    record
+      myFirst, myMiddle, myLast : String( 1..NAME_SIZE );
+    end record;
+
+  aName : Name ;
+
+
+  ----------------------------------------------
+  -- Init initializes a Name variable          -
+  -- Receive: theName, the Name variable;      -
+  --          First, the first name;           -
+  --          Middle, the middle name;         -
+  --          Last, the last name.             -
+  -- Return: theName, its fields set to First, -
+  --               Middle, and Last.           -
+  ----------------------------------------------
+  procedure Init (TheName : out Name; First, Middle, Last : in String) is
+  begin
+    TheName.myFirst := First;
+    TheName.myMiddle := Middle;
+    TheName.myLast := Last;
+  end Init;
+
+  ----------------------------------------------
+  -- getFirst(Name) retrieves Name.myFirst     -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myFirst.                  -
+  ----------------------------------------------
+  function getFirst(TheName : in Name) return String is
+  begin 
+    return TheName.myFirst;
+  end getFirst;
+
+  ----------------------------------------------
+  -- getMiddle(Name) retrieves Name.myMiddle   -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myMiddle                  -
+  ----------------------------------------------
+  function getMiddle(TheName : in Name) return String is
+  begin 
+    return TheName.myMiddle;
+  end getMiddle;
+
+  ----------------------------------------------
+  -- getLast(Name) retrieves Name.myLast       -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myLast                    -
+  ----------------------------------------------
+  function getLast(TheName : in Name) return String is
+  begin 
+    return TheName.myLast;
+  end getLast;
+
+  ------------------------------------------------
+  -- getFullName(Name) retrieves Name as a String-
+  -- Receive: theName, a Name.                   -
+  -- PRE: theName has been initialized.          -
+  -- Return: a String representation of theName  -
+  ------------------------------------------------
+  function getFullName(TheName : in Name) return String is
+  fullName : String(1..(3 * NAME_SIZE + 2));
+  begin
+    fullName := getFirst(TheName) & " " & getMiddle(TheName) & " " & getLast(TheName);
+    return fullName;
+  end getFullName;
+
+  ----------------------------------------------
+  -- Put(Name) displays a Name value.          -
+  -- PRE: theName has been initialized.        -
+  -- Receive: theName, a Name.                 -
+  -- Output: theName, to the screen.           -
+  ----------------------------------------------
+  procedure Put(TheName : in Name) is
+  begin
+    Put(getFirst(TheName) & " " & getMiddle(TheName) & " " & getLast(TheName));
+  end Put;
+
+  ---------------------------------------------
+  -- project07 changes                       --
+  ---------------------------------------------
+
+  ---------------------------------------------
+  -- setters for the Name class              --
+  -- sets the corresponding name to the Name --
+  -- variable                                --
+  ---------------------------------------------
+  procedure setFirst( TheName : out Name; first : in String ) is
+  begin
+    TheName.myFirst := first;
+  end setFirst;
+
+  procedure setMiddle( TheName : out Name; middle : in String ) is
+  begin
+    TheName.myMiddle := middle;
+  end setMiddle;
+
+  procedure setLast( TheName : out Name; last : in String ) is
+  begin
+    TheName.myLast := last;
+  end setLast;
+
+  ---------------------------------------------
+  -- lmfi() prints out the Name in           --
+  -- last, first (iddle initial). format     --
+  ---------------------------------------------
+  function lfmi( TheName : in Name ) return String is
+  middleInitial : Character := ' ';
+  begin
+    middleInitial := getMiddle(TheName)(getMiddle(TheName)'First);
+    return getLast(TheName) & ", " & getFirst(TheName) & " " & MiddleInitial & ".";
+  end lfmi;
+
+  ---------------------------------------------
+  -- project07 changes                       --
+  ---------------------------------------------
+  procedure readName(TheName : in out Name) is
+  someName : String := "no name ";
+  begin
+    New_Line;
+    Put("enter a new name, first, middle, and last:");
+    New_Line;
+    Get(someName);
+    TheName.myFirst := someName;
+    Get(someName);
+    TheName.myMiddle := someName;
+    Get(someName);
+    TheName.myLast := someName;
+  end readName;
+
+begin
+   Init(aName, "John    ", "Paul    ", "Jones   ");
+
+   pragma Assert( getFirst(aName) = "John    ", "getFirst() failed");
+   pragma Assert( getMiddle(aName) = "Paul    ", "getMiddle() failed");
+   pragma Assert( getLast(aName) = "Jones   ", "getLast() failed");
+   pragma Assert( getFullName(aName) = "John     Paul     Jones   ", 
+                    "getFullName() failed");
+   Put(aName); New_line;
+   Put("lab07 tests passed!");
+
+   setFirst( aName, "Paul    " );
+   setMiddle( aName, "John    " );
+   setLast( aName, "Smith   " );
+
+   pragma Assert( getFirst(aName) = "Paul    ", "setFirst() failed" );
+   pragma Assert( getMiddle(aName) = "John    ", "setMiddle() failed" );
+   pragma Assert( getLast(aName) = "Smith   ", "setLast() failed" );
+   Put(lfmi(aName));
+   pragma Assert( lfmi(aName) = "Paul    , John    S.", "lfmi() failed" );
+   readName(aName);
+   pragma Assert( getFirst(aName) /= "Paul    ", "readName() failed" );
+   pragma Assert( getFirst(aName) /= "John    ", "readName() failed" );
+   pragma Assert( getFirst(aName) /= "Smith   ", "readName() failed" );
+   
+   New_Line;
+   Put("project07 tests passed!");
+   New_Line;
+
+   New_Line;
+   Put("All tests passed!"); New_line;
+
+end namer;
+
+theo@theo-VBox:~/Documents/cs214/code/07$ gnatmkae[K[K[Kake namer.adb 
+gnatmake: "namer" up to date.
+theo@theo-VBox:~/Documents/cs214/code/07$ ./namer 
+John     Paul     Jones   
+lab07 tests passed!Smith   , Paul     J.
+enter a new name, first, middle, and last:
+charles 
+albert  
+blum    
+
+project07 tests passed!
+
+All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ exit
+
+Script done on Wed 09 Apr 2014 07:25:33 PM EDT
+Script started on Thu 10 Apr 2014 10:01:56 AM EDT
+theo@theo-VBox:~/Documents/cs214/code/07$ cat namer.el 
+;;; namer.el simulates and tests an e-LISP Name type.
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by: Charles Blum
+;;; Date: 10 April 2014
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Name constructs a name from three strings.      ;;
+;;; Receive: first, middle and last, three strings. ;;
+;;; Return: the triplet (first middle last).        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun Name (first middle last)
+  (list first middle last))
+Name
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFirst extracts the first name of a name object.;
+;;; Receive: theName, a Name.                       
+;;; Return: the first string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getFirst (theName)
+  (car theName))
+getFirst
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getMiddle extracts the middle name of a name object.
+;;; Receive: theName, a Name.                      
+;;; Return: the second string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getMiddle (theName)
+  (car (cdr theName)))
+getMiddle
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getLast extracts the last name of a name object.;;;
+;;; Receive: theName, a Name.                       ;;;   
+;;; Return: the third string in theName.            ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getLast (theName)
+  (car (cdr (cdr theName))))
+getLast
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFullName returns a full name in F-M-L order. ;;;
+;;; Return: myFirst, myMiddle, myLast.              ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getFullName (theName)
+  (concat (getFirst theName) " " (getMiddle theName) " " (getLast theName)))
+getFullName
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; printName displays a name object.        ;;; 
+;;; Receive: theName, a Name,                ;;; 
+;;;          buffer, the name of a buffer.   ;;;
+;;; Output: the strings in theName to buffer.;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun printName (theName buf)
+  (princ (getFullName theName) buf)
+  theName)
+printName
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Project07 changes                        ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Setters for Name                         ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun setFirst (theName first)
+  (setcar theName first))
+setFirst
+
+(defun setMiddle(theName middle)
+  (setf (car (cdr theName)) middle))
+setMiddle
+
+(defun setLast (theName last)
+  (setf (car (cdr (cdr theName))) last))
+setLast
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; lfmi returns a formatted version of the  ;;;
+;;; name: Last, First Middle Initial         ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun lfmi(theName)
+  (concat (getLast theName) ", " (getFirst theName) " " (string-to-char (getFirst theName)) "."))
+lfmi
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Get a new name from the user via the     ;;;
+;;; mini-buffer                              ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun readName()
+  (list (read-from-minibuffer "Enter a new first name: ")
+	(read-from-minibuffer "Enter a new middle name: ")
+	(read-from-minibuffer "Enter a new last name: ")))
+readName
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; A simple driver for our Name functions. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (require 'cl)                              ; assert
+  (setq aName (Name "John" "Paul" "Jones"))  ; build a Name
+
+  (assert (equal (getFirst aName) "John" ))  ; test it
+  (assert (equal (getMiddle aName) "Paul" ))
+  (assert (equal (getLast aName) "Jones" ))
+  (assert (equal (getFullName aName) "John Paul Jones" ))
+
+  (setq buf (get-buffer "namer.el"))         ; buf = this buffer
+  (assert (eq (printName aName buf) aName) ) ; output
+  (terpri buf)                               ; newline
+  (princ "lab07 tests passed!\n")
+
+  (setFirst aName "Paul")
+  (assert (equal (getFirst aName) "Paul"))
+  (setMiddle aName "John")
+  (assert (equal (getMiddle aName) "John"))
+  (setLast aName "Smith")
+  (assert (equal (getLast aName) "Smith"))
+  (assert (eq (printName aName buf) aName))
+  (terpri buf)
+
+  (setq aName (readName))
+  (assert (not (equal (getFirst aName) "Paul")))
+  (assert (not (equal (getMiddle aName) "John")))
+  (assert (not (equal (getLast aName) "Smith")))
+  (assert (eq (printName aName buf) aName))
+  (terpri buf)
+  (princ "project07 tests passed!\n")
+
+  (princ "All tests passed!\n")                ; feedback
+  (terpri buf)                               ; newline
+)
+John Paul Jones
+lab07 tests passed!
+Paul John Smith
+Charles Albert Blum
+project07 tests passed!
+All tests passed!
+
+t
+theo@theo-VBox:~/Documents/cs214/code/07$ exit
+
+Script done on Thu 10 Apr 2014 10:02:04 AM EDT
+Script started on Thu 10 Apr 2014 08:43:05 AM EDT
+theo@theo-VBox:~/Documents/cs214/code/07$ cat r[Knamer.rb
+# namer.rb tests class Name and its operations
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by: Charles Blum
+# Date: 09 April 2014
+####################################################
+
+require 'test/unit/assertions'   # needed for assert
+include Test::Unit::Assertions
+
+class Name
+  #default constructor
+  def initialize(first, middle, last)
+    @first, @middle, @last = first, middle, last
+  end
+
+  #getters and setters for the instance variables
+  attr_accessor :first, :middle, :last
+
+  #fullName creates a string which contains the
+  #full name of the person
+  def fullName
+    myFullName = @first + " " + @middle + " " + @last
+  end
+
+  #print prints the full name out
+  #and returns the name as a string
+  def print
+    puts(fullName)
+    fullName
+  end
+
+  #return a name in last, first (middle initial) format
+  def lfmi
+    myLFMI = @last + ", " + @first + " " + @middle.chars.first + "."
+  end
+
+  #read in a new full name from the user
+  def readName
+    puts("\nEnter a new full name:\n")
+    @first = gets
+    @middle = gets
+    @last = gets
+  end
+end
+
+def testName
+   name = Name.new("John", "Paul", "Jones")
+
+   assert name.first == "John", "first failed"
+   assert name.middle == "Paul", "middle failed"
+   assert name.last == "Jones", "last failed"
+   assert name.fullName == "John Paul Jones", "fullName failed"
+   assert name.print == "John Paul Jones", "print failed"
+   print "lab07 tests passed!\n\n"
+
+   name.first, name.middle, name.last  = "Paul", "John", "Smith"
+   assert name.first == "Paul", "first failed"
+   assert name.middle == "John", "middle failed"
+   assert name.last == "Smith", "last failed"
+   assert name.lfmi == "Smith, Paul J.", "lfmi failed"
+   name.readName
+   assert name.first != "Paul", "first failed"
+   assert name.middle != "John", "middle failed"
+   assert name.last != "Smith", "last failed"
+   print "Project07 tests passed!\n"
+
+   print "All tests passed!\n"
+end
+
+testName
+
+theo@theo-VBox:~/Documents/cs214/code/07$ ruby namer.rb
+John Paul Jones
+lab07 tests passed!
+
+
+Enter a new full name:
+Charles
+Albert
+Blum
+Project07 tests passed!
+All tests passed!
+theo@theo-VBox:~/Documents/cs214/code/07$ exit
+
+Script done on Thu 10 Apr 2014 08:43:24 AM EDT

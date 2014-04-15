@@ -1,0 +1,169 @@
+V "GNAT Lib v4.6"
+A -gnata
+A -mtune=generic
+A -march=x86-64
+P SS ZX
+R nnnnnnnnnnvnnnnnnnnnnnnnvvnnnnnnnnnnnnnnnvnnvnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+
+U temperature%b		temperature.adb		bdb7c617 NE OO PK
+W ada%s			ada.ads			ada.ali
+W ada.characters%s	a-charac.ads		a-charac.ali
+W ada.characters.handling%s  a-chahan.adb	a-chahan.ali
+W ada.float_text_io%s	a-flteio.ads		a-flteio.ali
+W ada.strings%s		a-string.ads		a-string.ali
+W ada.strings.fixed%s	a-strfix.adb		a-strfix.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W system.concat_2%s	s-conca2.adb		s-conca2.ali
+W system.concat_3%s	s-conca3.adb		s-conca3.ali
+W system.img_real%s	s-imgrea.adb		s-imgrea.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.val_real%s	s-valrea.adb		s-valrea.ali
+
+U temperature%s		temperature.ads		9774a73b EE NE OO PK
+
+D ada.ads		20070406091342 3ffc8e18
+D a-charac.ads		20070912115821 2d3ec45b
+D a-chahan.ads		20100810135053 1d381dcd
+D a-chlat1.ads		20070912115821 2825df20
+D a-except.ads		20090727140100 0c711ac9
+D a-finali.ads		20090409150019 e5e85fa4
+D a-filico.ads		20090409150019 872dc219
+D a-flteio.ads		20070406091342 e18a47a0
+D a-ioexce.ads		20091130110856 8b9de6cd
+D a-stream.ads		20090409150019 2ca4ee37
+D a-string.ads		20070406091342 90ac6797
+D a-strfix.ads		20101008130255 d07c346e
+D a-strmap.ads		20090409150019 9cb836fb
+D a-tags.ads		20101021101406 c7695348
+D a-textio.ads		20091028140912 386df5d4
+D a-tiflio.ads		20090409150019 56fbda09
+D a-unccon.ads		20070406091342 f9eb8f06
+D interfac.ads		20090409150019 f77d8799
+D i-cstrea.ads		20100622165701 1bd72c32
+D system.ads		20120503154647 23e1f70b
+D s-conca2.ads		20090420091404 fbd0f2fc
+D s-conca3.ads		20090420091404 762a026a
+D s-crtl.ads		20100617122610 ac77b159
+D s-exctab.ads		20090417131547 66e51330
+D s-ficobl.ads		20100909103250 443b9d66
+D s-finimp.ads		20090409150019 46853fe8
+D s-finroo.ads		20090409150019 dbb860c9
+D s-imgrea.ads		20090409150019 c7a851e2
+D s-parame.ads		20091130110856 9c5d83fa
+D s-secsta.ads		20090707124243 eea35a36
+D s-soflin.ads		20090729085153 9414c974
+D s-stache.ads		20090417130712 596fc1b4
+D s-stalib.ads		20101021102512 c4241c00
+D s-stoele.ads		20090417130712 facd7d98
+D s-stoele.adb		20100617152355 afc5dc80
+D s-stratt.ads		20100909123135 aedef97e
+D s-traent.ads		20090417130712 5221ee41
+D s-unstyp.ads		20090409150019 6ae15c76
+D s-valrea.ads		20090409150019 fe297711
+D s-wchcon.ads		20090417130712 bfeb2e3d
+D temperature.ads	20140415144038 9774a73b
+D temperature.adb	20140415164348 3e60fafb
+X 1 ada.ads
+16K9*Ada 19e8 42|9r6 9r19 9r38 9r57 10r6 10r19 10r38 10r57
+X 2 a-charac.ads
+16K13*Characters 18e19 42|9r61 10r61
+X 3 a-chahan.ads
+36K24*Handling 150e28 42|9w72 10r72
+63V13*To_Upper{character} 42|248s15
+X 8 a-flteio.ads
+20K13*Float_Text_IO[16|45] 42|9w23 10r23
+X 11 a-string.ads
+16K13*Strings 35e16 42|9r42 10r42
+X 12 a-strfix.ads
+18K21*Fixed 251e22 42|9w50 10r50
+25U14*Move 42|245s7 246s7
+X 15 a-textio.ads
+49K13*Text_IO 472e16 42|9w10 10r10
+167U14*New_Line 42|273s5
+243U14*Put 42|216s7 218s7 220s7 243s7 251s7 274s5 275s5 276s5 277s5
+250U14*Get_Line 42|244s7
+264U14*Put_Line 42|239s5 240s5 252s7
+X 41 temperature.ads
+8K9*Temperature 41l5 41e16 42|12b14 280l5 280t16
+9R8*Temp 11r29 12r32 13r32 14r38 15r37 16r31 17r31 18r31 19r31 20r33 21r36
+. 22r36 23r34 24r36 26r30 27r31 30c8 38e17 40r11 42|17r29 33r32 38r32 43r38
+. 48r37 59r31 74r31 89r31 104r31 123r33 132r36 146r36 167r34 168r12 187r36
+. 188r12 232r30 265r31 266r20
+11U13*Init 11<18 11>35 11>54 42|17b13 23l7 23t11 256s5
+11r18 aTemp{9R8} 42|17b18 20m17 21m16
+11f35 aValue{float} 42|17b35 19r17 20r24
+11e54 aUnit{character} 42|17b54 19r25 21r23
+12V12*getValue{float} 12>22 42|33b12 36l7 36t15 60s18 75s18 90s18 105s18
+. 137s21
+12r22 aTemp{9R8} 42|33b22 35r12
+13V12*getUnit{character} 13>21 42|38b12 41l7 41t14 62s8 65s12 68s12 77s8
+. 80s12 83s12 92s8 95s12 98s12 107s8 110s12 113s12
+13r21 aTemp{9R8} 42|38b21 40r12
+14U13*setValue 14=23 14>44 42|20s7 43b13 46l7 46t15 63s7 66s7 69s7 78s7 81s7
+. 84s7 93s7 96s7 99s7 108s7 111s7 114s7 137s7 154s9
+14r23 aTemp{9R8} 42|43b23 45m5
+14f44 aValue{float} 42|43b44 45r20
+15U13*setUnit 15=22 15>43 42|21s7 48b13 51l7 51t14 64s7 67s7 70s7 79s7 82s7
+. 85s7 94s7 97s7 100s7 109s7 112s7 115s7
+15r22 aTemp{9R8} 42|48b22 50m5
+15e43 aUnit{character} 42|48b43 50r19
+16U13*getF 16=19 42|59b13 72l7 72t11 268s15
+16r19 Tp{9R8} 42|59b19 60r27 62r16 63m17 64m16 65r20 66m17 67m16 68r20 69m17
+. 70m16
+17U13*getC 17=19 42|74b13 87l7 87t11 269s15
+17r19 Tp{9R8} 42|74b19 75r27 77r16 78m17 79m16 80r20 81m17 82m16 83r20 84m17
+. 85m16
+18U13*getK 18=19 42|89b13 102l7 102t11 172s5 173s5 192s5 193s5 271s15
+18r19 Tp{9R8} 42|89b19 90r27 92r16 93m17 94m16 95r20 96m17 97m16 98r20 99m17
+. 100m16
+19U13*getR 19=19 42|104b13 117l7 117t11 270s15
+19r19 Tp{9R8} 42|104b19 105r27 107r16 108m17 109m16 110r20 111m17 112m16
+. 113r20 114m17 115m16
+20V12*toString{string} 20>22 42|123b12 126l7 126t15 274s9 275s9 276s9 277s9
+20r22 aTemp{9R8} 42|123b22 125r24 125r45
+21U13*raiseTemp 21=24 21>42 42|132b13 139l7 139t16 150s7
+21r24 Tp{9R8} 42|132b24 135m18 137m17 137r30
+21f42 degrees{float} 42|132b42 134r8 135r29 137r36
+22U13*lowerTemp 22=24 22>42 42|135s7 146b13 159l7 159t16
+22r24 TP{9R8} 42|146b24 150m18 152r14 153r24 154m19
+22f42 degrees{float} 42|146b42 149r8 150r29 152r25
+23V12*equals{boolean} 23>20 23>25 42|167b12 179l7 179t13
+23r20 Tp1{9R8} 42|167b20 170r11
+23r25 Tp2{9R8} 42|167b25 171r11
+24V12*lessThan{boolean} 24>22 24>27 42|187b12 199l7 199t15
+24r22 Tp1{9R8} 42|187b22 190r11
+24r27 Tp2{9R8} 42|187b27 191r11
+25V12*isValid{boolean} 25>21 25>36 42|19s8 153s10 210b12 224l7 224t14 249s19
+25f21 value{float} 42|210b21 215r13 217r13 219r13
+25e36 unitChar{character} 42|210b36 211r23
+26U13*readIn 26<21 42|232b13 257l7 257t13
+26r21 Tp{9R8} 42|232b21 256m12
+27U13*writeOut 27>23 42|265b13 278l7 278t15
+27r23 Tp{9R8} 42|265b23 268r11 269r11 270r11 271r11
+36f10*value{float} 42|35r18 45m11 125r30 152r17 174r11 174r22 194r11 194r22
+37e10*unit{character} 42|40r18 50m11 125r51 153r27
+40r3 aTemp{9R8}
+X 42 temperature.adb
+60f3 val{float} 63r23 66r28 69r28
+75f3 val{float} 78r22 81r33 84r33
+90f3 val{float} 93r22 96r33 99r32
+105f3 val{float} 108r29 111r28 114r22
+147f3 val{float} 152m7 153r19 154r23
+168r3 t1{41|9R8} 170m5 172m11 174r8
+168r7 t2{41|9R8} 171m5 173m11 174r19
+188r3 t1{41|9R8} 190m5 192m11 194r8
+188r7 t2{41|9R8} 191m5 193m11 194r19
+211e3 unit{character} 213r8 213r24 213r40 213r56 215r31 215r45 217r33 219r33
+233a3 STR_LEN{string} 234r31 253r14
+234a3 str{string} 244m16 245r12 245r16 246r12 246r16 246r35 253m7
+234a8 str1{string} 245m39 247r26
+234a14 str2{string} 246m46 248r24 248r29
+235i3 num{natural} 244m21 245r28 246r27
+236f3 val{float} 247m7 249r28 256r16
+237e3 unit{character} 248m7 249r33 256r21
+266r3 tF{41|9R8} 268m5 268m20 274r18
+266r7 tC{41|9R8} 269m5 269m20 275r18
+266r11 tR{41|9R8} 270m5 270m20 276r18
+266r15 tK{41|9R8} 271m5 271m20 277r18
+

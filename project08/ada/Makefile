@@ -1,7 +1,7 @@
 # Makefile for GNAT (Ada) compilation
 
-TARGET = namer
-PACKAGE = name_package
+TARGET = temperature_test
+PACKAGE = temperature
 
 CC = gcc
 CFLAGS = -c -gnata

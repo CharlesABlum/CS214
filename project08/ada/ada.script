@@ -1,153 +1,486 @@
-Script started on Mon 14 Apr 2014 07:56:45 AM EDT
-theo@theo-VBox:~/Desktop/08/ada$ cat name_package.ads name_package.adb namer.adb M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kb
--- name_package.ads declares the Name type and its operations.
+Script started on Tue 15 Apr 2014 12:48:02 PM EDT
+]0;theo@theo-VBox: ~/Documents/spring-2014/project08/adatheo@theo-VBox:~/Documents/spring-2014/project08/ada$ cat temperature.ads temperaature.adb temperature_test.adb Makefile 
+-- temperature.ads declares the Temperature Type and its     
+-- operations.
 --
--- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Begun by: Charles Blum, 214 at Calvin College.
 -- Completed by: Charles Blum
--- Date: 13 April 2014
---------------------------------------------------------------
-package Name_Package is
-  type Name is private; 
+-- Date: 14 April 2014
+----------------------------------------------------------
+package Temperature is
+  type Temp is private; 
    
-  procedure Init(Nm: out Name;
-                 First, Middle, Last : in String);
-  function getFirst( Nm: in Name) return String;
-  function getMiddle( Nm: in Name) return String;
-  function getLast( Nm: in Name) return String;
-  function getFullName( Nm: in Name) return String;
-  procedure Put(Nm: in Name);
+  procedure Init(aTemp: out Temp; aValue : in Float; aUnit : in Character);
+  function getValue( aTemp: in Temp ) return Float;
+  function getUnit( aTemp : in Temp ) return Character;
+  procedure setValue( aTemp : in out Temp; aValue : in Float );
+  procedure setUnit( aTemp : in out Temp; aUnit : in Character );
+  procedure getF( Tp : in out Temp);
+  procedure getC( Tp : in out Temp);
+  procedure getK( Tp : in out Temp);
+  procedure getR( Tp : in out Temp);
+  function toString( aTemp : in Temp ) return String;
+  procedure raiseTemp( Tp : in out Temp; degrees : in Float );
+  procedure lowerTemp( TP : in out Temp; degrees : in Float );
+  function equals( Tp1, Tp2 : in Temp ) return Boolean;
+  function lessThan( Tp1, Tp2 : in Temp ) return Boolean;
+  function isValid( value : Float; unitChar : Character ) return Boolean;
+  procedure readIn( Tp : out Temp );
+  procedure writeOut( Tp : in Temp );
   
 private   
- NAME_SIZE : constant Positive := 8;
-
-  type Name is
+  type Temp is
       record
-         myFirst,
-         myMiddle,
-         MyLast : String(1..NAME_SIZE);
+	 --Fahrenheit: F = 9C/5 + 32
+	 --Rankine: R = F + 459.67
+	 --Celcius: C = 5(F - 32)/9
+	 --Kelvin: K = C + 273.15
+         value : Float;
+         unit  : Character;
       end record;
 
-  aName : Name ;
-end Name_Package;
--- name_package.adb defines operations for the Name type.
+  aTemp : Temp ;
+end Temperature;
+-- temperature.adb defines operations for the
+-- Temperature type.
 --
--- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Begun by: Charles Blum, 214 at Calvin College.
 -- Completed by: Charles Blum
--- Date: 13 April 2014
+-- Date: 14 April 2014
 ---------------------------------------------------------
 
-with Ada.Text_IO;
-use Ada.Text_IO;
+with Ada.Text_IO, Ada.Float_Text_IO, Ada.Strings.Fixed, Ada.Characters.Handling;
+use  Ada.Text_IO, Ada.Float_Text_IO, Ada.Strings.Fixed, Ada.Characters.Handling;
 
-package body Name_Package is
-  ----------------------------------------------
-  -- Init initializes a Name variable          
-  -- Receive: Nm, the Name variable;          
-  --          First, the first name;         
-  --          Middle, the middle name;      
-  --          Last, the last name.         
-  -- Return: Nm, its fields set to First, 
-  --               Middle, and Last.     
-  ----------------------------------------------
-  procedure Init(Nm: out Name;
-                 First, Middle, Last : in String) is
+package body Temperature is
+
+  ---------------------------------------------
+  -- constructor for the Temperature type
+  ---------------------------------------------
+  procedure Init(aTemp: out Temp; aValue : in Float; aUnit : in Character) is
   begin
-    Nm.MyFirst := First;
-    Nm.MyMiddle := Middle;
-    Nm.MyLast := Last;
+    if isValid( aValue, aUnit ) then
+      setValue( aTemp, aValue );
+      setUnit( aTemp, aUnit );
+    end if;  
   end Init;
 
-  ----------------------------------------------
-  -- getFirst(Name) retrieves Name.myFirst        
-  -- Receive: Nm, a Name.                      
-  -- PRE: Nm has been initialized.            
-  -- Return: Nm.myFirst.                     
-  ----------------------------------------------
-  function getFirst( Nm: in Name) return String is
-  begin
-    return Nm.MyFirst;
-  end getFirst;
+  
+  ---------------------------------------------
+  -- Getters and setters for the Temperature
+  -- Type.  Note these are simple setters and
+  -- do not handle mis-conversion.  the getX()
+  -- functions handle proper conversion and
+  -- should be used instead.
+  ---------------------------------------------
+  function getValue( aTemp: in Temp ) return Float is
+  begin 
+    return aTemp.value;
+  end getValue;
 
-  ----------------------------------------------
-  -- getMiddle(Name) retrieves Name as a String 
-  -- Receive: Nm, a Name.        
-  -- PRE: Nm has been initialized.
-  -- Return: Nm.myMiddle. 
-  ----------------------------------------------
-  function getMiddle( Nm: in Name) return String is
-  begin
-     return Nm.MyMiddle;
-  end getMiddle;
+  function getUnit( aTemp : in Temp ) return Character is 
+  begin 
+    return aTemp.unit;
+  end getUnit;
 
-  ----------------------------------------------
-  -- getLast(Name) retrieves Name.myLast       
-  -- Receive: Nm, a Name.                    
-  -- PRE: Nm has been initialized.            
-  -- Return: Nm.myLast.                        
-  ----------------------------------------------
-  function getLast( Nm: in Name) return String is
+  procedure setValue( aTemp : in out Temp; aValue : in Float ) is
   begin
-     return Nm.MyLast;
-  end getLast;
+    aTemp.value := aValue;
+  end setValue;
+  
+  procedure setUnit( aTemp : in out Temp; aUnit : in Character ) is
+  begin
+    aTemp.unit := aUnit;
+  end setUnit;
 
-  ----------------------------------------------
-  -- getFullName(Name) retrieves Name as a String -
-  -- Receive: Nm, a Name.                      -
-  -- PRE: Nm has been initialized.             -
-  -- Return: a String representation of Nm.    -
-  ----------------------------------------------
-  function getFullName( Nm: in Name) return String is
+  ---------------------------------------------
+  -- getX() takes in an arbitrary Temperature
+  -- and returns a Temperature in X instead.
+  -- A valid Temp is already assumed since it
+  -- is checked on creation.
+  ---------------------------------------------
+  procedure getF( Tp : in out Temp) is
+  val : Float := getValue(Tp);
   begin
-    return Nm.MyFirst & " "
-           & Nm.MyMiddle & " "
-           & Nm.MyLast;
-  end getFullName;
+    if getUnit(Tp) = 'R' then
+      setValue( Tp, ( val - 459.67) );
+      setUnit( Tp, 'F');
+    elsif (getUnit(Tp) = 'C') then
+      setValue( Tp, (1.8 * val + 32.0) );
+      setUnit( Tp, 'F');
+    elsif (getUnit(Tp) = 'K') then
+      setValue( Tp, (1.8 * val - 459.67) );
+      setUnit( Tp, 'F');
+    end if;
+  end getF;
+  
+  procedure getC( Tp : in out Temp) is
+  val : Float := getValue(Tp);
+  begin
+    if getUnit(Tp) = 'K' then
+      setValue( Tp, (val - 273.15) );
+      setUnit( Tp, 'C');
+    elsif (getUnit(Tp) = 'F') then
+      setValue( Tp, (5.0/9.0 * (val - 32.0)) );
+      setUnit( Tp, 'C');
+    elsif (getUnit(Tp) = 'R') then
+      setValue( Tp, (5.0/9.0 * (val - 459.67)) );
+      setUnit( Tp, 'C');
+    end if;
+  end getC;
 
-  ----------------------------------------------
-  -- Put(Name) displays a Name value.          -
-  -- PRE: Nm has been initialized.             -
-  -- Receive: Nm, a Name.                      -
-  -- Output: Nm, to the screen.                -
-  ----------------------------------------------
-  procedure Put(Nm: in Name) is
+  procedure getK( Tp : in out Temp) is
+  val : Float := getValue(Tp);
   begin
-    Put( getFullName(Nm) );
-  end Put;   
-end Name_Package;
--- namer.adb "test-drives" the Name type.
+    if getUnit(Tp) = 'C' then
+      setValue( Tp, (val + 273.15) );
+      setUnit( Tp, 'K');
+    elsif (getUnit(Tp) = 'F') then
+      setValue( Tp, (5.0/9.0 * (val + 459.67)) );
+      setUnit( Tp, 'K');
+    elsif (getUnit(Tp) = 'R') then
+      setValue( Tp, (5.0/9.0 * val) );
+      setUnit( Tp, 'K');
+    end if;
+  end getK;
+
+  procedure getR( Tp : in out Temp) is
+  val : Float := getValue(Tp);
+  begin
+    if getUnit(Tp) = 'C' then
+      setValue( Tp, (1.8 * (val + 273.15)) );
+      setUnit( Tp, 'R');
+    elsif (getUnit(Tp) = 'K') then
+      setValue( Tp, (1.8 * val) );
+      setUnit( Tp, 'R');
+    elsif (getUnit(Tp) = 'F') then
+      setValue( Tp, (val + 491.67)  );
+      setUnit( Tp, 'R');
+    end if;
+  end getR;
+
+  ---------------------------------------------
+  -- toString returns a given Temperature as 
+  -- a string for easy output.
+  ---------------------------------------------
+  function toString( aTemp : in Temp ) return String is
+  begin
+    return Float'Image(aTemp.value) & " " & aTemp.unit;
+  end toString;
+
+  ---------------------------------------------
+  -- raiseTemp() takes a Temp and a given 
+  -- change and applies it to the Temperature
+  ---------------------------------------------
+  procedure raiseTemp( Tp : in out Temp; degrees : in Float ) is
+  begin
+    if degrees < 0.0 then
+      lowerTemp( Tp, -1.0 * degrees );
+    else
+      setValue( Tp, getValue(Tp) + degrees );
+    end if;
+  end raiseTemp;
+
+  ---------------------------------------------
+  -- lowerTemp() takes a Temperature and a 
+  -- given change in Temp, checks to see if the
+  -- resulting Temp is valid & then changes it.
+  ---------------------------------------------
+  procedure lowerTemp( TP : in out Temp; degrees : in Float ) is
+  val : Float := 0.0;
+  begin
+    if degrees < 0.0 then
+      raiseTemp( Tp, -1.0 * degrees );
+    else
+      val := Tp.value - degrees;
+      if isValid( val, Tp.unit ) then
+        setValue( Tp, val );
+      --else
+        --Temp too low, don't change
+      end if;
+    end if;
+  end lowerTemp;
+
+  ---------------------------------------------
+  -- Checks 2 Temps to see if they are similar.
+  -- Does not need to be the  same unit system.
+  -- Can be destructive since the Tp is not 
+  -- a reference or returned.
+  ---------------------------------------------
+  function equals( Tp1, Tp2 : in Temp ) return Boolean is
+  t1, t2 : Temp;
+  begin
+    t1 := Tp1;
+    t2 := Tp2;
+    getK( t1 );
+    getk( t2 ); 
+    if t1.value = t2.value then
+      return true;
+    else
+      return false;
+    end if;
+  end equals;
+
+  ---------------------------------------------
+  -- Checks 2 Temperatures to see if the first
+  -- is less than the second.
+  -- Can be destructive since the Tp is not 
+  -- a reference or returned.
+  ---------------------------------------------
+  function lessThan( Tp1, Tp2 : in Temp ) return Boolean is
+  t1, t2 : Temp;
+  begin 
+    t1 := Tp1;
+    t2 := Tp2;
+    getK( t1 );
+    getK( t2 );
+    if t1.value < t2.value then
+      return true;
+    else
+      return false;
+    end if;
+  end lessThan;
+
+  ---------------------------------------------
+  -- Determines if the value and unit system 
+  -- make sense.  If they don't returns false.
+  -- Valid Temperature Ranges:
+  -- Fahrenheit:	-459.67 to INF
+  -- Rankine:		   0.00 to INF
+  -- Celcius:		-273.15 to INF
+  -- Kelvin:		   0.00 to INF
+  ---------------------------------------------
+  function isValid( value : Float; unitChar : Character ) return Boolean is
+  unit : Character := unitChar;
+  begin
+    if unit /= 'F' and unit /= 'R' and unit /= 'C' and unit /= 'K' then
+      return false;
+    elsif ( value < 0.0 and ( unit = 'K' or unit = 'R' )) then
+      return false;
+    elsif ( value < -273.15 and unit = 'C' ) then
+      return false;
+    elsif ( value < -459.67 and unit = 'F' ) then
+      return false;
+    else
+      return true;
+    end if;
+  end isValid;
+
+  ---------------------------------------------
+  -- readIn takes input from the user and  
+  -- creates a Temperature.  It also checks to
+  -- makes sure the input is valid, and if not
+  -- asks again.
+  ---------------------------------------------
+  procedure readIn( Tp : out Temp ) is
+  STR_LEN : String := "             ";
+  str, str1, str2 : String := STR_LEN;
+  num : Natural := 0;
+  val : Float := -460.0;
+  unit : Character := 'F';  
+  begin
+    Put_Line("The format is xxx.xx A where xxx.xx is a real value");
+    Put_Line("and A is a character representing a unit system (F, R, C, K)");
+
+    loop
+      Put("Enter here: ");      
+      Get_Line(str, num);
+      move(str(str'First..(num - 1)), str1);
+      move(str(str'First+(num-1)..str'Last), str2);
+      val := Float'Value(str1);
+      unit := To_Upper(str2(str2'First));
+      exit when ( isValid( val, unit ) = true );
+      
+      Put("Value and unit do not constitute a valid");
+      Put_Line("Temperature. Please try again.");
+      str := STR_LEN;
+    end loop;
+    
+    Init ( Tp, val, unit );
+  end readIn;
+
+  ---------------------------------------------
+  -- writeOut takes a Temperature and prints 
+  -- it to the terminal in all units systems
+  -- for convenient output.
+  -- Order is: F, C, R, K
+  ---------------------------------------------
+  procedure writeOut( Tp : in Temp ) is
+  tF, tC, tR, tK : Temp;
+  begin
+    tF := Tp; getF(tF);
+    tC := Tp; getC(tC);
+    tR := Tp; getR(tR);
+    tK := Tp; getK(tK);
+   
+    New_Line; 
+    Put(toString(tF) & "  ");
+    Put(toString(tC) & "  ");
+    Put(toString(tR) & "  ");
+    Put(toString(tK) & "  ");
+  end writeOut;
+
+end Temperature;
+-- temperature_test.adb tests the Temperature type.
 --
--- Begun by: Dr. Adams, CPSC 280, October 1999.
+-- Begun by: Charles Blum, 214 at Calvin College.
 -- Completed by: Charles Blum
--- Date: 13 April 2014
-----------------------------------------------
+-- Date: 15 April 2014
+---------------------------------------------------------
 
-with Ada.Text_IO, Name_Package;
-use Ada.Text_IO, Name_Package;
+with Ada.Text_IO, Ada.Float_Text_IO, Temperature;
+use  Ada.Text_IO, Ada.Float_Text_IO, Temperature;
 
-procedure namer is
-   
-   aName : Name_Package.Name;
-   
+---------------------------------------------------------
+-- Input: baseTemp, a Temperature;
+--        limitTemp, a Temperature; and
+--        stepValue, a real.
+-- Output: A table of Fahrenheit, Ranking, Celsius, and
+--         Kelvin temperature values, beginning with
+--	   baseTemp, ending with limitTemp, and having
+--	   increments of stepValue. (Note: stepValue should
+--         be assumed to have the same scale as baseTemp.)
+---------------------------------------------------------
+procedure temperature_test is
+
+  baseTemp, limitTemp : Temperature.Temp;
+  stepValue, loopBase, loopLimit : Float := 0.0;
+
 begin
-   Init(aName, "John    ", "Paul    ", "Jones   ");
+  Put_line("Enter a base Temperature:");
+  readIn( baseTemp );
+  
+  Put_Line("Now enter a limit Temperature: ");
+  readIn( limitTemp );
+  Put("Now enter a stepValue: ");
+  get(stepValue);
 
-   pragma Assert( getFirst(aName) = "John    ",
-                   "getFirst() failed");
-   pragma Assert( getMiddle(aName) = "Paul    ", 
-                   "getMiddle() failed");
-   pragma Assert( getLast(aName) = "Jones   ", 
-                   "getLast() failed");
-   pragma Assert( getFullName(aName) = "John     Paul     Jones   ",
-                    "getFullName() failed");
-   Put(aName); New_line;
-   Put("All tests passed!"); New_line;
-end namer;
+  while lessThan( baseTemp, limitTemp )
+  loop
+    writeOut( baseTemp );
+    raiseTemp( baseTemp, stepValue );
+  end loop;
 
-theo@theo-VBox:~/Desktop/08/ada$ make
-make: `namer' is up to date.
-theo@theo-VBox:~/Desktop/08/ada$ ./namer 
-John     Paul     Jones   
-All tests passed!
-theo@theo-VBox:~/Desktop/08/ada$ exit
+end temperature_test;
+# Makefile for GNAT (Ada) compilation
 
-Script done on Mon 14 Apr 2014 07:57:25 AM EDT
+TARGET = temperature_test
+PACKAGE = temperature
+
+CC = gcc
+CFLAGS = -c -gnata
+
+$(TARGET): $(TARGET).ali $(PACKAGE).o
+	gnatbind $(TARGET).ali
+	gnatlink $(TARGET).ali
+
+$(TARGET).ali: $(TARGET).adb $(PACKAGE).ads
+	$(CC) $(CFLAGS) $(TARGET).adb
+
+$(PACKAGE).o: $(PACKAGE).adb $(PACKAGE).ads
+	$(CC) $(CFLAGS) $(PACKAGE).adb
+
+clean:
+	rm -f $(TARGET) *~ *# *.o *.ali *.c
+
+]0;theo@theo-VBox: ~/Documents/spring-2014/project08/adatheo@theo-VBox:~/Documents/spring-2014/project08/ada$ make
+make: `temperature_test' is up to date.
+]0;theo@theo-VBox: ~/Documents/spring-2014/project08/adatheo@theo-VBox:~/Documents/spring-2014/project08/ada$ ./temperature_test 
+Enter a base Temperature:
+The format is xxx.xx A where xxx.xx is a real value
+and A is a character representing a unit system (F, R, C, K)
+Enter here: 0f
+Now enter a limit Temperature: 
+The format is xxx.xx A where xxx.xx is a real value
+and A is a character representing a unit system (F, R, C, K)
+Enter here: 100c
+Now enter a stepValue: 2.5
+
+ 0.00000E+00 F  -1.77778E+01 C   4.91670E+02 R   2.55372E+02 K  
+ 2.50000E+00 F  -1.63889E+01 C   4.94170E+02 R   2.56761E+02 K  
+ 5.00000E+00 F  -1.50000E+01 C   4.96670E+02 R   2.58150E+02 K  
+ 7.50000E+00 F  -1.36111E+01 C   4.99170E+02 R   2.59539E+02 K  
+ 1.00000E+01 F  -1.22222E+01 C   5.01670E+02 R   2.60928E+02 K  
+ 1.25000E+01 F  -1.08333E+01 C   5.04170E+02 R   2.62317E+02 K  
+ 1.50000E+01 F  -9.44444E+00 C   5.06670E+02 R   2.63706E+02 K  
+ 1.75000E+01 F  -8.05556E+00 C   5.09170E+02 R   2.65094E+02 K  
+ 2.00000E+01 F  -6.66667E+00 C   5.11670E+02 R   2.66483E+02 K  
+ 2.25000E+01 F  -5.27778E+00 C   5.14170E+02 R   2.67872E+02 K  
+ 2.50000E+01 F  -3.88889E+00 C   5.16670E+02 R   2.69261E+02 K  
+ 2.75000E+01 F  -2.50000E+00 C   5.19170E+02 R   2.70650E+02 K  
+ 3.00000E+01 F  -1.11111E+00 C   5.21670E+02 R   2.72039E+02 K  
+ 3.25000E+01 F   2.77778E-01 C   5.24170E+02 R   2.73428E+02 K  
+ 3.50000E+01 F   1.66667E+00 C   5.26670E+02 R   2.74817E+02 K  
+ 3.75000E+01 F   3.05556E+00 C   5.29170E+02 R   2.76206E+02 K  
+ 4.00000E+01 F   4.44444E+00 C   5.31670E+02 R   2.77594E+02 K  
+ 4.25000E+01 F   5.83333E+00 C   5.34170E+02 R   2.78983E+02 K  
+ 4.50000E+01 F   7.22222E+00 C   5.36670E+02 R   2.80372E+02 K  
+ 4.75000E+01 F   8.61111E+00 C   5.39170E+02 R   2.81761E+02 K  
+ 5.00000E+01 F   1.00000E+01 C   5.41670E+02 R   2.83150E+02 K  
+ 5.25000E+01 F   1.13889E+01 C   5.44170E+02 R   2.84539E+02 K  
+ 5.50000E+01 F   1.27778E+01 C   5.46670E+02 R   2.85928E+02 K  
+ 5.75000E+01 F   1.41667E+01 C   5.49170E+02 R   2.87317E+02 K  
+ 6.00000E+01 F   1.55556E+01 C   5.51670E+02 R   2.88706E+02 K  
+ 6.25000E+01 F   1.69444E+01 C   5.54170E+02 R   2.90094E+02 K  
+ 6.50000E+01 F   1.83333E+01 C   5.56670E+02 R   2.91483E+02 K  
+ 6.75000E+01 F   1.97222E+01 C   5.59170E+02 R   2.92872E+02 K  
+ 7.00000E+01 F   2.11111E+01 C   5.61670E+02 R   2.94261E+02 K  
+ 7.25000E+01 F   2.25000E+01 C   5.64170E+02 R   2.95650E+02 K  
+ 7.50000E+01 F   2.38889E+01 C   5.66670E+02 R   2.97039E+02 K  
+ 7.75000E+01 F   2.52778E+01 C   5.69170E+02 R   2.98428E+02 K  
+ 8.00000E+01 F   2.66667E+01 C   5.71670E+02 R   2.99817E+02 K  
+ 8.25000E+01 F   2.80556E+01 C   5.74170E+02 R   3.01206E+02 K  
+ 8.50000E+01 F   2.94444E+01 C   5.76670E+02 R   3.02594E+02 K  
+ 8.75000E+01 F   3.08333E+01 C   5.79170E+02 R   3.03983E+02 K  
+ 9.00000E+01 F   3.22222E+01 C   5.81670E+02 R   3.05372E+02 K  
+ 9.25000E+01 F   3.36111E+01 C   5.84170E+02 R   3.06761E+02 K  
+ 9.50000E+01 F   3.50000E+01 C   5.86670E+02 R   3.08150E+02 K  
+ 9.75000E+01 F   3.63889E+01 C   5.89170E+02 R   3.09539E+02 K  
+ 1.00000E+02 F   3.77778E+01 C   5.91670E+02 R   3.10928E+02 K  
+ 1.02500E+02 F   3.91667E+01 C   5.94170E+02 R   3.12317E+02 K  
+ 1.05000E+02 F   4.05556E+01 C   5.96670E+02 R   3.13706E+02 K  
+ 1.07500E+02 F   4.19444E+01 C   5.99170E+02 R   3.15094E+02 K  
+ 1.10000E+02 F   4.33333E+01 C   6.01670E+02 R   3.16483E+02 K  
+ 1.12500E+02 F   4.47222E+01 C   6.04170E+02 R   3.17872E+02 K  
+ 1.15000E+02 F   4.61111E+01 C   6.06670E+02 R   3.19261E+02 K  
+ 1.17500E+02 F   4.75000E+01 C   6.09170E+02 R   3.20650E+02 K  
+ 1.20000E+02 F   4.88889E+01 C   6.11670E+02 R   3.22039E+02 K  
+ 1.22500E+02 F   5.02778E+01 C   6.14170E+02 R   3.23428E+02 K  
+ 1.25000E+02 F   5.16667E+01 C   6.16670E+02 R   3.24817E+02 K  
+ 1.27500E+02 F   5.30556E+01 C   6.19170E+02 R   3.26206E+02 K  
+ 1.30000E+02 F   5.44444E+01 C   6.21670E+02 R   3.27594E+02 K  
+ 1.32500E+02 F   5.58333E+01 C   6.24170E+02 R   3.28983E+02 K  
+ 1.35000E+02 F   5.72222E+01 C   6.26670E+02 R   3.30372E+02 K  
+ 1.37500E+02 F   5.86111E+01 C   6.29170E+02 R   3.31761E+02 K  
+ 1.40000E+02 F   6.00000E+01 C   6.31670E+02 R   3.33150E+02 K  
+ 1.42500E+02 F   6.13889E+01 C   6.34170E+02 R   3.34539E+02 K  
+ 1.45000E+02 F   6.27778E+01 C   6.36670E+02 R   3.35928E+02 K  
+ 1.47500E+02 F   6.41667E+01 C   6.39170E+02 R   3.37317E+02 K  
+ 1.50000E+02 F   6.55556E+01 C   6.41670E+02 R   3.38706E+02 K  
+ 1.52500E+02 F   6.69445E+01 C   6.44170E+02 R   3.40094E+02 K  
+ 1.55000E+02 F   6.83333E+01 C   6.46670E+02 R   3.41483E+02 K  
+ 1.57500E+02 F   6.97222E+01 C   6.49170E+02 R   3.42872E+02 K  
+ 1.60000E+02 F   7.11111E+01 C   6.51670E+02 R   3.44261E+02 K  
+ 1.62500E+02 F   7.25000E+01 C   6.54170E+02 R   3.45650E+02 K  
+ 1.65000E+02 F   7.38889E+01 C   6.56670E+02 R   3.47039E+02 K  
+ 1.67500E+02 F   7.52778E+01 C   6.59170E+02 R   3.48428E+02 K  
+ 1.70000E+02 F   7.66667E+01 C   6.61670E+02 R   3.49817E+02 K  
+ 1.72500E+02 F   7.80556E+01 C   6.64170E+02 R   3.51206E+02 K  
+ 1.75000E+02 F   7.94445E+01 C   6.66670E+02 R   3.52594E+02 K  
+ 1.77500E+02 F   8.08333E+01 C   6.69170E+02 R   3.53983E+02 K  
+ 1.80000E+02 F   8.22222E+01 C   6.71670E+02 R   3.55372E+02 K  
+ 1.82500E+02 F   8.36111E+01 C   6.74170E+02 R   3.56761E+02 K  
+ 1.85000E+02 F   8.50000E+01 C   6.76670E+02 R   3.58150E+02 K  
+ 1.87500E+02 F   8.63889E+01 C   6.79170E+02 R   3.59539E+02 K  
+ 1.90000E+02 F   8.77778E+01 C   6.81670E+02 R   3.60928E+02 K  
+ 1.92500E+02 F   8.91667E+01 C   6.84170E+02 R   3.62317E+02 K  
+ 1.95000E+02 F   9.05556E+01 C   6.86670E+02 R   3.63706E+02 K  
+ 1.97500E+02 F   9.19445E+01 C   6.89170E+02 R   3.65094E+02 K  
+ 2.00000E+02 F   9.33333E+01 C   6.91670E+02 R   3.66483E+02 K  
+ 2.02500E+02 F   9.47222E+01 C   6.94170E+02 R   3.67872E+02 K  
+ 2.05000E+02 F   9.61111E+01 C   6.96670E+02 R   3.69261E+02 K  
+ 2.07500E+02 F   9.75000E+01 C   6.99170E+02 R   3.70650E+02 K  
+ 2.10000E+02 F   9.88889E+01 C   7.01670E+02 R   3.72039E+02 K  
+]0;theo@theo-VBox: ~/Documents/spring-2014/project08/adatheo@theo-VBox:~/Documents/spring-2014/project08/ada$ exit
+
+Script done on Tue 15 Apr 2014 12:48:31 PM EDT

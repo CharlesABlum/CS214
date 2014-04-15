@@ -1,64 +1,469 @@
-Script started on Mon 14 Apr 2014 08:18:38 AM EDT
-theo@theo-VBox:~/Documents/spring-2014/08/ruby$ cat Name.rb namer.rb
-# namer.rb tests class Name and its operations
+Script started on Tue 15 Apr 2014 05:51:36 PM EDT
+theo@theo-VBox:~/Documents/spring-2014/project08/ruby$ cat Temperature.rb temp.rbb 
+# Temperature.rb defines the Temperature class 
+# and its operations. 
 #
-# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Begun by: Charles Blum, for CS 214 at Calvin College.
 # Completed by: Charles Blum
-# Date: 13 April 2014
+# Date: 15 April 2014
 ####################################################
-module Names
-class Name
+module Temps
+class Temperature
 
-  def initialize(first, middle, last)
-    @first, @middle, @last = first, middle, last
+  def initialize(value, unit)
+    @value, @unit = value, unit
   end
 
-  attr_reader :first, :middle, :last
+  #####################################
+  # getters and setters for Temperature
+  #####################################
+  attr_reader :value, :unit
 
-  def fullName
-    @first + " " + @middle + " " + @last
+  ################################
+  # converts any temp scale to F
+  ################################
+  def toF
+    if @unit == 'C' then
+      @unit = 'F'
+      @value = 1.8 * @value + 32.0
+    elsif @unit == 'R' then
+      @unit = 'F'
+      @value -= 459.67
+    elsif @unit == 'K' then
+      @unit = 'F'
+      @value = 1.8 * @value - 459.67
+    end
+    self
   end
 
-  def print
-    puts fullName
-    fullName
+  ################################
+  # converts any temp scale to C
+  ################################
+  def toC
+    if @unit == 'F' then
+      @unit = 'C'
+      @value = 5.0 / 9.0 * (@value - 32.0)
+    elsif @unit == 'R' then
+      @unit = 'C'
+      @value = 5.0 / 9.0 * @value - 273.15
+    elsif @unit == 'K' then
+      @unit = 'C'
+      @value -= 273.15
+    end
+    self
   end
+
+  ################################
+  # converts any temp scale to R
+  ################################
+  def toR
+    if @unit == 'F' then
+      @unit = 'R'
+      @value += 459.67
+    elsif @unit == 'C' then
+      @unit = 'R'
+      @value = 1.8 * @value + 491.67
+    elsif @unit == 'K' then
+      @unit = 'R'
+      @value *= 1.8
+    end
+    self
+  end
+
+  ################################
+  # converts any temp scale to K
+  ################################
+  def toK
+    if @unit == 'F' then
+      @unit = 'K'
+      @value = 5.0 / 9.0 * (@value + 459.67)
+    elsif @unit == 'C' then
+      @unit = 'K'
+      @value += 273.15
+    elsif @unit == 'R' then
+      @unit = 'K'
+      @value *= 5.0 / 9.0
+    end
+    self
+ end
+
+  ###################################
+  # changes the Temp by step degrees
+  ###################################
+  def raiseTemp( step ) 
+    if step < 0.0 then lowerTemp( -1.0 * step )
+    else
+        @value += step
+    end 
+    self
+  end
+
+  ###################################
+  # changes the Temp down by step
+  # degrees.  It also checks for out
+  # of bounds temps.
+  ###################################
+  def lowerTemp( step )
+    if step < 0.0 then raiseTemp( -1.0 * step )
+    else
+      val = @value - step
+      if isValid( val, @unit ) then
+        @value = val
+      end 
+    end 
+    self
+  end
+
+  ###################################
+  # equals checks two temps for 
+  # equality
+  ###################################
+  def equals( t2 )
+    t1 = self.clone
+    t1.toK
+    t2.toK
+    if t1.value == t2.value then return true
+    else return false
+    end
+  end
+
+  ################################
+  # checks if the first Temp is 
+  # less than the second
+  ################################
+  def lessThan( t2 )
+    t1 = self.clone
+    t1.toK
+    t2.toK
+    if t1.value < t2.value then return true
+    else return false
+    end
+  end
+
+  ################################
+  # Checks the validity of the  
+  # combination of value and unit
+  ################################
+  def isValid( val, unit )
+    if  unit != 'F' && unit != 'C' && unit != 'R' && unit != 'K' then
+      return false
+    elsif val < 0.0 && (unit == 'K' || unit == 'R') then
+      return false
+    elsif val < -273.15 && unit == 'C' then
+      return false
+    elsif val < -459.67 && unit == 'F' then
+      return false
+    else
+      return true
+    end
+  end
+
+  ################################
+  # reads a temperature from the 
+  # command line.  checks for 
+  # validity of the temp as well
+  ################################
+  def readIn
+    puts("The format is xxx.xx A where xxx.xx is a real value\n")
+    puts("and A is a character representing a unit system (F, R, C, K)\n")
+
+    val = -460.00
+    unit = 'F'
+    until isValid( val, unit)
+      print("Enter here: ")
+      # The input string can have a space => slice it out
+      # It also has a '\n' at the end (important for indexing)
+      inputStr = gets  
+      inputStr.slice!(" ")
+      val = inputStr[0..-3].to_f
+      unit = inputStr[-2, 1].upcase
+      if not isValid( val, unit ) then 
+        puts("Value and unit do not constitute a valid")
+        puts("Temperature. Please try again.")
+      end 
+    end
+
+    @value = val
+    @unit = unit
+    self 
+  end
+
+  ################################
+  # writeOut writes a temp to the
+  # terminal 
+  ################################
+  def writeOut
+    temp = self.clone
+    puts( temp.toF().toString() + "\t" +
+          temp.toC().toString() + "\t" +
+	  temp.toR().toString() + "\t" +
+  	  temp.toK().toString() + "\n" )
+    self
+  end
+
+  ################################
+  # converts a temp to string   
+  # clean output
+  ################################
+  def toString
+    sprintf('%6.2f', @value) + " " + @unit
+  end
+
 end
 end
-# namer.rb tests class Name and its operations
+# temp.rb tests the Temperature class and its 
+# operations.
 #
 # Begun by: Dr. Adams, for CS 214 at Calvin College.
 # Completed by: Charles Blum
-# Date: 13 April 2014
+# Date: 15 April 2014
 ####################################################
 
 require 'test/unit/assertions'
 include Test::Unit::Assertions
-require './Name'
+require './Temperature'
 
 
-def testName
-   name = Names::Name.new("John", "Paul", "Jones")
+def testTemp
+  # seed values for the base and limit Temps
+  baseTemp = Temps::Temperature.new( 0.0, 'F' )
+  limitTemp = Temps::Temperature.new( 100.0, 'F' )
+  print("Enter a base Temperature: ")
+  baseTemp.readIn
+  print("Enter a limit Temperature: ")
+  limitTemp.readIn
+  puts("Now enter a step value: ")
+  step = gets.to_f
 
-   assert name.first == "John", 
-           "first failed"
-   assert name.middle == "Paul",
-           "middle failed"
-   assert name.last == "Jones",
-           "last failed"
-   assert name.fullName == "John Paul Jones",
-           "fullName failed"
-   assert name.print == "John Paul Jones",
-           "print failed"
-   
-   print "All tests passed!\n"
+  while baseTemp.lessThan( limitTemp )
+    baseTemp.writeOut
+    baseTemp.raiseTemp( step )
+  end
 end
 
-testName
+testTemp
 
-theo@theo-VBox:~/Documents/spring-2014/08/ruby$ ruby namer.rb
-John Paul Jones
-All tests passed!
-theo@theo-VBox:~/Documents/spring-2014/08/ruby$ exit
+theo@theo-VBox:~/Documents/spring-2014/project08/ruby$ ruby temp.rb 
+Enter a base Temperature: The format is xxx.xx A where xxx.xx is a real value
+and A is a character representing a unit system (F, R, C, K)
+Enter here: 0 f
+Enter a limit Temperature: The format is xxx.xx A where xxx.xx is a real value
+and A is a character representing a unit system (F, R, C, K)
+Enter here: 100C
+Now enter a step value: 
+1
+  0.00 F	-17.78 C	459.67 R	255.37 K
+  1.00 F	-17.22 C	460.67 R	255.93 K
+  2.00 F	-16.67 C	461.67 R	256.48 K
+  3.00 F	-16.11 C	462.67 R	257.04 K
+  4.00 F	-15.56 C	463.67 R	257.59 K
+  5.00 F	-15.00 C	464.67 R	258.15 K
+  6.00 F	-14.44 C	465.67 R	258.71 K
+  7.00 F	-13.89 C	466.67 R	259.26 K
+  8.00 F	-13.33 C	467.67 R	259.82 K
+  9.00 F	-12.78 C	468.67 R	260.37 K
+ 10.00 F	-12.22 C	469.67 R	260.93 K
+ 11.00 F	-11.67 C	470.67 R	261.48 K
+ 12.00 F	-11.11 C	471.67 R	262.04 K
+ 13.00 F	-10.56 C	472.67 R	262.59 K
+ 14.00 F	-10.00 C	473.67 R	263.15 K
+ 15.00 F	 -9.44 C	474.67 R	263.71 K
+ 16.00 F	 -8.89 C	475.67 R	264.26 K
+ 17.00 F	 -8.33 C	476.67 R	264.82 K
+ 18.00 F	 -7.78 C	477.67 R	265.37 K
+ 19.00 F	 -7.22 C	478.67 R	265.93 K
+ 20.00 F	 -6.67 C	479.67 R	266.48 K
+ 21.00 F	 -6.11 C	480.67 R	267.04 K
+ 22.00 F	 -5.56 C	481.67 R	267.59 K
+ 23.00 F	 -5.00 C	482.67 R	268.15 K
+ 24.00 F	 -4.44 C	483.67 R	268.71 K
+ 25.00 F	 -3.89 C	484.67 R	269.26 K
+ 26.00 F	 -3.33 C	485.67 R	269.82 K
+ 27.00 F	 -2.78 C	486.67 R	270.37 K
+ 28.00 F	 -2.22 C	487.67 R	270.93 K
+ 29.00 F	 -1.67 C	488.67 R	271.48 K
+ 30.00 F	 -1.11 C	489.67 R	272.04 K
+ 31.00 F	 -0.56 C	490.67 R	272.59 K
+ 32.00 F	  0.00 C	491.67 R	273.15 K
+ 33.00 F	  0.56 C	492.67 R	273.71 K
+ 34.00 F	  1.11 C	493.67 R	274.26 K
+ 35.00 F	  1.67 C	494.67 R	274.82 K
+ 36.00 F	  2.22 C	495.67 R	275.37 K
+ 37.00 F	  2.78 C	496.67 R	275.93 K
+ 38.00 F	  3.33 C	497.67 R	276.48 K
+ 39.00 F	  3.89 C	498.67 R	277.04 K
+ 40.00 F	  4.44 C	499.67 R	277.59 K
+ 41.00 F	  5.00 C	500.67 R	278.15 K
+ 42.00 F	  5.56 C	501.67 R	278.71 K
+ 43.00 F	  6.11 C	502.67 R	279.26 K
+ 44.00 F	  6.67 C	503.67 R	279.82 K
+ 45.00 F	  7.22 C	504.67 R	280.37 K
+ 46.00 F	  7.78 C	505.67 R	280.93 K
+ 47.00 F	  8.33 C	506.67 R	281.48 K
+ 48.00 F	  8.89 C	507.67 R	282.04 K
+ 49.00 F	  9.44 C	508.67 R	282.59 K
+ 50.00 F	 10.00 C	509.67 R	283.15 K
+ 51.00 F	 10.56 C	510.67 R	283.71 K
+ 52.00 F	 11.11 C	511.67 R	284.26 K
+ 53.00 F	 11.67 C	512.67 R	284.82 K
+ 54.00 F	 12.22 C	513.67 R	285.37 K
+ 55.00 F	 12.78 C	514.67 R	285.93 K
+ 56.00 F	 13.33 C	515.67 R	286.48 K
+ 57.00 F	 13.89 C	516.67 R	287.04 K
+ 58.00 F	 14.44 C	517.67 R	287.59 K
+ 59.00 F	 15.00 C	518.67 R	288.15 K
+ 60.00 F	 15.56 C	519.67 R	288.71 K
+ 61.00 F	 16.11 C	520.67 R	289.26 K
+ 62.00 F	 16.67 C	521.67 R	289.82 K
+ 63.00 F	 17.22 C	522.67 R	290.37 K
+ 64.00 F	 17.78 C	523.67 R	290.93 K
+ 65.00 F	 18.33 C	524.67 R	291.48 K
+ 66.00 F	 18.89 C	525.67 R	292.04 K
+ 67.00 F	 19.44 C	526.67 R	292.59 K
+ 68.00 F	 20.00 C	527.67 R	293.15 K
+ 69.00 F	 20.56 C	528.67 R	293.71 K
+ 70.00 F	 21.11 C	529.67 R	294.26 K
+ 71.00 F	 21.67 C	530.67 R	294.82 K
+ 72.00 F	 22.22 C	531.67 R	295.37 K
+ 73.00 F	 22.78 C	532.67 R	295.93 K
+ 74.00 F	 23.33 C	533.67 R	296.48 K
+ 75.00 F	 23.89 C	534.67 R	297.04 K
+ 76.00 F	 24.44 C	535.67 R	297.59 K
+ 77.00 F	 25.00 C	536.67 R	298.15 K
+ 78.00 F	 25.56 C	537.67 R	298.71 K
+ 79.00 F	 26.11 C	538.67 R	299.26 K
+ 80.00 F	 26.67 C	539.67 R	299.82 K
+ 81.00 F	 27.22 C	540.67 R	300.37 K
+ 82.00 F	 27.78 C	541.67 R	300.93 K
+ 83.00 F	 28.33 C	542.67 R	301.48 K
+ 84.00 F	 28.89 C	543.67 R	302.04 K
+ 85.00 F	 29.44 C	544.67 R	302.59 K
+ 86.00 F	 30.00 C	545.67 R	303.15 K
+ 87.00 F	 30.56 C	546.67 R	303.71 K
+ 88.00 F	 31.11 C	547.67 R	304.26 K
+ 89.00 F	 31.67 C	548.67 R	304.82 K
+ 90.00 F	 32.22 C	549.67 R	305.37 K
+ 91.00 F	 32.78 C	550.67 R	305.93 K
+ 92.00 F	 33.33 C	551.67 R	306.48 K
+ 93.00 F	 33.89 C	552.67 R	307.04 K
+ 94.00 F	 34.44 C	553.67 R	307.59 K
+ 95.00 F	 35.00 C	554.67 R	308.15 K
+ 96.00 F	 35.56 C	555.67 R	308.71 K
+ 97.00 F	 36.11 C	556.67 R	309.26 K
+ 98.00 F	 36.67 C	557.67 R	309.82 K
+ 99.00 F	 37.22 C	558.67 R	310.37 K
+100.00 F	 37.78 C	559.67 R	310.93 K
+101.00 F	 38.33 C	560.67 R	311.48 K
+102.00 F	 38.89 C	561.67 R	312.04 K
+103.00 F	 39.44 C	562.67 R	312.59 K
+104.00 F	 40.00 C	563.67 R	313.15 K
+105.00 F	 40.56 C	564.67 R	313.71 K
+106.00 F	 41.11 C	565.67 R	314.26 K
+107.00 F	 41.67 C	566.67 R	314.82 K
+108.00 F	 42.22 C	567.67 R	315.37 K
+109.00 F	 42.78 C	568.67 R	315.93 K
+110.00 F	 43.33 C	569.67 R	316.48 K
+111.00 F	 43.89 C	570.67 R	317.04 K
+112.00 F	 44.44 C	571.67 R	317.59 K
+113.00 F	 45.00 C	572.67 R	318.15 K
+114.00 F	 45.56 C	573.67 R	318.71 K
+115.00 F	 46.11 C	574.67 R	319.26 K
+116.00 F	 46.67 C	575.67 R	319.82 K
+117.00 F	 47.22 C	576.67 R	320.37 K
+118.00 F	 47.78 C	577.67 R	320.93 K
+119.00 F	 48.33 C	578.67 R	321.48 K
+120.00 F	 48.89 C	579.67 R	322.04 K
+121.00 F	 49.44 C	580.67 R	322.59 K
+122.00 F	 50.00 C	581.67 R	323.15 K
+123.00 F	 50.56 C	582.67 R	323.71 K
+124.00 F	 51.11 C	583.67 R	324.26 K
+125.00 F	 51.67 C	584.67 R	324.82 K
+126.00 F	 52.22 C	585.67 R	325.37 K
+127.00 F	 52.78 C	586.67 R	325.93 K
+128.00 F	 53.33 C	587.67 R	326.48 K
+129.00 F	 53.89 C	588.67 R	327.04 K
+130.00 F	 54.44 C	589.67 R	327.59 K
+131.00 F	 55.00 C	590.67 R	328.15 K
+132.00 F	 55.56 C	591.67 R	328.71 K
+133.00 F	 56.11 C	592.67 R	329.26 K
+134.00 F	 56.67 C	593.67 R	329.82 K
+135.00 F	 57.22 C	594.67 R	330.37 K
+136.00 F	 57.78 C	595.67 R	330.93 K
+137.00 F	 58.33 C	596.67 R	331.48 K
+138.00 F	 58.89 C	597.67 R	332.04 K
+139.00 F	 59.44 C	598.67 R	332.59 K
+140.00 F	 60.00 C	599.67 R	333.15 K
+141.00 F	 60.56 C	600.67 R	333.71 K
+142.00 F	 61.11 C	601.67 R	334.26 K
+143.00 F	 61.67 C	602.67 R	334.82 K
+144.00 F	 62.22 C	603.67 R	335.37 K
+145.00 F	 62.78 C	604.67 R	335.93 K
+146.00 F	 63.33 C	605.67 R	336.48 K
+147.00 F	 63.89 C	606.67 R	337.04 K
+148.00 F	 64.44 C	607.67 R	337.59 K
+149.00 F	 65.00 C	608.67 R	338.15 K
+150.00 F	 65.56 C	609.67 R	338.71 K
+151.00 F	 66.11 C	610.67 R	339.26 K
+152.00 F	 66.67 C	611.67 R	339.82 K
+153.00 F	 67.22 C	612.67 R	340.37 K
+154.00 F	 67.78 C	613.67 R	340.93 K
+155.00 F	 68.33 C	614.67 R	341.48 K
+156.00 F	 68.89 C	615.67 R	342.04 K
+157.00 F	 69.44 C	616.67 R	342.59 K
+158.00 F	 70.00 C	617.67 R	343.15 K
+159.00 F	 70.56 C	618.67 R	343.71 K
+160.00 F	 71.11 C	619.67 R	344.26 K
+161.00 F	 71.67 C	620.67 R	344.82 K
+162.00 F	 72.22 C	621.67 R	345.37 K
+163.00 F	 72.78 C	622.67 R	345.93 K
+164.00 F	 73.33 C	623.67 R	346.48 K
+165.00 F	 73.89 C	624.67 R	347.04 K
+166.00 F	 74.44 C	625.67 R	347.59 K
+167.00 F	 75.00 C	626.67 R	348.15 K
+168.00 F	 75.56 C	627.67 R	348.71 K
+169.00 F	 76.11 C	628.67 R	349.26 K
+170.00 F	 76.67 C	629.67 R	349.82 K
+171.00 F	 77.22 C	630.67 R	350.37 K
+172.00 F	 77.78 C	631.67 R	350.93 K
+173.00 F	 78.33 C	632.67 R	351.48 K
+174.00 F	 78.89 C	633.67 R	352.04 K
+175.00 F	 79.44 C	634.67 R	352.59 K
+176.00 F	 80.00 C	635.67 R	353.15 K
+177.00 F	 80.56 C	636.67 R	353.71 K
+178.00 F	 81.11 C	637.67 R	354.26 K
+179.00 F	 81.67 C	638.67 R	354.82 K
+180.00 F	 82.22 C	639.67 R	355.37 K
+181.00 F	 82.78 C	640.67 R	355.93 K
+182.00 F	 83.33 C	641.67 R	356.48 K
+183.00 F	 83.89 C	642.67 R	357.04 K
+184.00 F	 84.44 C	643.67 R	357.59 K
+185.00 F	 85.00 C	644.67 R	358.15 K
+186.00 F	 85.56 C	645.67 R	358.71 K
+187.00 F	 86.11 C	646.67 R	359.26 K
+188.00 F	 86.67 C	647.67 R	359.82 K
+189.00 F	 87.22 C	648.67 R	360.37 K
+190.00 F	 87.78 C	649.67 R	360.93 K
+191.00 F	 88.33 C	650.67 R	361.48 K
+192.00 F	 88.89 C	651.67 R	362.04 K
+193.00 F	 89.44 C	652.67 R	362.59 K
+194.00 F	 90.00 C	653.67 R	363.15 K
+195.00 F	 90.56 C	654.67 R	363.71 K
+196.00 F	 91.11 C	655.67 R	364.26 K
+197.00 F	 91.67 C	656.67 R	364.82 K
+198.00 F	 92.22 C	657.67 R	365.37 K
+199.00 F	 92.78 C	658.67 R	365.93 K
+200.00 F	 93.33 C	659.67 R	366.48 K
+201.00 F	 93.89 C	660.67 R	367.04 K
+202.00 F	 94.44 C	661.67 R	367.59 K
+203.00 F	 95.00 C	662.67 R	368.15 K
+204.00 F	 95.56 C	663.67 R	368.71 K
+205.00 F	 96.11 C	664.67 R	369.26 K
+206.00 F	 96.67 C	665.67 R	369.82 K
+207.00 F	 97.22 C	666.67 R	370.37 K
+208.00 F	 97.78 C	667.67 R	370.93 K
+209.00 F	 98.33 C	668.67 R	371.48 K
+210.00 F	 98.89 C	669.67 R	372.04 K
+211.00 F	 99.44 C	670.67 R	372.59 K
+theo@theo-VBox:~/Documents/spring-2014/project08/ruby$ exit
 
-Script done on Mon 14 Apr 2014 08:18:47 AM EDT
+Script done on Tue 15 Apr 2014 05:52:02 PM EDT

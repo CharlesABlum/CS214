@@ -1,0 +1,71 @@
+V "GNAT Lib v4.6"
+M P W=b
+A -gnatwa
+A -Wall
+A -mtune=generic
+A -march=x86-64
+P SS ZX
+R nnnnnnnnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnnnnnnn
+
+U max%b			max.adb			0956fd52 NE OO SU
+W ada%s			ada.ads			ada.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W list_package%s	list_package.adb	list_package.ali
+
+D ada.ads		20070406091342 3ffc8e18
+D a-except.ads		20090727140100 0c711ac9
+D a-finali.ads		20090409150019 e5e85fa4
+D a-filico.ads		20090409150019 872dc219
+D a-inteio.ads		20070406091342 f64b89a4
+D a-ioexce.ads		20091130110856 8b9de6cd
+D a-stream.ads		20090409150019 2ca4ee37
+D a-tags.ads		20101021101406 c7695348
+D a-textio.ads		20091028140912 386df5d4
+D a-tiinio.ads		20090409150019 aa04e5d6
+D a-unccon.ads		20070406091342 f9eb8f06
+D interfac.ads		20090409150019 f77d8799
+D i-cstrea.ads		20100622165701 1bd72c32
+D list_package.ads	20140421225832 9bc63ea4
+D max.adb		20140421230948 5cb6bf86
+D system.ads		20120503154647 23e1f70b
+D s-crtl.ads		20100617122610 ac77b159
+D s-exctab.ads		20090417131547 66e51330
+D s-ficobl.ads		20100909103250 443b9d66
+D s-finimp.ads		20090409150019 46853fe8
+D s-finroo.ads		20090409150019 dbb860c9
+D s-parame.ads		20091130110856 9c5d83fa
+D s-secsta.ads		20090707124243 eea35a36
+D s-soflin.ads		20090729085153 9414c974
+D s-stache.ads		20090417130712 596fc1b4
+D s-stalib.ads		20101021102512 c4241c00
+D s-stoele.ads		20090417130712 facd7d98
+D s-stoele.adb		20100617152355 afc5dc80
+D s-stratt.ads		20100909123135 aedef97e
+D s-traent.ads		20090417130712 5221ee41
+D s-unstyp.ads		20090409150019 6ae15c76
+D s-wchcon.ads		20090417130712 bfeb2e3d
+X 1 ada.ads
+16K9*Ada 19e8 15|8r6 8r19 9r5 9r18
+X 5 a-inteio.ads
+18K13*Integer_Text_IO[10|45] 15|8w23 9r22
+X 9 a-textio.ads
+49K13*Text_IO 472e16 15|8w10 9r9
+167U14*New_Line 15|39s15 40s15 41s15 43s63 44s63 45s63
+243U14*Put 15|43s3 44s3 45s3
+X 10 a-tiinio.ads
+65U14*Put 15|43s44[5|18] 44s44[5|18] 45s44[5|18]
+X 14 list_package.ads
+8K9*List_Package 76e17 15|8w40 9r39
+11R8*List 75e17 15|13r25
+20U13*Init 15|17s3 18s3 19s3
+43U13*Append 15|21s3 22s3 23s3 24s3 25s3 27s3 28s3 29s3 30s3 31s3 33s3 34s3
+. 35s3 36s3 37s3
+51U13*Put 15|39s3 40s3 41s3
+58V12*Max{integer} 15|43s49 44s49 45s49
+X 15 max.adb
+11U11*Max 11b11 47l5 47t8
+13r3 List1{14|11R8} 17m8 21m14 22m14 23m14 24m14 25m14 39r7 43r53
+13r10 List2{14|11R8} 18m8 27m14 28m14 29m14 30m14 31m14 40r7 44r53
+13r17 List3{14|11R8} 19m8 33m14 34m14 35m14 36m14 37m14 41r7 45r53
+

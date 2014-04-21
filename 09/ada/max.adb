@@ -11,6 +11,7 @@ use Ada.Text_IO, Ada.Integer_Text_IO, List_Package;
 procedure Max is 
                               -- define 3 lists 
   List1, List2, List3 : List; 
+  -- Test_Node : Node_Ptr;
  
 begin 
   Init(List1);                -- initialize them 

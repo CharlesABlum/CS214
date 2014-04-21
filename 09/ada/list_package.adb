@@ -71,16 +71,34 @@ package body List_Package is
   -- Receive: aList, a List.          -
   -- Output: the values in aList.     -
   -------------------------------------
-
-  -- replace this line with the definition of Put()
+  procedure Put(A_List : List) is 
+  Temp_Ptr : Node_Ptr := A_List.Its_First;
+  begin
+    while Temp_Ptr /= null
+    loop
+      Put(' '); Put(Temp_Ptr.Its_Value);
+      Temp_Ptr := Temp_Ptr.Its_Next;
+    end loop;
+  end Put;
 
   ---------------------------------------
   -- Find the maximum value in a list.  -
   -- Receive: aList, a List.            -
   -- Return: the maximum value in aList.-
   ---------------------------------------
-
-  -- replace this line with the definition of Max()
+  function Max(A_List : List) return Integer is
+  Temp_Ptr : Node_Ptr := A_List.Its_First;
+  Max_Value : Integer := -999999;
+  begin
+    while Temp_Ptr /= null
+    loop
+      if Temp_Ptr.Its_Value > Max_Value then
+        Max_Value := Temp_Ptr.Its_Value;
+      end if;
+      Temp_Ptr := Temp_Ptr.Its_Next;
+    end loop;
+    return Max_Value;
+  end Max;
 
 end List_Package;
 

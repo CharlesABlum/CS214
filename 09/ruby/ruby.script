@@ -1,10 +1,10 @@
-Script started on Mon 21 Apr 2014 07:27:15 PM EDT
-theo@theo-VBox:~/Documents/spring-2014/09/ruby$ cat Ls[Kist.rb max.rb 
+Script started on Mon 21 Apr 2014 07:33:39 PM EDT
+theo@theo-VBox:~/Documents/spring-2014/09/ruby$ cat List.rb max.rb 
 # List.rb implements a linked list structure in Ruby.
 #
 # Begun by: Dr. Adams, for CS 214 at Calvin College.
-# Completed by:
-# Date:
+# Completed by:Charles Blum
+# Date:21 April 2014
 #######################################################
 
 require 'test/unit/assertions'
@@ -86,8 +86,8 @@ end
 # max.rb tests a Ruby linked list.
 #
 # Begun by: Dr. Adams for CS 214 at Calvin College.
-# Completed by: 
-# Date: 
+# Completed by: Charles Blum
+# Date: 21 April 2014
 
 require 'List'
 
@@ -120,4 +120,4 @@ Maximum of list2: 99
 Maximum of list3: 99
 theo@theo-VBox:~/Documents/spring-2014/09/ruby$ exit
 
-Script done on Mon 21 Apr 2014 07:27:26 PM EDT
+Script done on Mon 21 Apr 2014 07:33:46 PM EDT

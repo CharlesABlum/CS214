@@ -1,8 +1,8 @@
 # List.rb implements a linked list structure in Ruby.
 #
 # Begun by: Dr. Adams, for CS 214 at Calvin College.
-# Completed by:
-# Date:
+# Completed by:Charles Blum
+# Date:21 April 2014
 #######################################################
 
 require 'test/unit/assertions'

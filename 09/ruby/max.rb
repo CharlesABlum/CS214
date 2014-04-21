@@ -1,8 +1,8 @@
 # max.rb tests a Ruby linked list.
 #
 # Begun by: Dr. Adams for CS 214 at Calvin College.
-# Completed by: 
-# Date: 
+# Completed by: Charles Blum
+# Date: 21 April 2014
 
 require 'List'
 

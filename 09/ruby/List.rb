@@ -12,14 +12,14 @@ class List
 
    # initialize a List to be empty
    # Postcondition: first == nil and last == nil and length == 0
-
-   # Replace this line with a List constructor definition
-
+   def initialize
+      @first, @last, @length  = nil, nil, 0
+   end
 
    # create reader method for length
-
-   # Replace this line with a statement to define a 'length' reader method
-
+   def getLength
+      @length
+   end
 
    # Am I empty?
    # Return: length == 0
@@ -48,18 +48,36 @@ class List
 
    # print my items
    # Postcondition: my items have been displayed to the screen
-
-   # Replace this line with a definition for method 'print'
-
+   def print 
+      temp = @first
+      while !temp.nil?
+	 printf " #{temp.value}"
+	 temp = temp.next
+      end
+   end
 
    # find my maximum item
    # Return: my maximum item
+   def max
+      temp = @first
+      maxValue = -999999
+      while !temp.nil?
+	 if temp.value > maxValue
+	    maxValue = temp.value
+ 	 end
+	 temp = temp.next
+      end
+      maxValue
+   end
 
-   # Replace this line with a definition for method 'max'
+   class Node
+      def initialize(item, link)
+         @value = item
+ 	 @next = link
+      end
 
-
-   # Replace this line with a declaration for class Node
-   #  (and its methods)
-
+      attr_reader :value
+      attr_accessor :next
+   end
 end
 

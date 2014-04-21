@@ -16,13 +16,13 @@ list3.append(55).append(77).append(99).append(88).append(66)
 
 list1.print 
 puts
-#puts "Maximum of list1: #{list1.max}"
+puts "Maximum of list1: #{list1.max}"
 
 list2.print 
 puts
-#puts "Maximum of list2: #{list2.max}"
+puts "Maximum of list2: #{list2.max}"
 
 list3.print 
 puts
-#puts "Maximum of list3: #{list3.max}"
+puts "Maximum of list3: #{list3.max}"
 

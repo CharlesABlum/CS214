@@ -16,4 +16,11 @@ using namespace std;
  *          out, an ostream.                 *
  * Output: the values in aList, to out.      *
  *********************************************/
-
+void print(const list<int> & aList, ostream & out) {
+  list<int>::const_iterator it = aList.begin();
+  while ( it != aList.end() )
+  {
+    out << *it << '\t';
+    it++;
+  }
+}

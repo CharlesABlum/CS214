@@ -1,17 +1,19 @@
 /* max.cpp finds the maximum value in a C++ linked list.
  *
  * Begun by: Dr. Adams, CS 214 at Calvin College.
- * Completed by:
- * Date:
+ * Completed by:Charles Blum
+ * Date:21 April 2014
  */
 
 #include <iostream>       // cin, cout, <<, >>
+#include <algorithm> 	  // max_element
 using namespace std;
 
 #include "mylist.h"       // print()
 
 int main() {
   // define list1, list2, list3 ...
+  list<int> list1, list2, list3;  
 
   list1.push_back(99);    // 99, 88, 77, 66, 55
   list1.push_back(88);    // max is first
@@ -36,5 +38,8 @@ int main() {
   print(list3, cout); cout << endl;
 
   // display maxima of the 3 lists...
+  cout << *max_element(list1.begin(), list1.end()) << endl;
+  cout << *max_element(list2.begin(), list2.end()) << endl;
+  cout << *max_element(list3.begin(), list3.end()) << endl;
 }
 

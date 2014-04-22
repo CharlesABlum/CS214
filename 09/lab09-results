@@ -1,0 +1,573 @@
+Script started on Mon 21 Apr 2014 12:56:11 PM EDT
+theo@theo-VBox:~/Documents/spring-2014/09/c++$ cat mylist.h mylist.cpp max.cpp 
+/* mylist.h declares functions that extend the STL list.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:21 April 2014
+ */
+
+#include <list>           // list<>
+using namespace std;
+
+void print(const list<int> & aList, ostream & out);
+/* mylist.cpp defines functions that extend the STL list.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:
+ * Date:
+ */
+
+#include <iostream>     // cout, <<
+using namespace std;
+
+#include "mylist.h"
+
+/*********************************************
+ * print() displays an STL list of integers. *
+ * Receive: aList, a list of integers,       *
+ *          out, an ostream.                 *
+ * Output: the values in aList, to out.      *
+ *********************************************/
+void print(const list<int> & aList, ostream & out) {
+  list<int>::const_iterator it = aList.begin();
+  while ( it != aList.end() )
+  {
+    out << *it << '\t';
+    it++;
+  }
+}
+/* max.cpp finds the maximum value in a C++ linked list.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:21 April 2014
+ */
+
+#include <iostream>       // cin, cout, <<, >>
+#include <algorithm> 	  // max_element
+using namespace std;
+
+#include "mylist.h"       // print()
+
+int main() {
+  // define list1, list2, list3 ...
+  list<int> list1, list2, list3;  
+
+  list1.push_back(99);    // 99, 88, 77, 66, 55
+  list1.push_back(88);    // max is first
+  list1.push_back(77);
+  list1.push_back(66);  
+  list1.push_back(55);
+
+  list2.push_back(55);    // 55, 66, 77, 88, 99
+  list2.push_back(66);    // max is last
+  list2.push_back(77);  
+  list2.push_back(88);  
+  list2.push_back(99);  
+  
+  list3.push_back(55);    // 55, 77, 99, 88, 66
+  list3.push_back(77);    // max is in the middle
+  list3.push_back(99);  
+  list3.push_back(88);  
+  list3.push_back(66);  
+  
+  print(list1, cout); cout << endl;
+  print(list2, cout); cout << endl;
+  print(list3, cout); cout << endl;
+
+  // display maxima of the 3 lists...
+  cout << *max_element(list1.begin(), list1.end()) << endl;
+  cout << *max_element(list2.begin(), list2.end()) << endl;
+  cout << *max_element(list3.begin(), list3.end()) << endl;
+}
+
+theo@theo-VBox:~/Documents/spring-2014/09/c++$ make
+make: `cppMax' is up to date.
+theo@theo-VBox:~/Documents/spring-2014/09/c++$ ./cppMax 
+99	88	77	66	55	
+55	66	77	88	99	
+55	77	99	88	66	
+99
+99
+99
+theo@theo-VBox:~/Documents/spring-2014/09/c++$ exit
+
+Script done on Mon 21 Apr 2014 12:56:35 PM EDT
+Script started on Mon 21 Apr 2014 07:09:58 PM EDT
+theo@theo-VBox:~/Documents/spring-2014/09/ada$ cat list_package.ads list_package..adb max.adb 
+-- list_package.ads declares an Ada linked list and its operations.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:21 April 2014
+------------------------------------------------------------------
+
+package List_Package is
+
+  -- the list-type itself (public)
+  type List is private;
+
+  -----------------------------------------------------
+  -- Initialize a list                                -
+  -- Receive: aList, a List.                          -
+  -- Pre: aList is uninitialized.                     -
+  -- Post: aList%itsFirst == aList%itsLast == NULL && -
+  --        aList%itsLength == 0.                     -
+  -----------------------------------------------------
+  procedure Init(A_List: out List);
+
+
+  ------------------------------------------------
+  -- Is a list empty?                            -
+  -- Receive: aList, a List.                     -
+  -- Return: true, iff aList contains no values. -
+  ------------------------------------------------
+  function Empty(A_List: in List) return Boolean;
+
+  -------------------------------------
+  -- How many values are in a list?   -
+  -- Receive: aList, a List.          -
+  -- Return: aList%itsLength.         -
+  -------------------------------------
+  function Length(A_List : in List) return Integer;
+
+
+  ----------------------------------------
+  -- Append a value to a list.           -
+  -- Receive: aValue, an integer,        -
+  -- Passback: aList, containing aValue. -
+  ----------------------------------------
+  procedure Append(A_Value : in Integer; A_List: in out List);
+
+
+  -------------------------------------
+  -- Display the values in a list.    -
+  -- Receive: aList, a List.          -
+  -- Output: the values in aList.     -
+  -------------------------------------
+  procedure Put(A_List : in List);
+
+  ---------------------------------------
+  -- Find the maximum value in a list.  -
+  -- Receive: aList, a List.            -
+  -- Return: the maximum value in aList.-
+  ---------------------------------------
+  function Max(A_List : in List) return Integer;
+
+ private
+   type List_Node;
+
+   type Node_Ptr is access List_Node;
+
+   type List_Node is
+      record
+         Its_Value : Integer;
+         Its_Next : Node_Ptr;
+      end record;
+
+   type List is 
+      record
+	 Its_First, Its_Last : Node_Ptr;
+	 Its_Length : Integer;
+      end record;
+end List_Package;
+
+-- list_package.adb defines Ada linked list operations.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:
+-- Date:
+-------------------------------------------------------
+
+with Ada.Text_IO, Ada.Integer_Text_IO;
+use Ada.Text_IO, Ada.Integer_Text_IO;
+
+package body List_Package is
+
+  -----------------------------------------------------
+  -- Initialize a list                                -
+  -- Receive: aList, a List.                          -
+  -- Pre: aList is uninitialized.                     -
+  -- Post: aList%itsFirst == aList%itsLast == NULL && -
+  --        aList%itsLength == 0.                     -
+  -----------------------------------------------------
+  procedure Init(A_List : out List) is
+  begin
+    A_List.Its_First := null;
+    A_List.Its_Last := null;
+    A_List.Its_Length := 0;
+  end Init;
+
+  ------------------------------------------------
+  -- Is a list empty?                            -
+  -- Receive: aList, a List.                     -
+  -- Return: true, iff aList contains no values. -
+  ------------------------------------------------
+  function Empty(A_List : in List) return Boolean is
+  begin
+    return A_List.Its_Length = 0;
+  end Empty;
+
+  -------------------------------------
+  -- How many values are in a list?   -
+  -- Receive: aList, a List.          -
+  -- Return: aList%itsLength.         -
+  -------------------------------------
+  function Length(A_List : in List) return Integer is
+  begin
+    return A_List.Its_Length;
+  end Length;
+
+  ----------------------------------------
+  -- Append a value to a list.           -
+  -- Receive: aValue, an integer,        -
+  -- Passback: aList, containing aValue. -
+  ----------------------------------------
+  procedure Append(A_Value : in Integer; A_List : in out List) is
+    Temp_Ptr : constant Node_Ptr := new List_Node;
+  begin
+    Temp_Ptr.Its_Value := A_Value;
+    Temp_Ptr.Its_Next := null;
+
+    if A_List.Its_Length = 0 then
+       A_List.Its_First := Temp_Ptr;
+    else
+       A_List.Its_Last.Its_Next := Temp_Ptr;
+    end if;
+
+    A_List.Its_Last := Temp_Ptr;
+
+    A_List.Its_Length := A_List.Its_Length + 1;
+  end Append;
+
+  -------------------------------------
+  -- Display the values in a list.    -
+  -- Receive: aList, a List.          -
+  -- Output: the values in aList.     -
+  -------------------------------------
+  procedure Put(A_List : List) is 
+  Temp_Ptr : Node_Ptr := A_List.Its_First;
+  begin
+    while Temp_Ptr /= null
+    loop
+      Put(' '); Put(Temp_Ptr.Its_Value);
+      Temp_Ptr := Temp_Ptr.Its_Next;
+    end loop;
+  end Put;
+
+  ---------------------------------------
+  -- Find the maximum value in a list.  -
+  -- Receive: aList, a List.            -
+  -- Return: the maximum value in aList.-
+  ---------------------------------------
+  function Max(A_List : List) return Integer is
+  Temp_Ptr : Node_Ptr := A_List.Its_First;
+  Max_Value : Integer := -999999;
+  begin
+    while Temp_Ptr /= null
+    loop
+      if Temp_Ptr.Its_Value > Max_Value then
+        Max_Value := Temp_Ptr.Its_Value;
+      end if;
+      Temp_Ptr := Temp_Ptr.Its_Next;
+    end loop;
+    return Max_Value;
+  end Max;
+
+end List_Package;
+
+-- max.adb finds the max of a list of integers. 
+-- 
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:
+-- Date:
+-------------------------------------------------- 
+ 
+with Ada.Text_IO, Ada.Integer_Text_IO, List_Package; 
+use Ada.Text_IO, Ada.Integer_Text_IO, List_Package; 
+ 
+procedure Max is 
+                              -- define 3 lists 
+  List1, List2, List3 : List; 
+  -- Test_Node : Node_Ptr;
+ 
+begin 
+  Init(List1);                -- initialize them 
+  Init(List2); 
+  Init(List3); 
+ 
+  Append(99, List1);          -- 99, 88, 77, 66, 55 
+  Append(88, List1);          -- max is first 
+  Append(77, List1); 
+  Append(66, List1); 
+  Append(55, List1); 
+ 
+  Append(55, List2);          -- 55, 66, 77, 88, 99 
+  Append(66, List2);          -- max is last 
+  Append(77, List2); 
+  Append(88, List2); 
+  Append(99, List2); 
+ 
+  Append(55, List3);          -- 55, 77, 99, 88, 66 
+  Append(77, List3);          -- max is in the middle 
+  Append(99, List3); 
+  Append(88, List3); 
+  Append(66, List3); 
+ 
+  Put(List1); New_Line;       -- output the 3 lists 
+  Put(List2); New_Line; 
+  Put(list3); New_Line; 
+                              -- display their maxima 
+  Put("The maximum value in list 1 is ");  Put( Max(List1) ); New_Line; 
+  Put("The maximum value in list 2 is ");  Put( Max(List2) ); New_Line; 
+  Put("The maximum value in list 3 is ");  Put( Max(List3) ); New_Line; 
+ 
+end Max; 
+
+theo@theo-VBox:~/Documents/spring-2014/09/ada$ make
+gnatbind  max.ali
+gnatlink  max.ali -o adaMax
+theo@theo-VBox:~/Documents/spring-2014/09/ada$ ./adaMax 
+          99          88          77          66          55
+          55          66          77          88          99
+          55          77          99          88          66
+The maximum value in list 1 is          99
+The maximum value in list 2 is          99
+The maximum value in list 3 is          99
+theo@theo-VBox:~/Documents/spring-2014/09/ada$ exit
+
+Script done on Mon 21 Apr 2014 07:10:19 PM EDT
+Script started on Tue 22 Apr 2014 12:40:36 AM EDT
+theo@theo-VBox:~/Documents/spring-2014/09/e-lisp$ cat ml[Kylist.el mylist.elc max.ell 
+;;; mylist.el is a "module" of list operations.
+;;;
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by:Charles Blum
+;;; Date:21 April 2014
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Max2 finds the maximum of two values.       ;;
+;;; Receive: val1, val2, two values.            ;;
+;;; PRE: val1 and val2 can be compared using <. ;;
+;;; Return: the maximum of val1 and val2.       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun Max2 (val1 val2)
+  (if (> val1 val2)
+      val1
+    val2))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Max finds the maximum value in a list.         ;;
+;;; Receive: aList, a list of values.              ;;
+;;; PRE: values in aList can be compared using <.  ;;
+;;; Return: the maximum value in aList.            ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun Max(aList)
+  (if (listp aList)
+     (if (= (length aList) 0)
+	 nil
+       (if (= (length aList) 1)
+	   (car aList)
+	 (Max2 (car aList) (Max (cdr aList)))
+	 )
+       )
+    nil));ELC   
+;;; Compiled by theo@theo-VBox on Tue Apr 22 00:38:25 2014
+;;; from file /home/theo/Documents/spring-2014/09/e-lisp/mylist.el
+;;; in Emacs version 23.3.1
+;;; with all optimizations.
+
+;;; This file uses dynamic docstrings, first added in Emacs 19.29.
+
+;;; This file does not contain utf-8 non-ASCII characters,
+;;; and so can be loaded in Emacs versions earlier than 23.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defalias 'Max2 #[(val1 val2) "	V\203 \207	\207" [val1 val2] 2])
+(defalias 'Max #[(aList) "<\205 G\301U?\205 G\302U\203 @\207\303@\304A!\"\207" [aList 0 1 Max2 Max] 4])
+;;; max.el searches a list for its maximum value.
+;;;
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by:Charles Blum
+;;; Date:21 April 2014
+
+(add-to-list 'load-path ".")             ; setup load-path to WD
+("." "/usr/share/emacs23/site-lisp/dictionaries-common" "/etc/emacs23" "/etc/emacs" "/usr/local/share/emacs/23.3/site-lisp" "/usr/local/share/emacs/site-lisp" "/usr/share/emacs/23.3/site-lisp" "/usr/share/emacs/23.3/site-lisp/dictionaries-common" "/usr/share/emacs/site-lisp" "/usr/share/emacs/23.3/leim" "/usr/share/emacs/23.3/lisp" "/usr/share/emacs/23.3/lisp/url" ...)
+
+(load "mylist.elc")                      ; load module
+t
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; test function Max. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (let
+      ((buf (get-buffer "max.el"))       ; setup for output
+       (list1 (list 99 88 77 66 55))     ; max is first
+       (list2 (list 55 66 77 88 99))     ; max is last
+       (list3 (list 55 77 99 88 66)))    ; max in middle
+
+    (princ list1 buf)                    ; print list1
+    (terpri buf)                         ;  and a newline
+
+    (princ list2 buf)                    ; print list2
+    (terpri buf)                         ;  and a newline
+
+    (princ list3 buf)                    ; print list3
+    (terpri buf)                         ;  and a newline
+
+    (princ "The max in list 1 is " buf)  ; print the max
+    (princ (Max list1) buf)              ;  in list1
+    (terpri buf)                         ;  and a newline
+    (princ "The max in list 2 is " buf)  ; print the max
+    (princ (Max list2) buf)              ;  in list2
+    (terpri buf)                         ;  and a newline
+    (princ "The max in list 3 is " buf)  ; print the max
+    (princ (Max list3) buf)              ;  in list3
+    (terpri buf))                        ;  and a newline
+    
+    (setq alist (list ))
+    (princ alist buf)
+    (terpri buf)
+    (Max alist)
+    (terpri buf)
+)
+(99 88 77 66 55)
+(55 66 77 88 99)
+(55 77 99 88 66)
+The max in list 1 is 99
+The max in list 2 is 99
+The max in list 3 is 99
+nil
+
+t
+theo@theo-VBox:~/Documents/spring-2014/09/e-lisp$ exit
+
+Script done on Tue 22 Apr 2014 12:40:55 AM EDT
+Script started on Mon 21 Apr 2014 07:33:39 PM EDT
+theo@theo-VBox:~/Documents/spring-2014/09/ruby$ cat List.rb max.rb 
+# List.rb implements a linked list structure in Ruby.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:21 April 2014
+#######################################################
+
+require 'test/unit/assertions'
+include Test::Unit::Assertions
+
+class List
+
+   # initialize a List to be empty
+   # Postcondition: first == nil and last == nil and length == 0
+   def initialize
+      @first, @last, @length  = nil, nil, 0
+   end
+
+   # create reader method for length
+   def getLength
+      @length
+   end
+
+   # Am I empty?
+   # Return: length == 0
+   def empty?
+      @length == 0
+   end
+  
+   # append a value to me
+   # Receive: value, the item to be appended
+   # Postcondition: my last item is value and
+   #                 my length is one more than it was
+   def append(value)
+      newNode = Node.new(value, nil)
+
+      if empty?
+         @first = newNode
+      else
+         @last.next = newNode      
+      end
+
+      @last = newNode
+      @length += 1
+      self
+   end
+
+
+   # print my items
+   # Postcondition: my items have been displayed to the screen
+   def print 
+      temp = @first
+      while !temp.nil?
+	 printf " #{temp.value}"
+	 temp = temp.next
+      end
+   end
+
+   # find my maximum item
+   # Return: my maximum item
+   def max
+      temp = @first
+      maxValue = -999999
+      while !temp.nil?
+	 if temp.value > maxValue
+	    maxValue = temp.value
+ 	 end
+	 temp = temp.next
+      end
+      maxValue
+   end
+
+   class Node
+      def initialize(item, link)
+         @value = item
+ 	 @next = link
+      end
+
+      attr_reader :value
+      attr_accessor :next
+   end
+end
+
+# max.rb tests a Ruby linked list.
+#
+# Begun by: Dr. Adams for CS 214 at Calvin College.
+# Completed by: Charles Blum
+# Date: 21 April 2014
+
+require 'List'
+
+list1 = List.new
+list2 = List.new
+list3 = List.new
+
+list1.append(99).append(88).append(77).append(66).append(55)
+list2.append(55).append(66).append(77).append(88).append(99)
+list3.append(55).append(77).append(99).append(88).append(66)
+
+list1.print 
+puts
+puts "Maximum of list1: #{list1.max}"
+
+list2.print 
+puts
+puts "Maximum of list2: #{list2.max}"
+
+list3.print 
+puts
+puts "Maximum of list3: #{list3.max}"
+
+theo@theo-VBox:~/Documents/spring-2014/09/ruby$ ruby max.rb 
+ 99 88 77 66 55
+Maximum of list1: 99
+ 55 66 77 88 99
+Maximum of list2: 99
+ 55 77 99 88 66
+Maximum of list3: 99
+theo@theo-VBox:~/Documents/spring-2014/09/ruby$ exit
+
+Script done on Mon 21 Apr 2014 07:33:46 PM EDT

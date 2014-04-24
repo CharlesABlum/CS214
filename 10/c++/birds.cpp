@@ -1,17 +1,16 @@
 /* birds.cpp illustrates inheritance and polymorphism.
  *
  * Begun by: Dr. Adams, CS 214 at Calvin College.
- * Completed by:
- * Date:
+ * Completed by:Charles Blum
+ * Date:24 April 2014
  */
 
 #include <iostream>       // cin, cout, <<, >>
-using namespace std;
-
 #include "Bird.h"         // Bird
 #include "Owl.h"          // Owl
 #include "Duck.h"         // Duck
 #include "Goose.h"        // Goose
+using namespace std;
 
 int main() {
   Bird * birdPtr0 = NULL,
@@ -20,9 +19,13 @@ int main() {
        * birdPtr3 = NULL;
 
   birdPtr0 = new Bird("Hawkeye");
+//  cout << birdPtr0->name() << endl;
+//  cout << birdPtr0->call() << endl;
+//  cout << birdPtr0->className() << endl;
   birdPtr0->print(); cout << endl;
-/*  
+  
   birdPtr1 = new Duck("Donald");
+  birdPtr1->call();
   birdPtr1->print(); cout << endl;
 
   birdPtr2 = new Goose("Mother Goose");
@@ -30,7 +33,7 @@ int main() {
 
   birdPtr3 = new Owl("Woodsey");
   birdPtr3->print(); cout << endl;
-  */
+  
   delete birdPtr0;
   delete birdPtr1;
   delete birdPtr2;

@@ -1,0 +1,73 @@
+V "GNAT Lib v4.6"
+A -mtune=generic
+A -march=x86-64
+P SS ZX
+R nnnnnnnnnnnnnnnnnnnnnnnnnvvnnnnnnnnnnnnnnvnnvnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnn
+
+U owl_package%b		owl_package.adb		c76cd705 NE OO PK
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U owl_package%s		owl_package.ads		4519f335 EE OO PK
+W ada.exceptions%s	a-except.adb		a-except.ali
+W ada.streams%s		a-stream.ads		a-stream.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W bird_package%s	bird_package.adb	bird_package.ali
+W system%s		system.ads		system.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.storage_elements%s  s-stoele.adb	s-stoele.ali
+
+D ada.ads		20070406091342 3ffc8e18
+D a-except.ads		20090727140100 0c711ac9
+D a-finali.ads		20090409150019 e5e85fa4
+D a-filico.ads		20090409150019 872dc219
+D a-ioexce.ads		20091130110856 8b9de6cd
+D a-stream.ads		20090409150019 2ca4ee37
+D a-tags.ads		20101021101406 c7695348
+D a-textio.ads		20091028140912 386df5d4
+D a-unccon.ads		20070406091342 f9eb8f06
+D a-uncdea.ads		20070406091342 f15a5ed1
+D bird_package.ads	20140424183343 c278ef0e
+D interfac.ads		20090409150019 f77d8799
+D i-cstrea.ads		20100622165701 1bd72c32
+D owl_package.ads	20140424184236 87611c3b
+D owl_package.adb	20140424184033 78603eea
+D system.ads		20120503154647 23e1f70b
+D s-crtl.ads		20100617122610 ac77b159
+D s-exctab.ads		20090417131547 66e51330
+D s-ficobl.ads		20100909103250 443b9d66
+D s-finimp.ads		20090409150019 46853fe8
+D s-finroo.ads		20090409150019 dbb860c9
+D s-parame.ads		20091130110856 9c5d83fa
+D s-secsta.ads		20090707124243 eea35a36
+D s-soflin.ads		20090729085153 9414c974
+D s-stache.ads		20090417130712 596fc1b4
+D s-stalib.ads		20101021102512 c4241c00
+D s-stoele.ads		20090417130712 facd7d98
+D s-stoele.adb		20100617152355 afc5dc80
+D s-stratt.ads		20100909123135 aedef97e
+D s-string.ads		20090417130712 46b01415
+D s-ststop.ads		20090417130712 ee472be4
+D s-traent.ads		20090417130712 5221ee41
+D s-unstyp.ads		20090409150019 6ae15c76
+D s-wchcon.ads		20090417130712 bfeb2e3d
+X 1 ada.ads
+16K9*Ada 19e8 15|9r6 10r5
+X 8 a-textio.ads
+49K13*Text_IO 472e16 15|9w10 10r9
+X 11 bird_package.ads
+8K9*Bird_Package 53e17 14|9w6 9r24
+9R8*Bird_type 51e15 14|13r24 31r24
+17U13*Init
+24V12*Name{string}
+X 14 owl_package.ads
+11K9*Owl_Package 36l5 36e16 15|12b14 36l5 36t16
+13R8*Owl_Type<11|9R8> 11|17p13 24p12 14|20P11 20r27 28P11 28r32 31c8 34e15
+. 15|20r27 31r32
+20V11*Call{string}<11|31p12> 20>16 15|20b11 23l6 23t10
+20r16 A_Owl{13R8} 15|20b16
+28V11*Type_Name{string}<11|38p12> 28>21 15|31b11 34l6 34t15
+28r21 A_Owl{13R8} 15|31b21
+

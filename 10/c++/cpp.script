@@ -1,0 +1,201 @@
+Script started on Thu 24 Apr 2014 09:48:43 AM EDT
+ctheo@theo-VBox:~/Documents/spring-2014/10/c++$ cat Bird.h Duck.h Goose.h Owl.h b irds.cpp 
+/* Bird.h provides class Bird.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:24 April 2014
+ */
+
+#ifndef BIRD
+#define BIRD
+
+#include <string>
+using namespace std;
+
+class Bird {
+ public:           // interface
+  Bird(const string & name);
+  virtual ~Bird() {};
+  virtual string name() const;
+  virtual string call() const;
+  void print(ostream & out = cout) const;
+  virtual string className() const;
+ private:          // data
+ string myName;
+};
+
+inline Bird::Bird(const string & name) {
+  myName = name;
+}
+
+inline string Bird::name() const {
+  return myName;
+}
+
+inline string Bird::call() const {
+  return "Squaaaaaaaaaaaaaaak";
+}
+
+inline string Bird::className() const {
+  return "Bird";
+}
+
+inline void Bird::print(ostream & out) const {
+  out 	<< name()
+	<< ' '
+	<< className()
+	<< " says "
+	<< call();
+}
+#endif
+
+/* Duck.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date: 24 April 2014
+ */
+
+#ifndef DUCK
+#define DUCK
+
+#include "Bird.h"
+
+class Duck : public Bird {
+ public:
+  Duck(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Duck::Duck(const string & name)
+  : Bird(name)
+{
+}
+
+inline string Duck::call() const {
+  return "Quack";
+}
+  
+inline string Duck::className() const {
+  return "Duck";
+}
+
+#endif
+/* Goose.h
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:
+ */
+
+#ifndef GOOSE
+#define GOOSE
+
+#include "Bird.h"
+
+class Goose : public Bird {
+ public:
+  Goose(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Goose::Goose(const string & name) : Bird(name) {
+
+}
+
+inline string Goose::call() const {
+  return "Honk!";
+}
+
+inline string Goose::className() const {
+ return "Goose";
+}
+
+#endif
+/* Owl.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:24 April 2014
+ */
+
+#ifndef OWL
+#define OWL
+
+#include "Bird.h"
+
+class Owl : public Bird {
+ public:
+  Owl(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Owl::Owl(const string & name) : Bird(name) {
+
+}
+
+inline string Owl::call() const {
+  return "Hoooo";
+}
+
+inline string Owl::className() const {
+  return "Owl";
+}
+
+#endif
+/* birds.cpp illustrates inheritance and polymorphism.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:24 April 2014
+ */
+
+#include <iostream>       // cin, cout, <<, >>
+#include "Bird.h"         // Bird
+#include "Owl.h"          // Owl
+#include "Duck.h"         // Duck
+#include "Goose.h"        // Goose
+using namespace std;
+
+int main() {
+  Bird * birdPtr0 = NULL,
+       * birdPtr1 = NULL,
+       * birdPtr2 = NULL,
+       * birdPtr3 = NULL;
+
+  birdPtr0 = new Bird("Hawkeye");
+//  cout << birdPtr0->name() << endl;
+//  cout << birdPtr0->call() << endl;
+//  cout << birdPtr0->className() << endl;
+  birdPtr0->print(); cout << endl;
+  
+  birdPtr1 = new Duck("Donald");
+  birdPtr1->call();
+  birdPtr1->print(); cout << endl;
+
+  birdPtr2 = new Goose("Mother Goose");
+  birdPtr2->print(); cout << endl;
+
+  birdPtr3 = new Owl("Woodsey");
+  birdPtr3->print(); cout << endl;
+  
+  delete birdPtr0;
+  delete birdPtr1;
+  delete birdPtr2;
+  delete birdPtr3;
+}
+theo@theo-VBox:~/Documents/spring-2014/10/c++$ make
+make: `birds' is up to date.
+theo@theo-VBox:~/Documents/spring-2014/10/c++$ ./birds 
+Hawkeye Bird says Squaaaaaaaaaaaaaaak
+Donald Duck says Quack
+Mother Goose Goose says Honk!
+Woodsey Owl says Hoooo
+theo@theo-VBox:~/Documents/spring-2014/10/c++$ exit
+
+Script done on Thu 24 Apr 2014 09:49:05 AM EDT

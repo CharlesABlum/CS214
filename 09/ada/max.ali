@@ -7,7 +7,7 @@ A -march=x86-64
 P SS ZX
 R nnnnnnnnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnnnnnnn
 
-U max%b			max.adb			0956fd52 NE OO SU
+U max%b			max.adb			c725c887 NE OO SU
 W ada%s			ada.ads			ada.ali
 W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
@@ -26,8 +26,8 @@ D a-tiinio.ads		20090409150019 aa04e5d6
 D a-unccon.ads		20070406091342 f9eb8f06
 D interfac.ads		20090409150019 f77d8799
 D i-cstrea.ads		20100622165701 1bd72c32
-D list_package.ads	20140421225832 9bc63ea4
-D max.adb		20140421230948 5cb6bf86
+D list_package.ads	20140427143702 b6f8689a
+D max.adb		20140427144821 bffbdc6d
 D system.ads		20120503154647 23e1f70b
 D s-crtl.ads		20100617122610 ac77b159
 D s-exctab.ads		20090417131547 66e51330
@@ -51,21 +51,25 @@ X 5 a-inteio.ads
 18K13*Integer_Text_IO[10|45] 15|8w23 9r22
 X 9 a-textio.ads
 49K13*Text_IO 472e16 15|8w10 9r9
-167U14*New_Line 15|39s15 40s15 41s15 43s63 44s63 45s63
-243U14*Put 15|43s3 44s3 45s3
+167U14*New_Line 15|46s15 47s15 48s15 50s63 51s63 52s63 54s57 55s57 56s57
+. 57s57
+243U14*Put 15|50s3 51s3 52s3 54s3 55s3 56s3 57s3
 X 10 a-tiinio.ads
-65U14*Put 15|43s44[5|18] 44s44[5|18] 45s44[5|18]
+65U14*Put 15|50s44[5|18] 51s44[5|18] 52s44[5|18] 54s32[5|18] 55s32[5|18]
+. 56s32[5|18] 57s32[5|18]
 X 14 list_package.ads
-8K9*List_Package 76e17 15|8w40 9r39
-11R8*List 75e17 15|13r25
-20U13*Init 15|17s3 18s3 19s3
-43U13*Append 15|21s3 22s3 23s3 24s3 25s3 27s3 28s3 29s3 30s3 31s3 33s3 34s3
-. 35s3 36s3 37s3
-51U13*Put 15|39s3 40s3 41s3
-58V12*Max{integer} 15|43s49 44s49 45s49
+8K9*List_Package 81e17 15|8w40 9r39
+11R8*List 80e17 15|13r32
+20U13*Init 15|17s3 18s3 19s3 20s3
+41U13*Append 15|22s3 23s3 24s3 25s3 26s3 28s3 29s3 30s3 31s3 32s3 34s3 35s3
+. 36s3 37s3 38s3 40s3 41s3 42s3 43s3 44s3
+48U13*Put 15|46s3 47s3 48s3
+55V12*Max{integer} 15|50s49 51s49 52s49
+63V12*Index{integer} 15|54s37 55s37 56s37 57s37
 X 15 max.adb
-11U11*Max 11b11 47l5 47t8
-13r3 List1{14|11R8} 17m8 21m14 22m14 23m14 24m14 25m14 39r7 43r53
-13r10 List2{14|11R8} 18m8 27m14 28m14 29m14 30m14 31m14 40r7 44r53
-13r17 List3{14|11R8} 19m8 33m14 34m14 35m14 36m14 37m14 41r7 45r53
+11U11*Max 11b11 59l5 59t8
+13r3 List1{14|11R8} 17m8 22m14 23m14 24m14 25m14 26m14 46r7 50r53 54r43
+13r10 List2{14|11R8} 18m8 28m14 29m14 30m14 31m14 32m14 47r7 51r53 55r43
+13r17 List3{14|11R8} 19m8 34m14 35m14 36m14 37m14 38m14 48r7 52r53 56r43
+13r24 List4{14|11R8} 20m8 40m14 41m14 42m14 43m14 44m14 57r43
 

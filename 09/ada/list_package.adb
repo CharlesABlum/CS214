@@ -100,5 +100,26 @@ package body List_Package is
     return Max_Value;
   end Max;
 
+  ---------------------------------------
+  -- Index finds the index of a number. -
+  -- Receive: aList, a List,            -
+  --          number, the number to find-
+  -- Return: the index of number.       -
+  ---------------------------------------
+  function Index(A_List : List; Number : Integer) return Integer is
+  Temp_Ptr : Node_Ptr := A_List.Its_First;
+  IndexOf : Integer := 0; 
+  begin
+    while Temp_Ptr /= null
+    loop
+      if Temp_Ptr.Its_Value = Number then
+        return IndexOf;
+      end if;
+      IndexOf := IndexOf + 1;
+      Temp_Ptr := Temp_Ptr.Its_Next;
+    end loop;
+    return -1;
+
+  end Index;
 end List_Package;
 

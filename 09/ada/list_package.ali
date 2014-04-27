@@ -6,13 +6,13 @@ A -march=x86-64
 P SS ZX
 R nnnvnnnnnnnnnnnnnnnnnnnnnvnnnnnvnnnnnnnnnnnnvnnnnnnnnnnnnnvnnnnnnnnnnnnnnnnnnnnn
 
-U list_package%b	list_package.adb	0f14e87d NE OO PK
+U list_package%b	list_package.adb	a15778e5 NE OO PK
 W ada%s			ada.ads			ada.ali
 W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
 W ada.tags%s		a-tags.adb		a-tags.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
 
-U list_package%s	list_package.ads	9bc63ea4 EE NE OO PK
+U list_package%s	list_package.ads	b6f8689a EE NE OO PK
 
 D ada.ads		20070406091342 3ffc8e18
 D a-except.ads		20090727140100 0c711ac9
@@ -27,8 +27,8 @@ D a-tiinio.ads		20090409150019 aa04e5d6
 D a-unccon.ads		20070406091342 f9eb8f06
 D interfac.ads		20090409150019 f77d8799
 D i-cstrea.ads		20100622165701 1bd72c32
-D list_package.ads	20140421225832 9bc63ea4
-D list_package.adb	20140421230513 5af4aaa9
+D list_package.ads	20140427143702 b6f8689a
+D list_package.adb	20140427144533 d9896c0f
 D system.ads		20120503154647 23e1f70b
 D s-crtl.ads		20100617122610 ac77b159
 D s-exctab.ads		20090417131547 66e51330
@@ -56,32 +56,37 @@ X 9 a-textio.ads
 X 10 a-tiinio.ads
 65U14*Put 15|79s17[5|18]
 X 14 list_package.ads
-8K9*List_Package 76l5 76e17 15|11b14 103l5 103t17
-11R8*List 20r30 28r29 35r31 43r57 51r29 58r28 71c9 75e17 15|20r31 32r30 42r31
-. 52r58 74r26 89r25
+8K9*List_Package 81l5 81e17 15|11b14 124l5 124t17
+11R8*List 20r30 27r29 34r31 41r57 48r29 55r28 63r30 76c9 80e17 15|20r31 32r30
+. 42r31 52r58 74r26 89r25 109r27
 20U13*Init 20<18 15|20b13 25l7 25t11
 20r18 A_List{11R8} 15|20b18 22m5 23m5 24m5
-28V12*Empty{boolean} 28>18 15|32b12 35l7 35t12
-28r18 A_List{11R8} 15|32b18 34r12
-35V12*Length{integer} 35>19 15|42b12 45l7 45t13
-35r19 A_List{11R8} 15|42b19 44r12
-43U13*Append 43>20 43=42 15|52b13 67l7 67t13
-43i20 A_Value{integer} 15|52b20 55r27
-43r42 A_List{11R8} 15|52b42 58r8 59m8 61r8 64m5 66m5 66r26
-51U13*Put 51>17 15|74b13 82l7 82t10
-51r17 A_List{11R8} 15|74b17 75r26
-58V12*Max{integer} 58>16 15|89b12 101l7 101t10
-58r16 A_List{11R8} 15|89b16 90r26
-61R9 List_Node 63r28 65c9 69e17 15|53r41
-63P9 Node_Ptr(61R9) 68r21 73r32 15|53r25 75r14 90r14
-67i10*Its_Value{integer} 15|55m14 79r30 95r19 96r31
-68p10*Its_Next{63P9} 15|56m14 61m24 80r28 98r28
-73p10*Its_First{63P9} 15|22m12 59m15 75r33 90r33
-73p21*Its_Last{63P9} 15|23m12 61r15 64m12
-74i10*Its_Length{integer} 15|24m12 34r19 44r19 58r15 66m12 66r33
+27V12*Empty{boolean} 27>18 15|32b12 35l7 35t12
+27r18 A_List{11R8} 15|32b18 34r12
+34V12*Length{integer} 34>19 15|42b12 45l7 45t13
+34r19 A_List{11R8} 15|42b19 44r12
+41U13*Append 41>20 41=42 15|52b13 67l7 67t13
+41i20 A_Value{integer} 15|52b20 55r27
+41r42 A_List{11R8} 15|52b42 58r8 59m8 61r8 64m5 66m5 66r26
+48U13*Put 48>17 15|74b13 82l7 82t10
+48r17 A_List{11R8} 15|74b17 75r26
+55V12*Max{integer} 55>16 15|89b12 101l7 101t10
+55r16 A_List{11R8} 15|89b16 90r26
+63V12*Index{integer} 63>18 63>36 15|109b12 123l7 123t12
+63r18 A_List{11R8} 15|109b18 110r26
+63i36 Number{integer} 15|109b33 115r31
+66R9 List_Node 68r28 70c9 74e17 15|53r41
+68P9 Node_Ptr(66R9) 73r21 78r32 15|53r25 75r14 90r14 110r14
+72i10*Its_Value{integer} 15|55m14 79r30 95r19 96r31 115r19
+73p10*Its_Next{68P9} 15|56m14 61m24 80r28 98r28 119r28
+78p10*Its_First{68P9} 15|22m12 59m15 75r33 90r33 110r33
+78p21*Its_Last{68P9} 15|23m12 61r15 64m12
+79i10*Its_Length{integer} 15|24m12 34r19 44r19 58r15 66m12 66r33
 X 15 list_package.adb
-53p5 Temp_Ptr{14|63P9} 55r5 56r5 59r28 61r36 64r24
-75p3 Temp_Ptr{14|63P9} 77r11 79r21 80m7 80r19
-90p3 Temp_Ptr{14|63P9} 93r11 95r10 96r22 98m7 98r19
+53p5 Temp_Ptr{14|68P9} 55r5 56r5 59r28 61r36 64r24
+75p3 Temp_Ptr{14|68P9} 77r11 79r21 80m7 80r19
+90p3 Temp_Ptr{14|68P9} 93r11 95r10 96r22 98m7 98r19
 91i3 Max_Value{integer} 95r31 96m9 100r12
+110p3 Temp_Ptr{14|68P9} 113r11 115r10 119m7 119r19
+111i3 IndexOf{integer} 116r16 118m7 118r18
 

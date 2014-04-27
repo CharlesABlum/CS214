@@ -2,7 +2,7 @@
 --
 -- Begun by: Dr. Adams, CS 214 at Calvin College.
 -- Completed by:Charles Blum
--- Date:21 April 2014
+-- Date:28 April 2014
 ------------------------------------------------------------------
 
 package List_Package is
@@ -19,7 +19,6 @@ package List_Package is
   -----------------------------------------------------
   procedure Init(A_List: out List);
 
-
   ------------------------------------------------
   -- Is a list empty?                            -
   -- Receive: aList, a List.                     -
@@ -34,14 +33,12 @@ package List_Package is
   -------------------------------------
   function Length(A_List : in List) return Integer;
 
-
   ----------------------------------------
   -- Append a value to a list.           -
   -- Receive: aValue, an integer,        -
   -- Passback: aList, containing aValue. -
   ----------------------------------------
   procedure Append(A_Value : in Integer; A_List: in out List);
-
 
   -------------------------------------
   -- Display the values in a list.    -
@@ -56,6 +53,14 @@ package List_Package is
   -- Return: the maximum value in aList.-
   ---------------------------------------
   function Max(A_List : in List) return Integer;
+
+  ---------------------------------------
+  -- Index finds the index of a number. -
+  -- Receive: aList, a List,            -
+  -- 	      number, the number to find-
+  -- Return: the index of number.       -
+  ---------------------------------------
+  function Index(A_List : in List; Number : in Integer) return Integer;
 
  private
    type List_Node;

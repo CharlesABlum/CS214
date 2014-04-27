@@ -2,7 +2,7 @@
  *
  * Begun by: Dr. Adams, CS 214 at Calvin College.
  * Completed by:Charles Blum
- * Date:24 April 2014
+ * Date:28 April 2014
  */
 
 #ifndef BIRD
@@ -19,6 +19,7 @@ class Bird {
   virtual string call() const;
   void print(ostream & out = cout) const;
   virtual string className() const;
+  virtual string movement() const;
  private:          // data
  string myName;
 };
@@ -39,11 +40,17 @@ inline string Bird::className() const {
   return "Bird";
 }
 
+inline string Bird::movement() const {
+  return "flew past";
+}
+
 inline void Bird::print(ostream & out) const {
   out 	<< name()
 	<< ' '
 	<< className()
-	<< " says "
+	<< " just "
+	<< movement()
+	<< " and  said "
 	<< call();
 }
 #endif

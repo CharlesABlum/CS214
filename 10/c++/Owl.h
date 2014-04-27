@@ -8,9 +8,9 @@
 #ifndef OWL
 #define OWL
 
-#include "Bird.h"
+#include "FlyingBird.h"
 
-class Owl : public Bird {
+class Owl : public FlyingBird {
  public:
   Owl(const string & name);
   string call() const;
@@ -18,7 +18,7 @@ class Owl : public Bird {
  private:
 };
 
-inline Owl::Owl(const string & name) : Bird(name) {
+inline Owl::Owl(const string & name) : FlyingBird(name) {
 
 }
 

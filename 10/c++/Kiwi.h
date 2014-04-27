@@ -8,9 +8,9 @@
 #ifndef DUCK
 #define DUCK
 
-#include "FlyingBird.h"
+#include "Bird.h"
 
-class Duck : public FlyingBird {
+class Duck : public Bird {
  public:
   Duck(const string & name);
   string call() const;
@@ -19,7 +19,7 @@ class Duck : public FlyingBird {
 };
 
 inline Duck::Duck(const string & name)
-  : FlyingBird(name)
+  : Bird(name)
 {
 }
 

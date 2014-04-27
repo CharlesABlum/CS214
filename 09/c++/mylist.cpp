@@ -24,3 +24,24 @@ void print(const list<int> & aList, ostream & out) {
     it++;
   }
 }
+
+/*********************************************
+ * index() finds the index of a number in    *
+ * the list.                                 *
+ * Receive: aList, a list of integers,       *
+ *          number, the number to find       *
+ * Output: the index of number in the list.  *
+ *********************************************/
+int index(const list<int> & aList, int number) { 
+  list<int>::const_iterator it = aList.begin();
+  int i = 0;
+  while ( it != aList.end() )
+  {
+    if ( *it == number )
+    {
+      return i ;
+    }
+    i++; it++;
+  }
+  return -1;
+}

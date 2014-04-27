@@ -9,3 +9,5 @@
 using namespace std;
 
 void print(const list<int> & aList, ostream & out);
+
+int index(const list<int> & aList, int number);

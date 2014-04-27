@@ -18,7 +18,8 @@ t
       ((buf (get-buffer "max.el"))       ; setup for output
        (list1 (list 99 88 77 66 55))     ; max is first
        (list2 (list 55 66 77 88 99))     ; max is last
-       (list3 (list 55 77 99 88 66)))    ; max in middle
+       (list3 (list 55 77 99 88 66))
+       (list4 (list 55 44 33 22 11)))    ; max in middle
 
     (princ list1 buf)                    ; print list1
     (terpri buf)                         ;  and a newline
@@ -31,14 +32,29 @@ t
 
     (princ "The max in list 1 is " buf)  ; print the max
     (princ (Max list1) buf)              ;  in list1
+    (terpri buf)
+    (princ "The index of 99 is: " buf)
+    (princ (Index list1 99))
     (terpri buf)                         ;  and a newline
     (princ "The max in list 2 is " buf)  ; print the max
     (princ (Max list2) buf)              ;  in list2
     (terpri buf)                         ;  and a newline
+    (princ "The index of 99 is: " buf)
+    (princ (Index list2 99))
+    (terpri buf)                         ;  and a newline
     (princ "The max in list 3 is " buf)  ; print the max
     (princ (Max list3) buf)              ;  in list3
-    (terpri buf))                        ;  and a newline
-    
+    (terpri buf)                         ; and a newline
+    (princ "The index of 99 is: " buf)
+    (princ (Index list3 99))
+    (terpri buf)                         ;  and a newline
+    (princ "The max in list 4 is " buf)  ; print the max
+    (princ (Max list4) buf)              ;  in list3
+    (terpri buf)                         ; and a newline
+    (princ "The index of 99 is: " buf)
+    (princ (Index list4 99))
+    (terpri buf)                         ;  and a newline
+
     (setq alist (list ))
     (princ alist buf)
     (terpri buf)
@@ -49,8 +65,13 @@ t
 (55 66 77 88 99)
 (55 77 99 88 66)
 The max in list 1 is 99
+The index of 99 is: 0
 The max in list 2 is 99
+The index of 99 is: 4
 The max in list 3 is 99
+The index of 99 is: 2
+The max in list 4 is 55
+The index of 99 is: -1
 nil
 
 t

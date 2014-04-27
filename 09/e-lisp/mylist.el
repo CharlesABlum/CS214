@@ -31,3 +31,37 @@
 	 )
        )
     nil))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Index finds the index fo a number in the list. ;;
+;;; Receive: aList, a list of values.              ;;
+;;;          number, the number to find            ;;
+;;; Return: the index of number in aList.          ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun IndexHelper(aList number)
+  (if (listp aList)
+     (if (= (length aList) 0)
+	 1
+       (if (= (car aList) number)
+	   0
+	 (+ (IndexHelper (cdr aList) number) 1)
+	 )
+       )
+    nil))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Index finds the index fo a number in the list. ;;
+;;; Receive: aList, a list of values.              ;;
+;;;          number, the number to find            ;;
+;;; Return: the index of number in aList.          ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun Index(aList number)
+  (if (listp aList)
+     (progn (if (= (length aList) 0)
+		(setq indexOf -1)
+	      (setq indexOf (IndexHelper aList number))
+	      )
+	    (if (>= indexOf (length aList))
+		-1
+	      indexOf))
+    nil))

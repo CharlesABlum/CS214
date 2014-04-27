@@ -2,7 +2,7 @@
 #
 # Begun by: Dr. Adams, for CS 214 at Calvin College.
 # Completed by:Charles Blum
-# Date:21 April 2014
+# Date:28 April 2014
 #######################################################
 
 require 'test/unit/assertions'
@@ -14,18 +14,18 @@ class List
    # Postcondition: first == nil and last == nil and length == 0
    def initialize
       @first, @last, @length  = nil, nil, 0
-   end
+   end #init
 
    # create reader method for length
    def getLength
       @length
-   end
+   end #getLength
 
    # Am I empty?
    # Return: length == 0
    def empty?
       @length == 0
-   end
+   end #empty?
   
    # append a value to me
    # Receive: value, the item to be appended
@@ -38,12 +38,12 @@ class List
          @first = newNode
       else
          @last.next = newNode      
-      end
+      end #if
 
       @last = newNode
       @length += 1
       self
-   end
+   end #append
 
 
    # print my items
@@ -53,8 +53,8 @@ class List
       while !temp.nil?
 	 printf " #{temp.value}"
 	 temp = temp.next
-      end
-   end
+      end #while
+   end #print
 
    # find my maximum item
    # Return: my maximum item
@@ -64,20 +64,37 @@ class List
       while !temp.nil?
 	 if temp.value > maxValue
 	    maxValue = temp.value
- 	 end
+ 	 end #if
 	 temp = temp.next
-      end
+      end #while
       maxValue
-   end
+   end #max
+   
+   # find the index of nubmer 
+   # Return: the index of number
+   def getIndex(number)
+      temp = @first
+      indexOf = 0
+      realIndex = -1
+      while !temp.nil?
+	if temp.value == number
+	   realIndex = indexOf 
+ 	end #if
+	temp = temp.next
+	indexOf += 1
+      end #while
+      realIndex
+   end #getIndex
 
    class Node
       def initialize(item, link)
          @value = item
  	 @next = link
-      end
+      end #init
 
       attr_reader :value
       attr_accessor :next
-   end
-end
+   end #Node
+
+end #List
 

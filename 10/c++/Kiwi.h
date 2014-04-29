@@ -1,34 +1,34 @@
-/* Duck.h
+/* Kiwi.h
  *
  * Begun by: Dr. Adams, CS 214 at Calvin College.
  * Completed by:Charles Blum
  * Date: 24 April 2014
  */
 
-#ifndef DUCK
-#define DUCK
+#ifndef KIWI
+#define KIWI
 
-#include "Bird.h"
+#include "WalkingBird.h"
 
-class Duck : public Bird {
+class Kiwi : public WalkingBird {
  public:
-  Duck(const string & name);
+  Kiwi(const string & name);
   string call() const;
   string className() const;
  private:
 };
 
-inline Duck::Duck(const string & name)
-  : Bird(name)
+inline Kiwi::Kiwi(const string & name)
+  : WalkingBird(name)
 {
 }
 
-inline string Duck::call() const {
-  return "Quack";
+inline string Kiwi::call() const {
+  return "Tweet";
 }
   
-inline string Duck::className() const {
-  return "Duck";
+inline string Kiwi::className() const {
+  return "Kiwi";
 }
 
 #endif

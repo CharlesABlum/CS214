@@ -5,30 +5,30 @@
  * Date: 24 April 2014
  */
 
-#ifndef DUCK
-#define DUCK
+#ifndef OSTRICH
+#define OSTRICH
 
-#include "Bird.h"
+#include "WalkingBird.h"
 
-class Duck : public Bird {
+class Ostrich : public WalkingBird {
  public:
-  Duck(const string & name);
+  Ostrich(const string & name);
   string call() const;
   string className() const;
  private:
 };
 
-inline Duck::Duck(const string & name)
-  : Bird(name)
+inline Ostrich::Ostrich(const string & name)
+  : WalkingBird(name)
 {
 }
 
-inline string Duck::call() const {
-  return "Quack";
+inline string Ostrich::call() const {
+  return "Snork";
 }
   
-inline string Duck::className() const {
-  return "Duck";
+inline string Ostrich::className() const {
+  return "Ostrich";
 }
 
 #endif

@@ -1,34 +1,34 @@
-/* Duck.h
+/* Penguin.h
  *
  * Begun by: Dr. Adams, CS 214 at Calvin College.
  * Completed by:Charles Blum
  * Date: 24 April 2014
  */
 
-#ifndef DUCK
-#define DUCK
+#ifndef PENGUIN
+#define PENGUIN
 
-#include "Bird.h"
+#include "WalkingBird.h"
 
-class Duck : public Bird {
+class Penguin : public WalkingBird {
  public:
-  Duck(const string & name);
+  Penguin(const string & name);
   string call() const;
   string className() const;
  private:
 };
 
-inline Duck::Duck(const string & name)
-  : Bird(name)
+inline Penguin::Penguin(const string & name)
+  : WalkingBird(name)
 {
 }
 
-inline string Duck::call() const {
-  return "Quack";
+inline string Penguin::call() const {
+  return "Huh-huh-huh-huuuuuuh";
 }
   
-inline string Duck::className() const {
-  return "Duck";
+inline string Penguin::className() const {
+  return "Penguin";
 }
 
 #endif

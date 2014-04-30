@@ -1,5 +1,5 @@
-Script started on Tue 29 Apr 2014 08:22:56 PM EDT
-theo@theo-VBox:~/Documents/spring-2014/10/ada$ cat bird_package.ads bird_package..adb duck_package.ads duck_package.adb goose_package.ads goose_package.adb owl_paackage.ads owl_package.adb flyingbird_package.ads flyingbird_package.adb kiwi_pacckage.ads kiwi_package.adb penguin_package.ads pa[Kenguin_package.adb ostrich_packagge.ads oas[K[Kstrich_package.adb walkingbird_package.ads walkingbird_package.adb birs[Kds .adb 
+Script started on Tue 29 Apr 2014 08:55:37 PM EDT
+theo@theo-VBox:~/Documents/spring-2014/10/ada$ ./birds [4Pmakecat bird_package.ads bird_package..adb duck_package.ads duck_package.adb goose_package.ads goose_package.adb owl_paackage.ads owl_package.adb flyingbird_package.ads flyingbird_package.adb kiwi_pacckage.ads kiwi_package.adb penguin_package.ads penguin_package.adb ostrich_packagge.ads ostrich_package.adb walkingbird_package.ads walkingbird_package.adb birds..adb 
 -- bird_package.ads gives Bird-related declarations
 --
 -- Begun by: Dr. Adams, for CS 214 at Calvin College.
@@ -45,6 +45,14 @@ package Bird_Package is
  -- Output: Everything known about A_Bird           -
  ----------------------------------------------------
   procedure Put(A_Bird : in Bird_Type'Class);
+
+ -----------------------------------------------------
+ -- Determine type of a flying bird                  -
+ -- (Over-rides Bird.Movement())                     -
+ -- Receive: FB, a FlyingBird_Type                   -
+ -- Return: "flew past".                             -
+ -----------------------------------------------------
+ function Movement(A_Bird : in Bird_Type) return String;
 
 private
   type Bird_Type is
@@ -116,9 +124,22 @@ package body Bird_Package is
    Put( Name(A_Bird) );
    Put( ' ' );
    Put( Type_Name(A_Bird) );
-   Put( " says " );
+   Put( ' ' );
+   Put( Movement(A_Bird) );
+   Put( " and said " );
    Put( Call(A_Bird) );
  end Put;
+
+ -----------------------------------------------------
+ -- Determine type of a flying bird                  -
+ -- (Over-rides Bird.Movement())                     -
+ -- Receive: FB, a FlyingBird_Type                   -
+ -- Return: "flew past".                             -
+ -----------------------------------------------------
+ function Movement(A_Bird : in Bird_Type) return String is
+ begin
+   return "flew past";
+ end Movement;
 
 end Bird_Package;
 
@@ -662,7 +683,7 @@ procedure Birds is
  Bird4 : Owl_Type;        -- derived class 3
  Bird5 : Penguin_Type;    -- derived class 1
  Bird6 : Ostrich_Type;    -- derived class 2
- Bird7 : Kiwi_Type;      -- derived class 3
+ Bird7 : Kiwi_Type;       -- derived class 3
 
 begin
  Init(Bird1, "Tweety");
@@ -692,14 +713,14 @@ end Birds;
 theo@theo-VBox:~/Documents/spring-2014/10/ada$ make
 make: `birds' is up to date.
 theo@theo-VBox:~/Documents/spring-2014/10/ada$ ./birds 
-Tweety Bird says Squawwwwwwk!
-Donald Duck says Quack!
-Mother Goose says Honk!
-Woodsy Owl says Hooo!
-Popper Penguin says huh-huh-huuuuuuh!
-Ollie  Ostrich says Snork!
-Karl   Kiwi says Tweet!
+Tweety Bird flew past and said Squawwwwwwk!
+Donald Duck flew past and said Quack!
+Mother Goose flew past and said Honk!
+Woodsy Owl flew past and said Hooo!
+Popper Penguin walked past and said huh-huh-huuuuuuh!
+Ollie  Ostrich walked past and said Snork!
+Karl   Kiwi walked past and said Tweet!
 
 theo@theo-VBox:~/Documents/spring-2014/10/ada$ exit
 
-Script done on Tue 29 Apr 2014 08:24:29 PM EDT
+Script done on Tue 29 Apr 2014 08:55:52 PM EDT

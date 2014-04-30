@@ -29,7 +29,7 @@ D a-tags.ads		20101021101406 c7695348
 D a-textio.ads		20091028140912 386df5d4
 D a-unccon.ads		20070406091342 f9eb8f06
 D a-uncdea.ads		20070406091342 f15a5ed1
-D bird_package.ads	20140424183343 c278ef0e
+D bird_package.ads	20140430005407 b167fb80
 D interfac.ads		20090409150019 f77d8799
 D i-cstrea.ads		20100622165701 1bd72c32
 D ostrich_package.ads	20140430001728 e8797355
@@ -64,7 +64,7 @@ X 11 bird_package.ads
 X 14 ostrich_package.ads
 11K9*Ostrich_Package 34l5 34e20 15|12b14 34l5 34t20
 12R7*Ostrich_Type<35|13R8> 11|17p13 24p12 14|19P11 19r31 26P11 26r36 29c8
-. 32e15 15|19r31 29r36 35|21p11
+. 32e15 15|19r31 29r36 35|21P11
 19V11*Call{string}<11|31p12> 19>16 15|19b11 22l6 22t10
 19r16 A_Ostrich{12R7} 15|19b16
 26V11*Type_Name{string}<11|38p12> 26>21 15|29b11 32l6 32t15
@@ -72,5 +72,5 @@ X 14 ostrich_package.ads
 X 35 walkingbird_package.ads
 11K9*WalkingBird_Package 14|9w6 9r31 35|29e24
 13R8*WalkingBird_Type<11|9R8> 14|12r27 29r28 35|27e15
-21V11*Movement{string}
+21V11*Movement{string}<11|53p11>
 

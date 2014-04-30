@@ -44,6 +44,14 @@ package Bird_Package is
  ----------------------------------------------------
   procedure Put(A_Bird : in Bird_Type'Class);
 
+ -----------------------------------------------------
+ -- Determine type of a flying bird                  -
+ -- (Over-rides Bird.Movement())                     -
+ -- Receive: FB, a FlyingBird_Type                   -
+ -- Return: "flew past".                             -
+ -----------------------------------------------------
+ function Movement(A_Bird : in Bird_Type) return String;
+
 private
   type Bird_Type is
     tagged record

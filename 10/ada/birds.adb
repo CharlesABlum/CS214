@@ -20,7 +20,7 @@ procedure Birds is
  Bird4 : Owl_Type;        -- derived class 3
  Bird5 : Penguin_Type;    -- derived class 1
  Bird6 : Ostrich_Type;    -- derived class 2
- Bird7 : Kiwi_Type;      -- derived class 3
+ Bird7 : Kiwi_Type;       -- derived class 3
 
 begin
  Init(Bird1, "Tweety");

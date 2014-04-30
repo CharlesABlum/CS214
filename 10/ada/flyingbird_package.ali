@@ -9,7 +9,7 @@ W ada%s			ada.ads			ada.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
 W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
 
-U flyingbird_package%s	flyingbird_package.ads	5cdbaea8 EE OO PK
+U flyingbird_package%s	flyingbird_package.ads	2fc4ba26 EE OO PK
 W ada.exceptions%s	a-except.adb		a-except.ali
 W ada.streams%s		a-stream.ads		a-stream.ali
 W ada.tags%s		a-tags.adb		a-tags.ali
@@ -29,8 +29,8 @@ D a-tags.ads		20101021101406 c7695348
 D a-textio.ads		20091028140912 386df5d4
 D a-unccon.ads		20070406091342 f9eb8f06
 D a-uncdea.ads		20070406091342 f15a5ed1
-D bird_package.ads	20140424183343 c278ef0e
-D flyingbird_package.ads  20140429231944 9ea341a6
+D bird_package.ads	20140430005407 b167fb80
+D flyingbird_package.ads  20140430005304 9ea341a6
 D flyingbird_package.adb  20140429232610 bbd9ee9a
 D interfac.ads		20090409150019 f77d8799
 D i-cstrea.ads		20100622165701 1bd72c32
@@ -58,16 +58,16 @@ X 1 ada.ads
 X 8 a-textio.ads
 49K13*Text_IO 472e16 13|9w10 10r9
 X 11 bird_package.ads
-8K9*Bird_Package 53e17 12|9w6 9r24
-9R8*Bird_type 51e15 12|13r31 24r31
+8K9*Bird_Package 61e17 12|9w6 9r24
+9R8*Bird_type 59e15 12|13r31 24r31
 17U13*Init
 24V12*Name{string}
 31V12*Call{string}
 38V12*Type_Name{string}
 X 12 flyingbird_package.ads
 11K9*FlyingBird_Package 29l5 29e23 13|12b14 25l5 25t23
-13R8*FlyingBird_Type<11|9R8> 11|17p13 24p12 31p12 38p12 12|21p11 21r28 24c8
+13R8*FlyingBird_Type<11|9R8> 11|17p13 24p12 31p12 38p12 12|21P11 21r28 24c8
 . 27e15 13|20r28
-21V11*Movement{string} 21>20 13|20b11 23l6 23t14
+21V11*Movement{string}<11|53p11> 21>20 13|20b11 23l6 23t14
 21r20 FB{13R8} 13|20b20
 

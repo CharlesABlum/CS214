@@ -5,7 +5,7 @@ A -march=x86-64
 P SS ZX
 R nnnnnnnnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnnnnnnn
 
-U birds%b		birds.adb		a8395128 NE OO SU
+U birds%b		birds.adb		db2645a6 NE OO SU
 W ada%s			ada.ads			ada.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
 W bird_package%s	bird_package.adb	bird_package.ali
@@ -28,10 +28,10 @@ D a-tags.ads		20101021101406 c7695348
 D a-textio.ads		20091028140912 386df5d4
 D a-unccon.ads		20070406091342 f9eb8f06
 D a-uncdea.ads		20070406091342 f15a5ed1
-D bird_package.ads	20140424183343 c278ef0e
-D birds.adb		20140430002207 6e9d8d98
+D bird_package.ads	20140430005407 b167fb80
+D birds.adb		20140430005330 6e9d8d98
 D duck_package.ads	20140430001656 342c9291
-D flyingbird_package.ads  20140429231944 9ea341a6
+D flyingbird_package.ads  20140430005304 9ea341a6
 D goose_package.ads	20140429233252 13cc8ef3
 D interfac.ads		20090409150019 f77d8799
 D i-cstrea.ads		20100622165701 1bd72c32
@@ -65,8 +65,8 @@ X 8 a-textio.ads
 49K13*Text_IO 472e16 12|8w10 11r9
 167U14*New_Line 12|27s14 30s14 33s14 36s14 39s14 42s14 45s14 47s2
 X 11 bird_package.ads
-8K9*Bird_Package 53e17 12|8w19 11r18
-9R8*Bird_type 51e15 12|17r10
+8K9*Bird_Package 61e17 12|8w19 11r18
+9R8*Bird_type 59e15 12|17r10
 17U13*Init 12|26s2 29s2 32s2 35s2 38s2 41s2 44s2
 45U13*Put 12|27s2 30s2 33s2 36s2 39s2 42s2 45s2
 X 12 birds.adb

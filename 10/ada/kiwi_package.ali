@@ -29,7 +29,7 @@ D a-tags.ads		20101021101406 c7695348
 D a-textio.ads		20091028140912 386df5d4
 D a-unccon.ads		20070406091342 f9eb8f06
 D a-uncdea.ads		20070406091342 f15a5ed1
-D bird_package.ads	20140424183343 c278ef0e
+D bird_package.ads	20140430005407 b167fb80
 D interfac.ads		20090409150019 f77d8799
 D i-cstrea.ads		20100622165701 1bd72c32
 D kiwi_package.ads	20140430000621 1322060e
@@ -64,7 +64,7 @@ X 11 bird_package.ads
 X 14 kiwi_package.ads
 10K9*Kiwi_Package 33l5 33e17 15|12b14 34l5 34t17
 11R7*Kiwi_Type<35|13R8> 11|17p13 24p12 14|18P11 18r28 25P11 25r33 28c8 31e15
-. 15|19r28 29r33 35|21p11
+. 15|19r28 29r33 35|21P11
 18V11*Call{string}<11|31p12> 18>16 15|19b11 22l6 22t10
 18r16 A_Kiwi{11R7} 15|19b16
 25V11*Type_Name{string}<11|38p12> 25>21 15|29b11 32l6 32t15
@@ -72,5 +72,5 @@ X 14 kiwi_package.ads
 X 35 walkingbird_package.ads
 11K9*WalkingBird_Package 14|8w6 8r31 35|29e24
 13R8*WalkingBird_Type<11|9R8> 14|11r24 28r25 35|27e15
-21V11*Movement{string}
+21V11*Movement{string}<11|53p11>
 

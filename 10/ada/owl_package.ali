@@ -29,8 +29,8 @@ D a-tags.ads		20101021101406 c7695348
 D a-textio.ads		20091028140912 386df5d4
 D a-unccon.ads		20070406091342 f9eb8f06
 D a-uncdea.ads		20070406091342 f15a5ed1
-D bird_package.ads	20140424183343 c278ef0e
-D flyingbird_package.ads  20140429231944 9ea341a6
+D bird_package.ads	20140430005407 b167fb80
+D flyingbird_package.ads  20140430005304 9ea341a6
 D interfac.ads		20090409150019 f77d8799
 D i-cstrea.ads		20100622165701 1bd72c32
 D owl_package.ads	20140429233337 49b236a9
@@ -64,10 +64,10 @@ X 11 bird_package.ads
 X 12 flyingbird_package.ads
 11K9*FlyingBird_Package 29e23 15|9w6 9r30
 13R8*FlyingBird_Type<11|9R8> 27e15 15|13r24 31r24
-21V11*Movement{string}
+21V11*Movement{string}<11|53p11>
 X 15 owl_package.ads
 11K9*Owl_Package 36l5 36e16 16|12b14 36l5 36t16
-13R8*Owl_Type<12|13R8> 11|17p13 24p12 12|21p11 15|20P11 20r27 28P11 28r32
+13R8*Owl_Type<12|13R8> 11|17p13 24p12 12|21P11 15|20P11 20r27 28P11 28r32
 . 31c8 34e15 16|20r27 31r32
 20V11*Call{string}<11|31p12> 20>16 16|20b11 23l6 23t10
 20r16 A_Owl{13R8} 16|20b16

@@ -61,9 +61,22 @@ package body Bird_Package is
    Put( Name(A_Bird) );
    Put( ' ' );
    Put( Type_Name(A_Bird) );
-   Put( " says " );
+   Put( ' ' );
+   Put( Movement(A_Bird) );
+   Put( " and said " );
    Put( Call(A_Bird) );
  end Put;
+
+ -----------------------------------------------------
+ -- Determine type of a flying bird                  -
+ -- (Over-rides Bird.Movement())                     -
+ -- Receive: FB, a FlyingBird_Type                   -
+ -- Return: "flew past".                             -
+ -----------------------------------------------------
+ function Movement(A_Bird : in Bird_Type) return String is
+ begin
+   return "flew past";
+ end Movement;
 
 end Bird_Package;
 

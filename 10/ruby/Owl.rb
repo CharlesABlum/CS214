@@ -3,12 +3,12 @@
 #
 # Begun by: Dr. Adams, for CS 214 at Calvin College.
 # Completed by:Charles Blum
-# Date:24 April 2014
+# Date:29 April 2014
 ####################################################
 
-require 'Bird.rb'
+require 'FlyingBird.rb'
 
-class Owl < Bird
+class Owl < FlyingBird
 
   def call
     'Hooo!'

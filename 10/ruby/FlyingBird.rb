@@ -1,4 +1,4 @@
-# Goose.rb | Defines the Goose class which inherits
+# FlyingBird.rb | Defines the FlyingBird class which inherits
 # attributes and methods from the Bird superclass.
 #
 # Begun by: Dr. Adams, for CS 214 at Calvin College.
@@ -6,12 +6,12 @@
 # Date:29 April 2014
 ####################################################
 
-require 'FlyingBird.rb'
+require 'Bird.rb'
 
-class Goose < FlyingBird
+class FlyingBird < Bird
 
-  def call
-    'Honk!'
+  def movement
+    'flew past'
   end
 
 end

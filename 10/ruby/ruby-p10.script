@@ -1,0 +1,189 @@
+Script started on Tue 29 Apr 2014 09:07:58 PM EDT
+theo@theo-VBox:~/Documents/spring-2014/10/ruby$ cat Bird.rb FlyingBird.rb Duck.rbb Goose.rb Owl.rb WalkingBird.rb Ostrich.rb Penguin.rb Kiwi.rb 
+# Bird.rb | Defines a Bird superclass to be extended by specific bird
+#   sub-classes.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+class Bird
+
+  attr_reader :name
+
+  def initialize(name)
+    @name = name
+  end
+
+  def call
+    "Squaaaaaaaaaaaawk!"
+  end
+
+  def className
+    self.class.to_s
+  end
+
+  def print
+    puts name + ' ' + className + " just " + movement + " and said " + call
+  end
+ 
+  def movement
+    "flew past"
+  end
+
+end
+# FlyingBird.rb | Defines the FlyingBird class which inherits
+# attributes and methods from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'Bird.rb'
+
+class FlyingBird < Bird
+
+  def movement
+    'flew past'
+  end
+
+end
+
+# Duck.rb | Defines the Duck class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'FlyingBird.rb'
+
+class Duck < FlyingBird
+
+  def call
+    'Quack!'
+  end
+
+end
+
+# Goose.rb | Defines the Goose class which inherits
+# attributes and methods from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'FlyingBird.rb'
+
+class Goose < FlyingBird
+
+  def call
+    'Honk!'
+  end
+
+end
+
+# Owl.rb | Defines the Owl class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'FlyingBird.rb'
+
+class Owl < FlyingBird
+
+  def call
+    'Hooo!'
+  end
+
+end
+# WalkingBird.rb | Defines the WalkingBird class which
+# inherits attributes and methods from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'Bird.rb'
+
+class WalkingBird < Bird
+
+  def movement
+    'walked past'
+  end
+
+end
+
+# Ostrich.rb | Defines the Ostrich class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'WalkingBird.rb'
+
+class Ostrich < WalkingBird
+
+  def call
+    'Snork!'
+  end
+
+end
+
+# Penguin.rb | Defines the Penguin class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'WalkingBird.rb'
+
+class Penguin < WalkingBird
+
+  def call
+    'huh-huh-huuuuuuh!'
+  end
+
+end
+
+# Kiwi.rb | Defines the Kiwi class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'WalkingBird.rb'
+
+class Kiwi < WalkingBird
+
+  def call
+    'Tweet!'
+  end
+
+end
+
+theo@theo-VBox:~/Documents/spring-2014/10/ruby$ ruby birds.rb 
+Hawkeye Bird just flew past and said Squaaaaaaaaaaaawk!
+Donald Duck just flew past and said Quack!
+Mother Goose just flew past and said Honk!
+Woodsey Owl just flew past and said Hooo!
+Ollie Ostrich just walked past and said Snork!
+Popper Penguin just walked past and said huh-huh-huuuuuuh!
+Karl Kiwi just walked past and said Tweet!
+theo@theo-VBox:~/Documents/spring-2014/10/ruby$ exit
+
+Script done on Tue 29 Apr 2014 09:08:23 PM EDT

@@ -3,7 +3,7 @@
 #
 # Begun by: Dr. Adams, for CS 214 at Calvin College.
 # Completed by:Charles Blum
-# Date:24 April 2014
+# Date:29 April 2014
 ####################################################
 
 class Bird
@@ -23,7 +23,11 @@ class Bird
   end
 
   def print
-    puts name + ' ' + className + " says " + call
+    puts name + ' ' + className + " just " + movement + " and said " + call
+  end
+ 
+  def movement
+    "flew past"
   end
 
 end

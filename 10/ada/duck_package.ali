@@ -4,16 +4,16 @@ A -march=x86-64
 P SS ZX
 R nnnnnnnnnnnnnnnnnnnnnnnnnvvnnnnnnnnnnnnnnvnnvnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnn
 
-U duck_package%b	duck_package.adb	c5709b38 NE OO PK
+U duck_package%b	duck_package.adb	65283f5f NE OO PK
 W ada%s			ada.ads			ada.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
 W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
 
-U duck_package%s	duck_package.ads	560cd9f8 EE OO PK
+U duck_package%s	duck_package.ads	aa8fd337 EE OO PK
 W ada.exceptions%s	a-except.adb		a-except.ali
 W ada.streams%s		a-stream.ads		a-stream.ali
 W ada.tags%s		a-tags.adb		a-tags.ali
-W bird_package%s	bird_package.adb	bird_package.ali
+W flyingbird_package%s	flyingbird_package.adb	flyingbird_package.ali
 W system%s		system.ads		system.ali
 W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
 W system.soft_links%s	s-soflin.adb		s-soflin.ali
@@ -30,8 +30,9 @@ D a-textio.ads		20091028140912 386df5d4
 D a-unccon.ads		20070406091342 f9eb8f06
 D a-uncdea.ads		20070406091342 f15a5ed1
 D bird_package.ads	20140424183343 c278ef0e
-D duck_package.ads	20140424182907 947436f6
-D duck_package.adb	20140424182841 6969581a
+D duck_package.ads	20140430001656 342c9291
+D duck_package.adb	20140429232754 6969581a
+D flyingbird_package.ads  20140429231944 9ea341a6
 D interfac.ads		20090409150019 f77d8799
 D i-cstrea.ads		20100622165701 1bd72c32
 D system.ads		20120503154647 23e1f70b
@@ -58,16 +59,18 @@ X 1 ada.ads
 X 8 a-textio.ads
 49K13*Text_IO 472e16 13|9w10 10r9
 X 11 bird_package.ads
-8K9*Bird_Package 53e17 12|9w6 9r24
-9R8*Bird_type 51e15 12|12r24 29r25
 17U13*Init
 24V12*Name{string}
 X 12 duck_package.ads
 11K9*Duck_Package 34l5 34e17 13|12b14 34l5 34t17
-12R7*Duck_Type<11|9R8> 11|17p13 24p12 12|19P11 19r28 26P11 26r33 29c8 32e15
-. 13|19r28 29r33
+12R7*Duck_Type<14|13R8> 11|17p13 24p12 12|19P11 19r28 26P11 26r33 29c8 32e15
+. 13|19r28 29r33 14|21p11
 19V11*Call{string}<11|31p12> 19>16 13|19b11 22l6 22t10
 19r16 A_Duck{12R7} 13|19b16
 26V11*Type_Name{string}<11|38p12> 26>21 13|29b11 32l6 32t15
 26r21 A_Duck{12R7} 13|29b21
+X 14 flyingbird_package.ads
+11K9*FlyingBird_Package 12|9w6 9r30 14|29e23
+13R8*FlyingBird_Type<11|9R8> 12|12r24 29r25 14|27e15
+21V11*Movement{string}
 

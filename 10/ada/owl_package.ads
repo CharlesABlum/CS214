@@ -6,11 +6,11 @@
 -- Date:24 April 2014
 ---------------------------------------------------
 
-with Bird_Package; use Bird_Package;
+with FlyingBird_Package; use FlyingBird_Package;
 
 package Owl_Package is
 
-  type Owl_Type is new Bird_Type with private;
+  type Owl_Type is new FlyingBird_Type with private;
 
  ----------------------------------------------------
  -- A Owl's Call (Over-rides Bird.Call())           -
@@ -28,7 +28,7 @@ package Owl_Package is
  function Type_Name(A_Owl : in Owl_Type) return String;
 
 private
-  type Owl_Type is new Bird_Type with
+  type Owl_Type is new FlyingBird_Type with
     record
       null;
     end record;

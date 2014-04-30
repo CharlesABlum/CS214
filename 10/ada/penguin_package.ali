@@ -4,20 +4,20 @@ A -march=x86-64
 P SS ZX
 R nnnnnnnnnnnnnnnnnnnnnnnnnvvnnnnnnnnnnnnnnvnnvnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnn
 
-U owl_package%b		owl_package.adb		09bffd97 NE OO PK
+U penguin_package%b	penguin_package.adb	f3027348 NE OO PK
 W ada%s			ada.ads			ada.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
 W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
 
-U owl_package%s		owl_package.ads		d711770f EE OO PK
+U penguin_package%s	penguin_package.ads	371bd85c EE OO PK
 W ada.exceptions%s	a-except.adb		a-except.ali
 W ada.streams%s		a-stream.ads		a-stream.ali
 W ada.tags%s		a-tags.adb		a-tags.ali
-W flyingbird_package%s	flyingbird_package.adb	flyingbird_package.ali
 W system%s		system.ads		system.ali
 W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
 W system.soft_links%s	s-soflin.adb		s-soflin.ali
 W system.storage_elements%s  s-stoele.adb	s-stoele.ali
+W walkingbird_package%s	walkingbird_package.adb	walkingbird_package.ali
 
 D ada.ads		20070406091342 3ffc8e18
 D a-except.ads		20090727140100 0c711ac9
@@ -30,11 +30,10 @@ D a-textio.ads		20091028140912 386df5d4
 D a-unccon.ads		20070406091342 f9eb8f06
 D a-uncdea.ads		20070406091342 f15a5ed1
 D bird_package.ads	20140424183343 c278ef0e
-D flyingbird_package.ads  20140429231944 9ea341a6
 D interfac.ads		20090409150019 f77d8799
 D i-cstrea.ads		20100622165701 1bd72c32
-D owl_package.ads	20140429233337 49b236a9
-D owl_package.adb	20140424184033 78603eea
+D penguin_package.ads	20140430001448 d87f622f
+D penguin_package.adb	20140430001415 1310e4b3
 D system.ads		20120503154647 23e1f70b
 D s-crtl.ads		20100617122610 ac77b159
 D s-exctab.ads		20090417131547 66e51330
@@ -54,23 +53,24 @@ D s-ststop.ads		20090417130712 ee472be4
 D s-traent.ads		20090417130712 5221ee41
 D s-unstyp.ads		20090409150019 6ae15c76
 D s-wchcon.ads		20090417130712 bfeb2e3d
+D walkingbird_package.ads  20140429233128 ef64ba73
 X 1 ada.ads
-16K9*Ada 19e8 16|9r6 10r5
+16K9*Ada 19e8 15|9r6 10r5
 X 8 a-textio.ads
-49K13*Text_IO 472e16 16|9w10 10r9
+49K13*Text_IO 472e16 15|9w10 10r9
 X 11 bird_package.ads
 17U13*Init
 24V12*Name{string}
-X 12 flyingbird_package.ads
-11K9*FlyingBird_Package 29e23 15|9w6 9r30
-13R8*FlyingBird_Type<11|9R8> 27e15 15|13r24 31r24
+X 14 penguin_package.ads
+11K9*Penguin_Package 34l5 34e20 15|12b14 34l5 34t20
+12R7*Penguin_Type<35|13R8> 11|17p13 24p12 14|19P11 19r31 26P11 26r36 29c8
+. 32e15 15|19r31 29r36 35|21p11
+19V11*Call{string}<11|31p12> 19>16 15|19b11 22l6 22t10
+19r16 A_Penguin{12R7} 15|19b16
+26V11*Type_Name{string}<11|38p12> 26>21 15|29b11 32l6 32t15
+26r21 A_Penguin{12R7} 15|29b21
+X 35 walkingbird_package.ads
+11K9*WalkingBird_Package 14|9w6 9r31 35|29e24
+13R8*WalkingBird_Type<11|9R8> 14|12r27 29r28 35|27e15
 21V11*Movement{string}
-X 15 owl_package.ads
-11K9*Owl_Package 36l5 36e16 16|12b14 36l5 36t16
-13R8*Owl_Type<12|13R8> 11|17p13 24p12 12|21p11 15|20P11 20r27 28P11 28r32
-. 31c8 34e15 16|20r27 31r32
-20V11*Call{string}<11|31p12> 20>16 16|20b11 23l6 23t10
-20r16 A_Owl{13R8} 16|20b16
-28V11*Type_Name{string}<11|38p12> 28>21 16|31b11 34l6 34t15
-28r21 A_Owl{13R8} 16|31b21
 

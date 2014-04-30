@@ -4,14 +4,14 @@ A -march=x86-64
 P SS ZX
 R nnnnnnnnnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnvnnvnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnn
 
-U goose_package%b	goose_package.adb	f46215fb NE OO PK
+U goose_package%b	goose_package.adb	10015879 NE OO PK
 W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
 
-U goose_package%s	goose_package.ads	35d72c7f EE OO PK
+U goose_package%s	goose_package.ads	8d6fcf55 EE OO PK
 W ada.exceptions%s	a-except.adb		a-except.ali
 W ada.streams%s		a-stream.ads		a-stream.ali
 W ada.tags%s		a-tags.adb		a-tags.ali
-W bird_package%s	bird_package.adb	bird_package.ali
+W flyingbird_package%s	flyingbird_package.adb	flyingbird_package.ali
 W system%s		system.ads		system.ali
 W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
 W system.soft_links%s	s-soflin.adb		s-soflin.ali
@@ -24,8 +24,9 @@ D a-tags.ads		20101021101406 c7695348
 D a-unccon.ads		20070406091342 f9eb8f06
 D a-uncdea.ads		20070406091342 f15a5ed1
 D bird_package.ads	20140424183343 c278ef0e
-D goose_package.ads	20140424183832 f7afc371
-D goose_package.adb	20140424183743 03cdd68a
+D flyingbird_package.ads  20140429231944 9ea341a6
+D goose_package.ads	20140429233252 13cc8ef3
+D goose_package.adb	20140429233308 03cdd68a
 D system.ads		20120503154647 23e1f70b
 D s-exctab.ads		20090417131547 66e51330
 D s-finroo.ads		20090409150019 dbb860c9
@@ -40,16 +41,18 @@ D s-string.ads		20090417130712 46b01415
 D s-ststop.ads		20090417130712 ee472be4
 D s-traent.ads		20090417130712 5221ee41
 X 7 bird_package.ads
-8K9*Bird_Package 53e17 8|9w6 9r24
-9R8*Bird_type 51e15 8|13r25 31r26
 17U13*Init
 24V12*Name{string}
-X 8 goose_package.ads
-11K9*Goose_Package 36l5 36e18 9|9b14 31l5 31t18
-13R7*Goose_Type<7|9R8> 7|17p13 24p12 8|20P12 20r30 28P12 28r35 31c8 34e15
-. 9|16r29 27r34
-20V12*Call{string}<7|31p12> 20>17 9|16b11 19l6 19t10
-20r17 A_Goose{13R7} 9|16b16
-28V12*Type_Name{string}<7|38p12> 28>22 9|27b11 30l6 30t15
-28r22 A_Goose{13R7} 9|27b21
+X 8 flyingbird_package.ads
+11K9*FlyingBird_Package 29e23 9|9w6 9r30
+13R8*FlyingBird_Type<7|9R8> 27e15 9|13r25 31r26
+21V11*Movement{string}
+X 9 goose_package.ads
+11K9*Goose_Package 36l5 36e18 10|9b14 31l5 31t18
+13R7*Goose_Type<8|13R8> 7|17p13 24p12 8|21p11 9|20P12 20r30 28P12 28r35 31c8
+. 34e15 10|16r29 27r34
+20V12*Call{string}<7|31p12> 20>17 10|16b11 19l6 19t10
+20r17 A_Goose{13R7} 10|16b16
+28V12*Type_Name{string}<7|38p12> 28>22 10|27b11 30l6 30t15
+28r22 A_Goose{13R7} 10|27b21
 

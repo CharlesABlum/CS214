@@ -6,11 +6,11 @@
 -- Date:24 April 2014
 ---------------------------------------------------
 
-with Bird_Package; use Bird_Package;
+with FlyingBird_Package; use FlyingBird_Package;
 
 package Goose_Package is
 
- type Goose_Type is new Bird_Type with private;
+ type Goose_Type is new FlyingBird_Type with private;
 
  ----------------------------------------------------
  -- A Goose's Call (Over-rides Bird.Call())         -
@@ -28,7 +28,7 @@ package Goose_Package is
  function  Type_Name(A_Goose : in Goose_Type) return String;
 
 private
-  type Goose_Type is new Bird_Type with
+  type Goose_Type is new FlyingBird_Type with
     record
       null;
     end record;

@@ -1,9 +1,11 @@
 # Makefile for GNAT (Ada) compilation
-#  for a 2-level class hierarchy
+#  for a 3-level class hierarchy
 
 TARGET = birds
-SUBPACKAGES = duck_package.ali goose_package.ali owl_package.ali
-PACKAGES = bird_package.ali $(SUBPACKAGES)
+FLYINGSPECIES = duck_package.ali goose_package.ali owl_package.ali
+WALKINGSPECIES =  kiwi_package.ali penguin_package.ali ostrich_package.ali
+BIRDTYPE =  flyingbird_package.ali walkingbird_package.ali
+PACKAGES = bird_package.ali $(FLYINGSPECIES) $(WALKINGSPECIES) $(BIRDTYPE)
 
 BIN = /usr/bin/
 CC = $(BIN)gcc
@@ -22,7 +24,9 @@ $(TARGET).ali: $(TARGET).adb          # compile target (w/o .ads)
 %.ali : %.adb %.ads                   # compile packages (w .ads)
 	$(CC) $(CFLAGS) $<
 
-$(SUBPACKAGES) : bird_package.ads     # subclasses depend on superclass
+$(BIRDTYPE) : bird_package.ads     	    # subclasses depend on superclass
+$(FLYINGSPECIES) : flyingbird_package.ads   
+$(WALKINGSPECIES) : walkingbird_package.ads 
 
 clean:
 	/bin/rm -f $(TARGET) *~ *# *.o *.ali *.c

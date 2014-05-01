@@ -1,4 +1,4 @@
-all: sum array_sum # threaded_array_sum
+all: sum array_sum threaded_array_sum
 
 sum: sum.cpp
 	g++ sum.cpp -Wall -o sum

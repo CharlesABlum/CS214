@@ -1,4 +1,4 @@
-all: array_sum # tasked_array_sum
+all: array_sum tasked_array_sum
 
 
 tasked_array_sum: tasked_array_sum.adb

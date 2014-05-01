@@ -1,0 +1,164 @@
+V "GNAT Lib v4.6"
+M P W=b
+P SS ZX
+R nnnvnnnnnnnnnnnnnnvnnvnvnvnvvvnvnnnnnnnnnvnnvnnvnvnvnnnnnnvnnnnnnnnnnnnv2nv1+nnnnnn
+
+U tasked_array_sum%b	tasked_array_sum.adb	72d098ba NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.command_line%s	a-comlin.adb		a-comlin.ali
+W ada.exceptions%s	a-except.adb		a-except.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.real_time%s	a-reatim.adb		a-reatim.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W ada.text_io.integer_aux%s  a-tiinau.adb	a-tiinau.ali
+W ada.text_io.integer_io%s
+W system%s		system.ads		system.ali
+W system.img_int%s	s-imgint.adb		s-imgint.ali
+W system.img_lld%s	s-imglld.adb		s-imglld.ali
+W system.parameters%s	s-parame.adb		s-parame.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.task_info%s	s-tasinf.adb		s-tasinf.ali
+W system.tasking%s	s-taskin.adb		s-taskin.ali
+W system.tasking.rendezvous%s  s-tasren.adb	s-tasren.ali
+W system.tasking.stages%s  s-tassta.adb		s-tassta.ali
+W system.val_int%s	s-valint.adb		s-valint.ali
+
+D ada.ads		20070406091342 3ffc8e18
+D a-comlin.ads		20100623092347 e0accaa5
+D a-except.ads		20090727140100 0c711ac9
+D a-finali.ads		20090409150019 e5e85fa4
+D a-filico.ads		20090409150019 872dc219
+D a-inteio.ads		20070406091342 f64b89a4
+D a-ioexce.ads		20091130110856 8b9de6cd
+D a-reatim.ads		20090409150019 63f07669
+D a-stream.ads		20090409150019 2ca4ee37
+D a-tags.ads		20101021101406 c7695348
+D a-textio.ads		20091028140912 386df5d4
+D a-tiinau.ads		20090409150019 8114c8e4
+D a-tiinio.ads		20090409150019 aa04e5d6
+D a-tiinio.adb		20091130162119 df9cd7af
+D a-unccon.ads		20070406091342 f9eb8f06
+D interfac.ads		20090409150019 f77d8799
+D i-c.ads		20101007125900 809c38c4
+D i-cstrea.ads		20100622165701 1bd72c32
+D system.ads		20120503154647 23e1f70b
+D s-atacco.ads		20090409150019 1dc856ad
+D s-crtl.ads		20100617122610 ac77b159
+D s-exctab.ads		20090417131547 66e51330
+D s-ficobl.ads		20100909103250 443b9d66
+D s-finimp.ads		20090409150019 46853fe8
+D s-finroo.ads		20090409150019 dbb860c9
+D s-imgint.ads		20090409150019 02dbe0c2
+D s-imglld.ads		20090409150019 f3220969
+D s-linux.ads		20090730092306 47911ab1
+D s-multip.ads		20101011073009 38ac9f73
+D s-osinte.ads		20101127183452 6e2d2e09
+D s-parame.ads		20091130110856 9c5d83fa
+D s-secsta.ads		20090707124243 eea35a36
+D s-soflin.ads		20090729085153 9414c974
+D s-stache.ads		20090417130712 596fc1b4
+D s-stausa.ads		20101018101807 bba781f7
+D s-stalib.ads		20101021102512 c4241c00
+D s-stoele.ads		20090417130712 facd7d98
+D s-stoele.adb		20100617152355 afc5dc80
+D s-stratt.ads		20100909123135 aedef97e
+D s-tasinf.ads		20090409150019 21316953
+D s-taspri.ads		20080408071349 af44aca8
+D s-taprop.ads		20090409150019 07f79e46
+D s-taskin.ads		20101021101406 b2eaee08
+D s-taprob.ads		20090409150019 502249e3
+D s-tpoben.ads		20090409150019 e8374469
+D s-tasren.ads		20090409150019 86fa7427
+D s-tassta.ads		20101018103456 e88ef99e
+D s-traent.ads		20090417130712 5221ee41
+D s-unstyp.ads		20090409150019 6ae15c76
+D s-valint.ads		20090409150019 48a52a3f
+D s-wchcon.ads		20090417130712 bfeb2e3d
+D tasked_array_sum.adb	20140501151643 3faa5806
+X 1 ada.ads
+16K9*Ada 19e8 52|11r6 12r6 13r6 14r6 16r6 16r19 16r40 27r28 57r10 61r10 140r15
+. 142r51 144r21
+X 2 a-comlin.ads
+38K13*Command_Line 139e21 52|13w10 57r14 61r14 140r19 142r55
+41V13*Argument_Count{natural} 52|57s27
+48V13*Argument{string} 52|140s32 142s68
+70U14*Set_Exit_Status 52|61s27
+X 6 a-inteio.ads
+18K13*Integer_Text_IO[13|45] 52|12w10 16r23
+X 8 a-reatim.ads
+39K13*Real_Time 139e18 52|14w10 16r44 27r32 144r25
+41O9*Time 52|27r42
+46O9*Time_Span
+53V13*Clock{41O9} 52|141s18 143s17
+58V13*"-"{46O9} 52|144s57
+80V13*To_Duration{duration} 52|144s35
+X 11 a-textio.ads
+49K13*Text_IO 472e16 52|11w10 16r10
+52P9*File_Type(370R9) 52|67r21
+53n23*In_File{53E9} 52|70r21
+93U14*Open 52|69s6
+94p7 File{52P9} 52|69r11
+95e7 Mode{53E9} 52|70r13
+96s7 Name{string} 52|71r13
+167U14*New_Line 52|58s10 60s10 60s20 127s7 130s7 134s7 134s17
+243U14*Put 52|59s10 128s7 131s7 132s7 133s7
+X 13 a-tiinio.ads
+45k21*Integer_IO 84e27 52|20r27
+50U14*Get 52|72s7[6|18] 75s10[20]
+65U14 Put 52|129s7[20]
+X 52 tasked_array_sum.adb
+18U11*tasked_array_sum 18b11 146l5 146t21
+20K12 Long_IO[13|45] 20r57
+22A9 Int_Array(long_integer)<integer> 23r37 73r16
+23P9 Int_Array_Pointer(22A9) 25r12 30r29 65r56 79r29 88r40
+25p4 Values{23P9} 46r32 140m45 142r29
+26i4 Total{long_integer} 129r11 142m4 145r12
+27o4 Start_Time{8|41O9} 141m4 144r59
+27o16 Stop_Time{8|41O9} 143m4 144r47
+28o4 Time_Required{duration} 144m4 145r19
+30V13 Sum_Slice{long_integer} 30>23 30>48 30>55 46s22 79b13 86l8 86t17 105s17
+30p23 V{23P9} 79b23 83r39
+30i48 Start{integer} 79b48 82r16
+30i55 Stop{integer} 79b55 82r23
+32T14 Array_Adder_Task 35e7 37b14 53l8 53t24 93r53
+33Y13 sum 33>17 33>21 41b17 44t13 102s31
+33i17 ID{integer} 42r31
+33i21 Slice_Size{integer} 42r36 43r47
+34Y13 report 34<20 50b17 52t13 118s31
+34i20 Result{long_integer} 51m13
+38i7 My_Total{long_integer} 46m10 51r23
+39i7 My_Start_Index{integer} 42m13 43r30 47r33
+39i23 My_Stop_Index{integer} 43m13 48r33
+41i21 ID{integer}
+41i25 Slice_Size{integer}
+50i24 Result{long_integer}
+55U14 Check_Command_Line 55b14 63l8 63t26 139s4
+65U14 Read_File 65b14 65>24 65=46 77l8 77t17 140s4
+65s24 File_Name{string} 71r21
+65p46 V{23P9} 73m7 74r16 75r27
+66i7 Size{integer} 72m24 73r29
+67p7 Number_File{11|52P9} 69m19 72r11 75r14
+74i11 i{integer} 75r29
+80i7 Partial_Sum{long_integer} 83m10 83r25 85r14
+82i11 i{integer} 83r41
+88V13 Sum_In_Parallel{long_integer} 88b13 88>29 89>29 123l8 123t23 142s13
+88p29 Values{23P9} 98r21 105r27 107r20 110r19 111r18 113r32
+89i29 Num_Tasks{integer} 98r37 99r40 101r25 107r38 117r25
+90i7 Partial_Result{long_integer} 118m38 119r29
+90i23 Result{long_integer} 105m7 113m13 113r23 119m10 119r20 122r14
+91i7 Leftovers{integer} 107m7 109r12 110r35
+91i18 Slice_Size{integer} 98m7 102r44 105r38
+91i30 Start{integer} 110m10 112r19
+91i37 Stop{integer} 111m10 112r26
+93A12 Task_Array(32T14)<integer> 94r37 99r26
+94P12 Task_Array_Ptr(93A12) 95r21
+95p7 Adder_Tasks{94P12} 99m7 102r10 118r10
+101i11 task_ID{integer} 102r22 102r35
+112i14 i{integer} 113r39
+117i11 task_ID{integer} 118r22
+125U14 Display 125b14 125>22 125>47 135l8 135t15 145s4
+125i22 result{long_integer}
+125o47 Compute_Time{duration} 132r27
+

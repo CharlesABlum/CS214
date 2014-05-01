@@ -1,0 +1,121 @@
+V "GNAT Lib v4.6"
+M P W=b
+P SS ZX
+R nnnvnnnnnnnnnnnnnnvnnvnvnvnnnnnvnnnnnnnnnvnnvnnnnnnnnnnnnnvnnnnnnnnnnnnnnnnnnnnn
+
+U array_sum%b		array_sum.adb		c3bc7978 NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.command_line%s	a-comlin.adb		a-comlin.ali
+W ada.exceptions%s	a-except.adb		a-except.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.real_time%s	a-reatim.adb		a-reatim.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W ada.text_io.integer_aux%s  a-tiinau.adb	a-tiinau.ali
+W ada.text_io.integer_io%s
+W system.img_lld%s	s-imglld.adb		s-imglld.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+
+D ada.ads		20070406091342 3ffc8e18
+D a-comlin.ads		20100623092347 e0accaa5
+D a-except.ads		20090727140100 0c711ac9
+D a-finali.ads		20090409150019 e5e85fa4
+D a-filico.ads		20090409150019 872dc219
+D a-inteio.ads		20070406091342 f64b89a4
+D a-ioexce.ads		20091130110856 8b9de6cd
+D a-reatim.ads		20090409150019 63f07669
+D a-stream.ads		20090409150019 2ca4ee37
+D a-tags.ads		20101021101406 c7695348
+D a-textio.ads		20091028140912 386df5d4
+D a-tiinau.ads		20090409150019 8114c8e4
+D a-tiinio.ads		20090409150019 aa04e5d6
+D a-tiinio.adb		20091130162119 df9cd7af
+D a-unccon.ads		20070406091342 f9eb8f06
+D array_sum.adb		20140501125110 8ec6b9c4
+D interfac.ads		20090409150019 f77d8799
+D i-c.ads		20101007125900 809c38c4
+D i-cstrea.ads		20100622165701 1bd72c32
+D system.ads		20120503154647 23e1f70b
+D s-atacco.ads		20090409150019 1dc856ad
+D s-crtl.ads		20100617122610 ac77b159
+D s-exctab.ads		20090417131547 66e51330
+D s-ficobl.ads		20100909103250 443b9d66
+D s-finimp.ads		20090409150019 46853fe8
+D s-finroo.ads		20090409150019 dbb860c9
+D s-imglld.ads		20090409150019 f3220969
+D s-linux.ads		20090730092306 47911ab1
+D s-multip.ads		20101011073009 38ac9f73
+D s-osinte.ads		20101127183452 6e2d2e09
+D s-parame.ads		20091130110856 9c5d83fa
+D s-secsta.ads		20090707124243 eea35a36
+D s-soflin.ads		20090729085153 9414c974
+D s-stache.ads		20090417130712 596fc1b4
+D s-stausa.ads		20101018101807 bba781f7
+D s-stalib.ads		20101021102512 c4241c00
+D s-stoele.ads		20090417130712 facd7d98
+D s-stoele.adb		20100617152355 afc5dc80
+D s-stratt.ads		20100909123135 aedef97e
+D s-tasinf.ads		20090409150019 21316953
+D s-taspri.ads		20080408071349 af44aca8
+D s-taprop.ads		20090409150019 07f79e46
+D s-taskin.ads		20101021101406 b2eaee08
+D s-traent.ads		20090417130712 5221ee41
+D s-unstyp.ads		20090409150019 6ae15c76
+D s-wchcon.ads		20090417130712 bfeb2e3d
+X 1 ada.ads
+16K9*Ada 19e8 16|10r6 11r6 12r6 13r6 15r6 15r19 15r40 26r28 32r10 36r10 78r15
+. 82r21
+X 2 a-comlin.ads
+38K13*Command_Line 139e21 16|12w10 32r14 36r14 78r19
+41V13*Argument_Count{natural} 16|32s27
+48V13*Argument{string} 16|78s32
+70U14*Set_Exit_Status 16|36s27
+X 6 a-inteio.ads
+18K13*Integer_Text_IO[13|45] 16|11w10 15r23
+X 8 a-reatim.ads
+39K13*Real_Time 139e18 16|13w10 15r44 26r32 82r25
+41O9*Time 16|26r42
+46O9*Time_Span
+53V13*Clock{41O9} 16|79s18 81s17
+58V13*"-"{46O9} 16|82s57
+80V13*To_Duration{duration} 16|82s35
+X 11 a-textio.ads
+49K13*Text_IO 472e16 16|10w10 15r10
+52P9*File_Type(370R9) 16|42r21
+53n23*In_File{53E9} 16|45r21
+93U14*Open 16|44s6
+94p7 File{52P9} 16|44r11
+95e7 Mode{53E9} 16|45r13
+96s7 Name{string} 16|46r13
+167U14*New_Line 16|33s10 35s10 35s20 65s7 68s7 72s7 72s17
+243U14*Put 16|34s10 66s7 69s7 70s7 71s7
+X 13 a-tiinio.ads
+45k21*Integer_IO 84e27 16|19r27
+50U14*Get 16|47s7[6|18] 50s10[19]
+65U14 Put 16|67s7[19]
+X 16 array_sum.adb
+17U11*array_sum 17b11 84l5 84t14
+19K12 Long_IO[13|45] 19r57
+21A9 Int_Array(long_integer)<integer> 22r37 48r16
+22P9 Int_Array_Pointer(21A9) 24r12 40r56 54r23
+24p4 Values{22P9} 78m45 80r17
+25i4 Total{long_integer} 67r11 80m4 83r12
+26o4 Start_Time{8|41O9} 79m4 82r59
+26o16 Stop_Time{8|41O9} 81m4 82r47
+27o4 Time_Required{duration} 82m4 83r19
+30U14 Check_Command_Line 30b14 38l8 38t26 77s4
+40U14 Read_File 40b14 40>24 40=46 52l8 52t17 78s4
+40s24 File_Name{string} 46r21
+40p46 V{22P9} 48m7 49r16 50r27
+41i7 Size{integer} 47m24 48r29
+42p7 Number_File{11|52P9} 44m19 47r11 50r14
+49i11 i{integer} 50r29
+54V13 Sum{long_integer} 54b13 54>17 61l8 61t11 80s13
+54p17 V{22P9} 57r16 58r29
+55i7 result{long_integer} 58m10 58r20 60r14
+57i11 i{integer} 58r31
+63U14 Display 63b14 63>22 63>47 73l8 73t15 83s4
+63i22 result{long_integer}
+63o47 Compute_Time{duration} 70r27
+

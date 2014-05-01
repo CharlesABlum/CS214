@@ -1,0 +1,1250 @@
+Script started on Tue 29 Apr 2014 07:06:58 PM EDT
+]0;theo@theo-VBox: ~/Documents/spring-2014/10/c++theo@theo-VBox:~/Documents/spring-2014/10/c++$ cat Bird.h WalkingBird.h FlyingBirrd.h Owl.h Goose.h Duck.h O[KOstrich.h Kiwi.h Penguin.h 
+/* Bird.h provides class Bird.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:28 April 2014
+ */
+
+#ifndef BIRD
+#define BIRD
+
+#include <string>
+using namespace std;
+
+class Bird {
+ public:           // interface
+  Bird(const string & name);
+  virtual ~Bird() {};
+  virtual string name() const;
+  virtual string call() const;
+  void print(ostream & out = cout) const;
+  virtual string className() const;
+  virtual string movement() const;
+ private:          // data
+ string myName;
+};
+
+inline Bird::Bird(const string & name) {
+  myName = name;
+}
+
+inline string Bird::name() const {
+  return myName;
+}
+
+inline string Bird::call() const {
+  return "Squaaaaaaaaaaaaaaak";
+}
+
+inline string Bird::className() const {
+  return "Bird";
+}
+
+inline string Bird::movement() const {
+  return "flew past";
+}
+
+inline void Bird::print(ostream & out) const {
+  out 	<< name()
+	<< ' '
+	<< className()
+	<< " just "
+	<< movement()
+	<< " and  said "
+	<< call();
+}
+#endif
+
+/* WalkingBird.h provides a subclass for Bird 
+ * to differentiate between flying and non-flying birds
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:28 April 2014
+ */
+
+#ifndef WALKINGBIRD
+#define WALKINGBIRD
+
+#include <string>
+#include "Bird.h"
+using namespace std;
+
+class WalkingBird : public Bird {
+ public:           // interface
+  WalkingBird(const string & name);
+  string movement() const;
+ private:          // data
+};
+
+inline WalkingBird::WalkingBird(const string & name) : Bird(name)
+{
+}
+
+inline string WalkingBird::movement() const {
+  return "walked past";
+}
+#endif
+
+/* FlyingBird.h provides a subclass for Bird 
+ * to differentiate between flying and non-flying birds
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:28 April 2014
+ */
+
+#ifndef FLYINGBIRD
+#define FLYINGBIRD
+
+#include <string>
+#include "Bird.h"
+using namespace std;
+
+class FlyingBird : public Bird {
+ public:           // interface
+  FlyingBird(const string & name);
+  string movement();
+ private:          // data
+};
+
+inline FlyingBird::FlyingBird(const string & name)
+  : Bird(name)
+{
+}
+
+inline string FlyingBird::movement() {
+  return "flew past";
+}
+#endif
+
+/* Owl.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:24 April 2014
+ */
+
+#ifndef OWL
+#define OWL
+
+#include "FlyingBird.h"
+
+class Owl : public FlyingBird {
+ public:
+  Owl(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Owl::Owl(const string & name) : FlyingBird(name) {
+
+}
+
+inline string Owl::call() const {
+  return "Hoooo";
+}
+
+inline string Owl::className() const {
+  return "Owl";
+}
+
+#endif
+/* Goose.h
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:
+ */
+
+#ifndef GOOSE
+#define GOOSE
+
+#include "FlyingBird.h"
+
+class Goose : public FlyingBird {
+ public:
+  Goose(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Goose::Goose(const string & name) : FlyingBird(name) {
+
+}
+
+inline string Goose::call() const {
+  return "Honk!";
+}
+
+inline string Goose::className() const {
+ return "Goose";
+}
+
+#endif
+/* Duck.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date: 24 April 2014
+ */
+
+#ifndef DUCK
+#define DUCK
+
+#include "FlyingBird.h"
+
+class Duck : public FlyingBird {
+ public:
+  Duck(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Duck::Duck(const string & name)
+  : FlyingBird(name)
+{
+}
+
+inline string Duck::call() const {
+  return "Quack";
+}
+  
+inline string Duck::className() const {
+  return "Duck";
+}
+
+#endif
+/* Duck.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date: 24 April 2014
+ */
+
+#ifndef OSTRICH
+#define OSTRICH
+
+#include "WalkingBird.h"
+
+class Ostrich : public WalkingBird {
+ public:
+  Ostrich(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Ostrich::Ostrich(const string & name)
+  : WalkingBird(name)
+{
+}
+
+inline string Ostrich::call() const {
+  return "Snork";
+}
+  
+inline string Ostrich::className() const {
+  return "Ostrich";
+}
+
+#endif
+/* Kiwi.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date: 24 April 2014
+ */
+
+#ifndef KIWI
+#define KIWI
+
+#include "WalkingBird.h"
+
+class Kiwi : public WalkingBird {
+ public:
+  Kiwi(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Kiwi::Kiwi(const string & name)
+  : WalkingBird(name)
+{
+}
+
+inline string Kiwi::call() const {
+  return "Tweet";
+}
+  
+inline string Kiwi::className() const {
+  return "Kiwi";
+}
+
+#endif
+/* Penguin.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date: 24 April 2014
+ */
+
+#ifndef PENGUIN
+#define PENGUIN
+
+#include "WalkingBird.h"
+
+class Penguin : public WalkingBird {
+ public:
+  Penguin(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Penguin::Penguin(const string & name)
+  : WalkingBird(name)
+{
+}
+
+inline string Penguin::call() const {
+  return "Huh-huh-huh-huuuuuuh";
+}
+  
+inline string Penguin::className() const {
+  return "Penguin";
+}
+
+#endif
+]0;theo@theo-VBox: ~/Documents/spring-2014/10/c++theo@theo-VBox:~/Documents/spring-2014/10/c++$ make
+make: `birds' is up to date.
+]0;theo@theo-VBox: ~/Documents/spring-2014/10/c++theo@theo-VBox:~/Documents/spring-2014/10/c++$ ./birds 
+Hawkeye Bird just flew past and  said Squaaaaaaaaaaaaaaak
+Donald Duck just flew past and  said Quack
+Mother Goose Goose just flew past and  said Honk!
+Woodsey Owl just flew past and  said Hoooo
+Mr. Popper's Penguin just walked past and  said Huh-huh-huh-huuuuuuh
+Ollie Ostrich just walked past and  said Snork
+Karl Kiwi just walked past and  said Tweet
+]0;theo@theo-VBox: ~/Documents/spring-2014/10/c++theo@theo-VBox:~/Documents/spring-2014/10/c++$ exit
+
+Script done on Tue 29 Apr 2014 07:07:37 PM EDT
+Script started on Tue 29 Apr 2014 08:55:37 PM EDT
+theo@theo-VBox:~/Documents/spring-2014/10/ada$ ./birds [4Pmakecat bird_package.ads bird_package..adb duck_package.ads duck_package.adb goose_package.ads goose_package.adb owl_paackage.ads owl_package.adb flyingbird_package.ads flyingbird_package.adb kiwi_pacckage.ads kiwi_package.adb penguin_package.ads penguin_package.adb ostrich_packagge.ads ostrich_package.adb walkingbird_package.ads walkingbird_package.adb birds..adb 
+-- bird_package.ads gives Bird-related declarations
+--
+-- Begun by: Dr. Adams, for CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+package Bird_Package is
+  type Bird_type is tagged private;
+
+ ----------------------------------------------------
+ -- initialization                                  -
+ -- Receive: A_Bird, a Bird_Type;                   -
+ --          Name, a String                         -
+ -- Return: a Bird_Type whose My_Name = Name.       -
+ ----------------------------------------------------
+  procedure Init(A_Bird : out Bird_Type; Name : in String);
+
+ ----------------------------------------------------
+ -- Name accessor                                   -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: A_Bird.My_Name.                         -
+ ----------------------------------------------------
+  function Name(A_Bird : in Bird_type) return String;
+
+ ----------------------------------------------------
+ -- A Bird's Call                                   -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: a default bird-call ("Squawk!").        -
+ ----------------------------------------------------
+  function Call(A_Bird : in Bird_Type) return String;
+
+ ----------------------------------------------------
+ -- Determine type of a Bird (for derived types)    -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: "Bird".                                 -
+ ----------------------------------------------------
+  function Type_Name(A_Bird : in Bird_Type) return String;
+
+ ----------------------------------------------------
+ -- Output a Bird                                   -
+ -- Receive: A_Bird, a Bird or subclass of Bird.    -
+ -- Output: Everything known about A_Bird           -
+ ----------------------------------------------------
+  procedure Put(A_Bird : in Bird_Type'Class);
+
+ -----------------------------------------------------
+ -- Determine type of a flying bird                  -
+ -- (Over-rides Bird.Movement())                     -
+ -- Receive: FB, a FlyingBird_Type                   -
+ -- Return: "flew past".                             -
+ -----------------------------------------------------
+ function Movement(A_Bird : in Bird_Type) return String;
+
+private
+  type Bird_Type is
+    tagged record
+      My_Name : String(1..6);
+    end record;
+
+end Bird_Package;
+-- bird_package.adb gives Bird-related definitions
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+package body Bird_Package is
+ Bird1 : Bird_Type;
+ ----------------------------------------------------
+ -- initialization                                  -
+ -- Receive: A_Bird, a Bird_Type;                   -
+ --          Name, a String                         -
+ -- Return: a Bird_Type in which My_Name = Name.    -
+ ----------------------------------------------------
+ procedure Init(A_Bird : out Bird_Type; Name : in String) is
+ begin
+   A_Bird.My_Name := Name;
+ end Init;
+
+ ----------------------------------------------------
+ -- Name accessor                                   -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: A_Bird.My_Name.                         -
+ ----------------------------------------------------
+ function Name(A_Bird : in Bird_Type) return String is
+ begin
+   return A_Bird.My_Name;
+ end Name;
+
+ ----------------------------------------------------
+ -- A Bird's Call                                   -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: a default bird-call ("Squawk!").        -
+ ----------------------------------------------------
+ function Call(A_Bird : in Bird_Type) return String is
+ begin
+   return "Squawwwwwwk!";
+ end Call;
+
+ ----------------------------------------------------
+ -- Determine type of a Bird (for derived types)    -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: "Bird".                                 -
+ ----------------------------------------------------
+ function Type_Name(A_Bird : in Bird_Type) return String is
+ begin
+   return "Bird";
+ end Type_Name;
+
+ ----------------------------------------------------
+ -- Output a Bird                                   -
+ -- Receive: A_Bird, a Bird or subclass of Bird.    -
+ -- Output: Everything known about A_Bird           -
+ ----------------------------------------------------
+ procedure Put(A_Bird : in Bird_Type'Class) is
+ begin
+   Put( Name(A_Bird) );
+   Put( ' ' );
+   Put( Type_Name(A_Bird) );
+   Put( ' ' );
+   Put( Movement(A_Bird) );
+   Put( " and said " );
+   Put( Call(A_Bird) );
+ end Put;
+
+ -----------------------------------------------------
+ -- Determine type of a flying bird                  -
+ -- (Over-rides Bird.Movement())                     -
+ -- Receive: FB, a FlyingBird_Type                   -
+ -- Return: "flew past".                             -
+ -----------------------------------------------------
+ function Movement(A_Bird : in Bird_Type) return String is
+ begin
+   return "flew past";
+ end Movement;
+
+end Bird_Package;
+
+-- duck_package.ads gives Duck-related declarations,
+--
+--  and derives Duck from Bird.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+with FlyingBird_Package; use FlyingBird_Package;
+
+package Duck_Package is
+ type Duck_Type is new FlyingBird_Type with private;
+
+ ----------------------------------------------------
+ -- A Duck's Call (Over-rides Bird.Call())          -
+ -- Receive: A_Duck, a Duck_Type.                   -
+ -- Return: "Quack!"                                -
+ ----------------------------------------------------
+ function Call(A_Duck : in Duck_Type) return String;
+
+ ------------------------------------------------------------
+ -- Determine type of a Duck (Over-rides Bird.Type_Name()) -
+ -- Receive: A_Duck, a Duck_Type.                          -
+ -- Return: "Duck".                                        -
+ -----------------------------------------------------------
+ function Type_Name(A_Duck : in Duck_Type) return String;
+
+private
+  type Duck_Type is new FlyingBird_Type with 
+    record
+      null;
+    end record;
+
+end Duck_Package;
+-- duck_package.adb gives Duck-related definitions
+--  by over-riding Bird-related definitions.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+package body Duck_Package is
+
+ ----------------------------------------------------
+ -- A Duck's Call (Over-rides Bird.Call())          -
+ -- Receive: A_Duck, a Duck_Type.                   -
+ -- Return: "Quack!"                                -
+ ----------------------------------------------------
+ function Call(A_Duck : in Duck_Type) return String is
+ begin
+   return "Quack!";
+ end Call;
+
+ ------------------------------------------------------------
+ -- Determine type of a Duck (Over-rides Bird.Type_Name()) -
+ -- Receive: A_Duck, a Duck_Type.                          -
+ -- Return: "Duck".                                        -
+ -----------------------------------------------------------
+ function Type_Name(A_Duck : in Duck_Type) return String is
+ begin
+   return "Duck";
+ end Type_Name;
+
+end Duck_Package;
+-- goose_package.ads gives Goose-related declarations,
+--
+--  and derives Goose from Bird.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+with FlyingBird_Package; use FlyingBird_Package;
+
+package Goose_Package is
+
+ type Goose_Type is new FlyingBird_Type with private;
+
+ ----------------------------------------------------
+ -- A Goose's Call (Over-rides Bird.Call())         -
+ -- Receive: A_Goose, a Goose.                      -
+ -- Return: "Honk!"                                 -
+ ----------------------------------------------------
+ function  Call(A_Goose : in Goose_Type) return String;
+
+ -----------------------------------------------------
+ -- Determine type of a Goose                        -
+ -- (Over-rides Bird.Type_Name())                    -
+ -- Receive: A_Goose, a Goose.                       -
+ -- Return: "Goose".                                 -
+ -----------------------------------------------------
+ function  Type_Name(A_Goose : in Goose_Type) return String;
+
+private
+  type Goose_Type is new FlyingBird_Type with
+    record
+      null;
+    end record;
+
+end Goose_Package;
+-- goose_package.adb gives Goose-related definitions
+--  by over-riding Bird-related definitions.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+package body Goose_Package is
+
+ ----------------------------------------------------
+ -- A Goose's Call (Over-rides Bird.Call())         -
+ -- Receive: A_Goose, a Goose_Type.                 -
+ -- Return: "Honk!"                                 -
+ ----------------------------------------------------
+ function Call(A_Goose : in Goose_Type) return String is
+ begin
+   return "Honk!";
+ end Call;
+
+ -----------------------------------------------------
+ -- Determine type of a Goose                        -
+ -- (Over-rides Bird.Type_Name())                    -
+ -- Receive: A_Goose, a Goose_Type.                  -
+ -- Return: "Goose".                                 -
+ -----------------------------------------------------
+ function Type_Name(A_Goose : in Goose_Type) return String is
+   begin
+     return "Goose";
+ end Type_Name;
+end Goose_Package;
+-- owl_package.ads gives Owl-related declarations,
+--  and derives Owl from Bird.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+with FlyingBird_Package; use FlyingBird_Package;
+
+package Owl_Package is
+
+  type Owl_Type is new FlyingBird_Type with private;
+
+ ----------------------------------------------------
+ -- A Owl's Call (Over-rides Bird.Call())           -
+ -- Receive: An_Owl, an Owl_Type.                   -
+ -- Return: "Whoo!"                                 -
+ ----------------------------------------------------
+ function Call(A_Owl : in Owl_Type) return String;
+
+ -----------------------------------------------------
+ -- Determine type of a Owl                          -
+ -- (Over-rides Bird.Type_Name())                    -
+ -- Receive: An_Owl, an Owl_Type.                    -
+ -- Return: "Owl".                                   -
+ -----------------------------------------------------
+ function Type_Name(A_Owl : in Owl_Type) return String;
+
+private
+  type Owl_Type is new FlyingBird_Type with
+    record
+      null;
+    end record;
+
+end Owl_Package;
+-- owl_package.adb gives Owl-related definitions
+--  by over-riding Bird-related definitions.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+package body Owl_Package is
+
+
+ ----------------------------------------------------
+ -- A Owl's Call (Over-rides Bird.Call())           -
+ -- Receive: An_Owl, an Owl_Type.                   -
+ -- Return: "Whoo!"                                 -
+ ----------------------------------------------------
+ function Call(A_Owl : in Owl_Type) return String is
+ begin
+   return "Hooo!";
+ end Call;
+
+ -----------------------------------------------------
+ -- Determine type of a Owl                          -
+ -- (Over-rides Bird.Type_Name())                    -
+ -- Receive: An_Owl, an Owl_Type.                    -
+ -- Return: "Owl".                                   -
+ -----------------------------------------------------
+ function Type_Name(A_Owl : in Owl_Type) return String is
+ begin
+   return "Owl";
+ end Type_Name;
+
+end Owl_Package;
+-- flyingbird_package.ads gives flying bird-related
+-- declarations, and derives a flying brid from Bird.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:29 April 2014
+---------------------------------------------------
+
+with Bird_Package; use Bird_Package;
+
+package FlyingBird_Package is
+
+  type FlyingBird_Type is new Bird_Type with private;
+
+ -----------------------------------------------------
+ -- Determine type of a flying bird                 -
+ -- (Over-rides Bird.Movement())                     -
+ -- Receive: FB, a FlyingBird_Type                  -
+ -- Return: "flew past".                           -
+ -----------------------------------------------------
+ function Movement(FB : in FlyingBird_Type) return String;
+
+private
+  type FlyingBird_Type is new Bird_Type with
+    record
+      null;
+    end record;
+
+end FlyingBird_Package;
+-- flyingbird_package.adb gives flyingbird-related
+-- definitions by over-riding Bird-related definitions.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:29 April 2014
+---------------------------------------------------
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+package body FlyingBird_Package is
+
+ ----------------------------------------------------
+ -- A FlyingBird's movement (Over-rides             -
+ -- Bird.movement())                                -
+ -- Receive: FB, a FlyingBird_Type.                 -
+ -- Return: "flew past"                                 -
+ ----------------------------------------------------
+ function Movement(FB : in FlyingBird_Type) return String is
+ begin
+   return "flew past";
+ end Movement;
+
+end FlyingBird_Package;
+-- kiwi_package.ads gives Kiwi-related declarations,
+-- and derives Kiwi from WalkingBird.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:29 April 2014
+---------------------------------------------------
+
+with WalkingBird_Package; use WalkingBird_Package;
+
+package Kiwi_Package is
+ type Kiwi_Type is new WalkingBird_Type with private;
+
+ ----------------------------------------------------
+ -- A Kiwi's Call (Over-rides Bird.Call())          -
+ -- Receive: A_Kiwi, a Kiwi_Type.                   -
+ -- Return: "Tweet!"                                -
+ ----------------------------------------------------
+ function Call(A_Kiwi : in Kiwi_Type) return String;
+
+ -----------------------------------------------------------
+ -- Determine type of a Kiwi (Over-rides Bird.Type_Name()) -
+ -- Receive: A_Kiwi, a Kiwi_Type.                          -
+ -- Return: "Kiwi".                                        -
+ -----------------------------------------------------------
+ function Type_Name(A_Kiwi : in Kiwi_Type) return String;
+
+private
+  type Kiwi_Type is new WalkingBird_Type with 
+    record
+      null;
+    end record;
+
+end Kiwi_Package;
+-- Kiwi_package.adb gives Kiwi-related definitions
+--  by over-riding Bird-related definitions.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:29 April 2014
+---------------------------------------------------
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+package body Kiwi_Package is
+
+ ----------------------------------------------------
+ -- A Kiwi's Call (Over-rides Bird.Call())          -
+ -- Receive: A_Kiwi, a Kiwi_Type.                   -
+ -- Return: "Tweet!"                                -
+ ----------------------------------------------------
+ function Call(A_Kiwi : in Kiwi_Type) return String is
+ begin
+   return "Tweet!";
+ end Call;
+
+ ------------------------------------------------------------
+ -- Determine type of a Kiwi (Over-rides Bird.Type_Name()) -
+ -- Receive: A_Kiwi, a Kiwi_Type.                          -
+ -- Return: "Kiwi".                                        -
+ -----------------------------------------------------------
+ function Type_Name(A_Kiwi : in Kiwi_Type) return String is
+ begin
+   return "Kiwi";
+ end Type_Name;
+
+end Kiwi_Package;
+-- duck_package.ads gives Penguin-related declarations,
+--
+--  and derives Penguin from Bird.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+with WalkingBird_Package; use WalkingBird_Package;
+
+package Penguin_Package is
+ type Penguin_Type is new WalkingBird_Type with private;
+
+ ----------------------------------------------------
+ -- A Penguin's Call (Over-rides Bird.Call())          -
+ -- Receive: A_Penguin, a Penguin_Type.                   -
+ -- Return: "huh-huh-huuuuuuh!"                                -
+ ----------------------------------------------------
+ function Call(A_Penguin : in Penguin_Type) return String;
+
+ ------------------------------------------------------------
+ -- Determine type of a Penguin (Over-rides Bird.Type_Name()) -
+ -- Receive: A_Penguin, a Penguin_Type.                          -
+ -- Return: "Penguin".                                        -
+ -----------------------------------------------------------
+ function Type_Name(A_Penguin : in Penguin_Type) return String;
+
+private
+  type Penguin_Type is new WalkingBird_Type with 
+    record
+      null;
+    end record;
+
+end Penguin_Package;
+-- duck_package.adb gives Penguin-related definitions
+--  by over-riding Bird-related definitions.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+package body Penguin_Package is
+
+ ----------------------------------------------------
+ -- A Penguin's Call (Over-rides Bird.Call())          -
+ -- Receive: A_Penguin, a Penguin_Type.                   -
+ -- Return: "huh-huh-huuuuuuh!"                                -
+ ----------------------------------------------------
+ function Call(A_Penguin : in Penguin_Type) return String is
+ begin
+   return "huh-huh-huuuuuuh!";
+ end Call;
+
+ ------------------------------------------------------------
+ -- Determine type of a Penguin (Over-rides Bird.Type_Name()) -
+ -- Receive: A_Penguin, a Penguin_Type.                          -
+ -- Return: "Penguin".                                        -
+ -----------------------------------------------------------
+ function Type_Name(A_Penguin : in Penguin_Type) return String is
+ begin
+   return "Penguin";
+ end Type_Name;
+
+end Penguin_Package;
+-- duck_package.ads gives Ostrich-related declarations,
+--
+--  and derives Ostrich from Bird.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+with WalkingBird_Package; use WalkingBird_Package;
+
+package Ostrich_Package is
+ type Ostrich_Type is new WalkingBird_Type with private;
+
+ ----------------------------------------------------
+ -- A Ostrich's Call (Over-rides Bird.Call())          -
+ -- Receive: A_Ostrich, a Ostrich_Type.                   -
+ -- Return: "Snork!"                               -
+ ----------------------------------------------------
+ function Call(A_Ostrich : in Ostrich_Type) return String;
+
+ ------------------------------------------------------------
+ -- Determine type of a Ostrich (Over-rides Bird.Type_Name()) -
+ -- Receive: A_Ostrich, a Ostrich_Type.                          -
+ -- Return: "Ostrich".                                        -
+ -----------------------------------------------------------
+ function Type_Name(A_Ostrich : in Ostrich_Type) return String;
+
+private
+  type Ostrich_Type is new WalkingBird_Type with 
+    record
+      null;
+    end record;
+
+end Ostrich_Package;
+-- duck_package.adb gives Ostrich-related definitions
+--  by over-riding Bird-related definitions.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+---------------------------------------------------
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+package body Ostrich_Package is
+
+ ----------------------------------------------------
+ -- A Ostrich's Call (Over-rides Bird.Call())          -
+ -- Receive: A_Ostrich, a Ostrich_Type.                   -
+ -- Return: "Snork!"                                -
+ ----------------------------------------------------
+ function Call(A_Ostrich : in Ostrich_Type) return String is
+ begin
+   return "Snork!";
+ end Call;
+
+ ------------------------------------------------------------
+ -- Determine type of a Ostrich (Over-rides Bird.Type_Name()) -
+ -- Receive: A_Ostrich, a Ostrich_Type.                          -
+ -- Return: "Ostrich".                                        -
+ -----------------------------------------------------------
+ function Type_Name(A_Ostrich : in Ostrich_Type) return String is
+ begin
+   return "Ostrich";
+ end Type_Name;
+
+end Ostrich_Package;
+-- walkingbird_package.ads gives walking bird-related
+-- declarations, and derives a walking brid from Bird.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:29 April 2014
+---------------------------------------------------
+
+with Bird_Package; use Bird_Package;
+
+package WalkingBird_Package is
+
+  type WalkingBird_Type is new Bird_Type with private;
+
+ -----------------------------------------------------
+ -- Determine type of a walking bird                 -
+ -- (Over-rides Bird.Movement())                     -
+ -- Receive: WB, a WalkingBird_Type                  -
+ -- Return: "walked past".                           -
+ -----------------------------------------------------
+ function Movement(WB : in WalkingBird_Type) return String;
+
+private
+  type WalkingBird_Type is new Bird_Type with
+    record
+      null;
+    end record;
+
+end WalkingBird_Package;
+-- walkingbird_package.adb gives walkingbird-related
+-- definitions by over-riding Bird-related definitions.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Charles Blum
+-- Date:29 April 2014
+---------------------------------------------------
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+package body walkingBird_Package is
+
+ ----------------------------------------------------
+ -- A WalkingBird's movement (Over-rides             -
+ -- Bird.movement())                                -
+ -- Receive: WB, a FlyingBird_Type.                 -
+ -- Return: "walked past"                                 -
+ ----------------------------------------------------
+ function Movement(WB : in WalkingBird_Type) return String is
+ begin
+   return "walked past";
+ end Movement;
+
+end WalkingBird_Package;
+-- birds.adb tests our Birds type
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College
+-- Completed by:Charles Blum
+-- Date:24 April 2014
+-----------------------------------------------------
+
+with Ada.Text_IO, Bird_Package, WalkingBird_Package, FlyingBird_Package;
+with Duck_Package, Goose_Package, Owl_Package;
+with Penguin_Package, Ostrich_Package, Kiwi_Package;
+use Ada.Text_IO, Bird_Package, WalkingBird_Package, FlyingBird_Package;
+use Duck_Package, Goose_Package, Owl_Package;
+use Penguin_Package, Ostrich_Package, Kiwi_Package;
+
+procedure Birds is
+
+ Bird1 : Bird_Type;       -- base class
+ Bird2 : Duck_Type;       -- derived class 1
+ Bird3 : Goose_Type;      -- derived class 2
+ Bird4 : Owl_Type;        -- derived class 3
+ Bird5 : Penguin_Type;    -- derived class 1
+ Bird6 : Ostrich_Type;    -- derived class 2
+ Bird7 : Kiwi_Type;       -- derived class 3
+
+begin
+ Init(Bird1, "Tweety");
+ Put(Bird1); New_Line;
+
+ Init(Bird2, "Donald");
+ Put(Bird2); New_Line;
+
+ Init(Bird3, "Mother");
+ Put(Bird3); New_Line;
+
+ Init(Bird4, "Woodsy");
+ Put(Bird4); New_Line;
+
+ Init(Bird5, "Popper");
+ Put(Bird5); New_Line;
+
+ Init(Bird6, "Ollie ");
+ Put(Bird6); New_Line;
+
+ Init(Bird7, "Karl  ");
+ Put(Bird7); New_Line;
+
+ New_Line;
+end Birds;
+
+theo@theo-VBox:~/Documents/spring-2014/10/ada$ make
+make: `birds' is up to date.
+theo@theo-VBox:~/Documents/spring-2014/10/ada$ ./birds 
+Tweety Bird flew past and said Squawwwwwwk!
+Donald Duck flew past and said Quack!
+Mother Goose flew past and said Honk!
+Woodsy Owl flew past and said Hooo!
+Popper Penguin walked past and said huh-huh-huuuuuuh!
+Ollie  Ostrich walked past and said Snork!
+Karl   Kiwi walked past and said Tweet!
+
+theo@theo-VBox:~/Documents/spring-2014/10/ada$ exit
+
+Script done on Tue 29 Apr 2014 08:55:52 PM EDT
+Script started on Tue 29 Apr 2014 09:07:58 PM EDT
+theo@theo-VBox:~/Documents/spring-2014/10/ruby$ cat Bird.rb FlyingBird.rb Duck.rbb Goose.rb Owl.rb WalkingBird.rb Ostrich.rb Penguin.rb Kiwi.rb 
+# Bird.rb | Defines a Bird superclass to be extended by specific bird
+#   sub-classes.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+class Bird
+
+  attr_reader :name
+
+  def initialize(name)
+    @name = name
+  end
+
+  def call
+    "Squaaaaaaaaaaaawk!"
+  end
+
+  def className
+    self.class.to_s
+  end
+
+  def print
+    puts name + ' ' + className + " just " + movement + " and said " + call
+  end
+ 
+  def movement
+    "flew past"
+  end
+
+end
+# FlyingBird.rb | Defines the FlyingBird class which inherits
+# attributes and methods from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'Bird.rb'
+
+class FlyingBird < Bird
+
+  def movement
+    'flew past'
+  end
+
+end
+
+# Duck.rb | Defines the Duck class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'FlyingBird.rb'
+
+class Duck < FlyingBird
+
+  def call
+    'Quack!'
+  end
+
+end
+
+# Goose.rb | Defines the Goose class which inherits
+# attributes and methods from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'FlyingBird.rb'
+
+class Goose < FlyingBird
+
+  def call
+    'Honk!'
+  end
+
+end
+
+# Owl.rb | Defines the Owl class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'FlyingBird.rb'
+
+class Owl < FlyingBird
+
+  def call
+    'Hooo!'
+  end
+
+end
+# WalkingBird.rb | Defines the WalkingBird class which
+# inherits attributes and methods from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'Bird.rb'
+
+class WalkingBird < Bird
+
+  def movement
+    'walked past'
+  end
+
+end
+
+# Ostrich.rb | Defines the Ostrich class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'WalkingBird.rb'
+
+class Ostrich < WalkingBird
+
+  def call
+    'Snork!'
+  end
+
+end
+
+# Penguin.rb | Defines the Penguin class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'WalkingBird.rb'
+
+class Penguin < WalkingBird
+
+  def call
+    'huh-huh-huuuuuuh!'
+  end
+
+end
+
+# Kiwi.rb | Defines the Kiwi class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:29 April 2014
+####################################################
+
+require 'WalkingBird.rb'
+
+class Kiwi < WalkingBird
+
+  def call
+    'Tweet!'
+  end
+
+end
+
+theo@theo-VBox:~/Documents/spring-2014/10/ruby$ ruby birds.rb 
+Hawkeye Bird just flew past and said Squaaaaaaaaaaaawk!
+Donald Duck just flew past and said Quack!
+Mother Goose just flew past and said Honk!
+Woodsey Owl just flew past and said Hooo!
+Ollie Ostrich just walked past and said Snork!
+Popper Penguin just walked past and said huh-huh-huuuuuuh!
+Karl Kiwi just walked past and said Tweet!
+theo@theo-VBox:~/Documents/spring-2014/10/ruby$ exit
+
+Script done on Tue 29 Apr 2014 09:08:23 PM EDT

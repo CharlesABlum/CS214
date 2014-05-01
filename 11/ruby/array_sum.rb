@@ -1,8 +1,8 @@
 # array_sum.rb sums the values in an array
 #
 # Begun by: Prof. Adams, for CS 214 at Calvin College.
-# Completed by:
-# Date:
+# Completed by:Charles Blum
+# Date:30 April 2014
 #
 # Usage: ruby array_sum.rb <inFileName>
 ######################################################

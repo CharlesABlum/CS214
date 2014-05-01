@@ -1,0 +1,118 @@
+Script started on Thu 24 Apr 2014 03:14:34 PM EDT
+theo@theo-VBox:~/Documents/spring-2014/10/ruby$ cat Bird.rb Owl.rb Duck.rb Goose..rb birds.rb 
+# Bird.rb | Defines a Bird superclass to be extended by specific bird
+#   sub-classes.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:24 April 2014
+####################################################
+
+class Bird
+
+  attr_reader :name
+
+  def initialize(name)
+    @name = name
+  end
+
+  def call
+    "Squaaaaaaaaaaaawk!"
+  end
+
+  def className
+    self.class.to_s
+  end
+
+  def print
+    puts name + ' ' + className + " says " + call
+  end
+
+end
+# Owl.rb | Defines the Owl class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:24 April 2014
+####################################################
+
+require 'Bird.rb'
+
+class Owl < Bird
+
+  def call
+    'Hooo!'
+  end
+
+end
+# Duck.rb | Defines the Duck class which inherits attributes and methods
+#   from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:24 April 2014
+####################################################
+
+require 'Bird.rb'
+
+class Duck < Bird
+
+  def call
+    'Quack!'
+  end
+
+end
+
+# Goose.rb | Defines the Goose class which inherits
+# attributes and methods from the Bird superclass.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:24 April 2014
+####################################################
+
+require 'Bird.rb'
+
+class Goose < Bird
+
+  def call
+    'Honk!'
+  end
+
+end
+
+# birds.rb | Tests out the menagerie of bird classes.
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Charles Blum
+# Date:24 April 2014
+######################################################
+
+require 'Duck.rb'
+require 'Goose.rb'
+require 'Owl.rb'
+
+def testBirds
+  bird0 = Bird.new "Hawkeye"
+  bird0.print
+
+  bird1 = Duck.new "Donald"
+  bird1.print
+
+  bird2 = Goose.new "Mother"
+  bird2.print
+
+  bird3 = Owl.new "Woodsey"
+  bird3.print
+end 
+
+testBirds
+theo@theo-VBox:~/Documents/spring-2014/10/ruby$ ruby birds.rb 
+Hawkeye Bird says Squaaaaaaaaaaaawk!
+Donald Duck says Quack!
+Mother Goose says Honk!
+Woodsey Owl says Hooo!
+theo@theo-VBox:~/Documents/spring-2014/10/ruby$ exit
+
+Script done on Thu 24 Apr 2014 03:14:48 PM EDT

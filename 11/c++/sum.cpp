@@ -1,8 +1,8 @@
 /* sum.cpp sums the values in a file.
  *
  * Begun by: Prof. Adams, for CS 214 at Calvin College.
- * Completed by:
- * Date:
+ * Completed by:Charles Blum
+ * Date:29 April 2014
  */
 
 #include <iostream>  // cin, cout, etc

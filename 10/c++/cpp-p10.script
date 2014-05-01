@@ -1,0 +1,335 @@
+Script started on Tue 29 Apr 2014 07:06:58 PM EDT
+]0;theo@theo-VBox: ~/Documents/spring-2014/10/c++theo@theo-VBox:~/Documents/spring-2014/10/c++$ cat Bird.h WalkingBird.h FlyingBirrd.h Owl.h Goose.h Duck.h O[KOstrich.h Kiwi.h Penguin.h 
+/* Bird.h provides class Bird.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:28 April 2014
+ */
+
+#ifndef BIRD
+#define BIRD
+
+#include <string>
+using namespace std;
+
+class Bird {
+ public:           // interface
+  Bird(const string & name);
+  virtual ~Bird() {};
+  virtual string name() const;
+  virtual string call() const;
+  void print(ostream & out = cout) const;
+  virtual string className() const;
+  virtual string movement() const;
+ private:          // data
+ string myName;
+};
+
+inline Bird::Bird(const string & name) {
+  myName = name;
+}
+
+inline string Bird::name() const {
+  return myName;
+}
+
+inline string Bird::call() const {
+  return "Squaaaaaaaaaaaaaaak";
+}
+
+inline string Bird::className() const {
+  return "Bird";
+}
+
+inline string Bird::movement() const {
+  return "flew past";
+}
+
+inline void Bird::print(ostream & out) const {
+  out 	<< name()
+	<< ' '
+	<< className()
+	<< " just "
+	<< movement()
+	<< " and  said "
+	<< call();
+}
+#endif
+
+/* WalkingBird.h provides a subclass for Bird 
+ * to differentiate between flying and non-flying birds
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:28 April 2014
+ */
+
+#ifndef WALKINGBIRD
+#define WALKINGBIRD
+
+#include <string>
+#include "Bird.h"
+using namespace std;
+
+class WalkingBird : public Bird {
+ public:           // interface
+  WalkingBird(const string & name);
+  string movement() const;
+ private:          // data
+};
+
+inline WalkingBird::WalkingBird(const string & name) : Bird(name)
+{
+}
+
+inline string WalkingBird::movement() const {
+  return "walked past";
+}
+#endif
+
+/* FlyingBird.h provides a subclass for Bird 
+ * to differentiate between flying and non-flying birds
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:28 April 2014
+ */
+
+#ifndef FLYINGBIRD
+#define FLYINGBIRD
+
+#include <string>
+#include "Bird.h"
+using namespace std;
+
+class FlyingBird : public Bird {
+ public:           // interface
+  FlyingBird(const string & name);
+  string movement();
+ private:          // data
+};
+
+inline FlyingBird::FlyingBird(const string & name)
+  : Bird(name)
+{
+}
+
+inline string FlyingBird::movement() {
+  return "flew past";
+}
+#endif
+
+/* Owl.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date:24 April 2014
+ */
+
+#ifndef OWL
+#define OWL
+
+#include "FlyingBird.h"
+
+class Owl : public FlyingBird {
+ public:
+  Owl(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Owl::Owl(const string & name) : FlyingBird(name) {
+
+}
+
+inline string Owl::call() const {
+  return "Hoooo";
+}
+
+inline string Owl::className() const {
+  return "Owl";
+}
+
+#endif
+/* Goose.h
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:
+ */
+
+#ifndef GOOSE
+#define GOOSE
+
+#include "FlyingBird.h"
+
+class Goose : public FlyingBird {
+ public:
+  Goose(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Goose::Goose(const string & name) : FlyingBird(name) {
+
+}
+
+inline string Goose::call() const {
+  return "Honk!";
+}
+
+inline string Goose::className() const {
+ return "Goose";
+}
+
+#endif
+/* Duck.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date: 24 April 2014
+ */
+
+#ifndef DUCK
+#define DUCK
+
+#include "FlyingBird.h"
+
+class Duck : public FlyingBird {
+ public:
+  Duck(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Duck::Duck(const string & name)
+  : FlyingBird(name)
+{
+}
+
+inline string Duck::call() const {
+  return "Quack";
+}
+  
+inline string Duck::className() const {
+  return "Duck";
+}
+
+#endif
+/* Duck.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date: 24 April 2014
+ */
+
+#ifndef OSTRICH
+#define OSTRICH
+
+#include "WalkingBird.h"
+
+class Ostrich : public WalkingBird {
+ public:
+  Ostrich(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Ostrich::Ostrich(const string & name)
+  : WalkingBird(name)
+{
+}
+
+inline string Ostrich::call() const {
+  return "Snork";
+}
+  
+inline string Ostrich::className() const {
+  return "Ostrich";
+}
+
+#endif
+/* Kiwi.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date: 24 April 2014
+ */
+
+#ifndef KIWI
+#define KIWI
+
+#include "WalkingBird.h"
+
+class Kiwi : public WalkingBird {
+ public:
+  Kiwi(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Kiwi::Kiwi(const string & name)
+  : WalkingBird(name)
+{
+}
+
+inline string Kiwi::call() const {
+  return "Tweet";
+}
+  
+inline string Kiwi::className() const {
+  return "Kiwi";
+}
+
+#endif
+/* Penguin.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Charles Blum
+ * Date: 24 April 2014
+ */
+
+#ifndef PENGUIN
+#define PENGUIN
+
+#include "WalkingBird.h"
+
+class Penguin : public WalkingBird {
+ public:
+  Penguin(const string & name);
+  string call() const;
+  string className() const;
+ private:
+};
+
+inline Penguin::Penguin(const string & name)
+  : WalkingBird(name)
+{
+}
+
+inline string Penguin::call() const {
+  return "Huh-huh-huh-huuuuuuh";
+}
+  
+inline string Penguin::className() const {
+  return "Penguin";
+}
+
+#endif
+]0;theo@theo-VBox: ~/Documents/spring-2014/10/c++theo@theo-VBox:~/Documents/spring-2014/10/c++$ make
+make: `birds' is up to date.
+]0;theo@theo-VBox: ~/Documents/spring-2014/10/c++theo@theo-VBox:~/Documents/spring-2014/10/c++$ ./birds 
+Hawkeye Bird just flew past and  said Squaaaaaaaaaaaaaaak
+Donald Duck just flew past and  said Quack
+Mother Goose Goose just flew past and  said Honk!
+Woodsey Owl just flew past and  said Hoooo
+Mr. Popper's Penguin just walked past and  said Huh-huh-huh-huuuuuuh
+Ollie Ostrich just walked past and  said Snork
+Karl Kiwi just walked past and  said Tweet
+]0;theo@theo-VBox: ~/Documents/spring-2014/10/c++theo@theo-VBox:~/Documents/spring-2014/10/c++$ exit
+
+Script done on Tue 29 Apr 2014 07:07:37 PM EDT

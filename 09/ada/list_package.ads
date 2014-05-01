@@ -1,8 +1,8 @@
 -- list_package.ads declares an Ada linked list and its operations.
 --
 -- Begun by: Dr. Adams, CS 214 at Calvin College.
--- Completed by:
--- Date:
+-- Completed by:Charles Blum
+-- Date:28 April 2014
 ------------------------------------------------------------------
 
 package List_Package is
@@ -19,7 +19,6 @@ package List_Package is
   -----------------------------------------------------
   procedure Init(A_List: out List);
 
-
   ------------------------------------------------
   -- Is a list empty?                            -
   -- Receive: aList, a List.                     -
@@ -34,7 +33,6 @@ package List_Package is
   -------------------------------------
   function Length(A_List : in List) return Integer;
 
-
   ----------------------------------------
   -- Append a value to a list.           -
   -- Receive: aValue, an integer,        -
@@ -42,28 +40,43 @@ package List_Package is
   ----------------------------------------
   procedure Append(A_Value : in Integer; A_List: in out List);
 
-
   -------------------------------------
   -- Display the values in a list.    -
   -- Receive: aList, a List.          -
   -- Output: the values in aList.     -
   -------------------------------------
-
-  -- replace this line with the declaration of Put()
+  procedure Put(A_List : in List);
 
   ---------------------------------------
   -- Find the maximum value in a list.  -
   -- Receive: aList, a List.            -
   -- Return: the maximum value in aList.-
   ---------------------------------------
+  function Max(A_List : in List) return Integer;
 
-  -- replace this line with the declaration of Max()
+  ---------------------------------------
+  -- Index finds the index of a number. -
+  -- Receive: aList, a List,            -
+  -- 	      number, the number to find-
+  -- Return: the index of number.       -
+  ---------------------------------------
+  function Index(A_List : in List; Number : in Integer) return Integer;
 
  private
-   -- replace this line with a forward-dec of List_Node
-   -- replace this line with a dec of Node_Ptr
-   -- replace this line with a full dec of List_Node
-   -- replace this line with a full dec of List
+   type List_Node;
 
+   type Node_Ptr is access List_Node;
+
+   type List_Node is
+      record
+         Its_Value : Integer;
+         Its_Next : Node_Ptr;
+      end record;
+
+   type List is 
+      record
+	 Its_First, Its_Last : Node_Ptr;
+	 Its_Length : Integer;
+      end record;
 end List_Package;
 

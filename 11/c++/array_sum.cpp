@@ -2,8 +2,8 @@
  *  by reading them into an array and summing them there.
  *
  * Begun by: Prof. Adams, for CS 214 at Calvin College.
- * Completed by:
- * Date:
+ * Completed by:Charles Blum
+ * Date:29 April 2014
  *
  * Usage: array_sum <inFileName>
  */

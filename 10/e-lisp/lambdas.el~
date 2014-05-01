@@ -1,0 +1,28 @@
+;;; lab 10 - learning about (lambda
+;;;
+;;; Name: Charles Blum
+;;; For: CS 214
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(lambda (x) (+ x x))
+(lambda (x) (+ x x))
+
+((lambda (x) (+ x x)) 17)
+34
+
+(lambda (alist) (max (abs (car alist))
+		      (abs (car (cdr alist)))
+		      (abs (car (cdr (cdr alist))))
+		      (abs (car (cdr (cdr (cdr alist)))))
+		      ))
+
+((lambda (alist) (max (abs (car alist))
+		      (abs (car (cdr alist)))
+		      (abs (car (cdr (cdr alist))))
+		      (abs (car (cdr (cdr (cdr alist)))))
+		      ))
+ (list 1 -2 3 -4))
+4
+

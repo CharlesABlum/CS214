@@ -1,0 +1,477 @@
+Script started on Sat 19 Apr 2014 02:14:29 PM EDT
+]0;theo@theo-VBox: ~/Documents/spring-2014/project08/e-lisptheo@theo-VBox:~/Documents/spring-2014/project08/e-lisp$ cat Temperature.el temp..el temp.out
+;;; Temperature.el simulates an e-LISP Temperatyre type
+;;;  and operations on that type.
+;;;
+;;; Begun by: Charles Blum, for CS 214 at Calvin College.
+;;; Completed by: Charles Blum
+;;; Date: 15 April 2014
+;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Temperature constructs a temp from a real number;;
+;;; and a character representing the units          ;;
+;;; Receive: value, a real and unit, a strings.     ;;
+;;; Return: the tuple (value unit).                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun Temperature(value unit)
+  (list (round2 value) unit))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getters and setters for the Temperature object      ;;
+;;; getters Return: the appropiate entry of Temperature ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getValue(theTemp)
+  (car theTemp))
+
+(defun getUnit(theTemp)
+  (car (cdr theTemp)))
+
+(defun setValue (theTemp value)
+  (setcar theTemp value)
+  theTemp)
+
+(defun setUnit(theTemp unit)
+  (setf (car (cdr theTemp)) unit)
+  theTemp)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; toX converts a Temperature to the X unit system.    ;;
+;;; unit systems are:                                   ;;
+;;; Fahrenheit (F)                                      ;;
+;;; Rankine    (R)                                      ;;
+;;; Celcius    (C)                                      ;;
+;;; Kelvin     (K)                                      ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun toF(theTemp)
+  (if (char-equal (getUnit theTemp) ?C)
+      (progn (setUnit theTemp ?F)
+	     (setValue theTemp (round2 (+ 32 (* 1.80 (getValue theTemp))))))
+  (if (char-equal (getUnit theTemp) ?R)
+      (progn (setUnit theTemp ?F)
+	     (setValue theTemp (round2 (- (getValue theTemp) 459.67))))
+  (if (char-equal (getUnit theTemp) ?K)
+      (progn (setUnit theTemp ?F)
+	     (setValue theTemp (round2 (- (* 1.80 (getValue theTemp)) 459.67))))
+    )))
+  theTemp)
+
+(defun toC(theTemp)
+  (if (char-equal (getUnit theTemp) ?F)
+      (progn (setUnit theTemp ?C)
+	     (setValue theTemp (round2 (* (/ 5.0 9.0) (- (getValue theTemp) 32.0)))))
+  (if (char-equal (getUnit theTemp) ?R)
+      (progn (setUnit theTemp ?C)
+	     (setValue theTemp (round2 (-  (* (/ 5.0 9.0) (getValue theTemp)) 273.15))))
+  (if (char-equal (getUnit theTemp) ?K)
+      (progn (setUnit theTemp ?C)
+	     (setValue theTemp (round2 (- (getValue theTemp) 273.15))))
+    )))
+  theTemp)
+
+(defun toR(theTemp)
+  (if (char-equal (getUnit theTemp) ?F)
+      (progn (setUnit theTemp ?R)
+	     (setValue theTemp (round2 (+ 459.67 (getValue theTemp)))))
+  (if (char-equal (getUnit theTemp) ?C)
+      (progn (setUnit theTemp ?R)
+	     (setValue theTemp (round2 (+ 491.67 (* 1.80 (getValue theTemp))))))
+  (if (char-equal (getUnit theTemp) ?K)
+      (progn (setUnit theTemp ?R)
+	     (setValue theTemp (round2 (* 1.80 (getValue theTemp)))))
+  )))
+  theTemp)
+
+(defun toK(theTemp)
+  (if (char-equal (getUnit theTemp) ?F)
+      (progn (setUnit theTemp ?K)
+	     (setValue theTemp (round2 (* (/ 5.0 9.0) (+ 459.67 (getValue theTemp))))))
+  (if (char-equal (getUnit theTemp) ?C)
+      (progn (setUnit theTemp ?K)
+	     (setValue theTemp (round2  (+ 273.15 (getValue theTemp)))))
+  (if (char-equal (getUnit theTemp) ?R)
+      (progn (setUnit theTemp ?K)
+	     (setValue theTemp (round2 (* (/ 5.0 9.0) (getValue theTemp)))))
+  )))
+  theTemp)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; round drops everything after 2 decimal places.      ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun round2(number)
+  ;;(format "%0.2f" number)) convers to string, don't want that
+  ;;(* 0.01 (fround (* 100.00 number))))
+  (string-to-number (format "%0.2f" number)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; toString convert a Temperature to a string          ;;
+;;; for convenient output                               ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun toString(theTemp)
+  (concat (format "%7.2f" (getValue theTemp)) " " (char-to-string (getUnit theTemp))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; raiseTemp takes a Temperature and raises its value  ;;
+;;; by step                                             ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun raiseTemp(theTemp step)
+  (if (< step 0.00)
+      (lowerTemp theTemp step)
+    (setValue theTemp (+ (getValue theTemp) step)))
+  theTemp)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; lowerTemp takes a Temperature and lowers its value  ;;
+;;; by step.  Before doing so it checks to make sure the;;
+;;; new value is valid.                                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun lowerTemp(theTemp step)
+  (if (< step 0.00)
+      (raiseTemp theTemp (* step -1))
+    (if (isValid (- (getValue theTemp) step) (getUnit theTemp))
+	(setValue theTemp (- (getValue theTemp) step))))
+  theTemp)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; equals checks the equality between two Temperatures ;;
+;;; and does so across unit systems.                   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun equals(temp1 temp2)
+  (let ((dlt1 (copy-sequence temp1))
+	(dlt2 (copy-sequence temp2)))
+    (toK dlt1)
+    (toK dlt2)
+    (= (getValue dlt1) (getValue dlt2))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; lessThan checks to see if the value of temp1 < temp2;;
+;;; and does so across unit systems.                    ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun lessThan(temp1 temp2)
+  (let ((dlt1 (copy-sequence temp1))
+	(dlt2 (copy-sequence temp2)))
+    (toK dlt1)
+    (toK dlt2)
+    (< (getValue dlt1) (getValue dlt2))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; isValid checks the validity of a (value unit) tuple ;;
+;;; in F: value > -459.67                               ;;
+;;; in R: value >    0.00                               ;;
+;;; in C: value > -273.15                               ;;
+;;; in K: value >    0.00                               ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun isValid(value unit)
+  (if (or (or (char-equal unit ?F) (char-equal unit ?R))
+           (or (char-equal unit ?C) (char-equal unit ?K)))
+      (if (and (>= value 0.0) (or (char-equal unit ?K) (char-equal unit ?R)))
+	  (setq valid t)
+      (if (and (>= value -273.15) (char-equal unit ?C))
+	  (setq valid t)
+      (if (and (>= value -459.67) (char-equal unit ?F))
+	  (setq valid t)
+      (setq valid nil))))
+  (setq valid nil))
+  valid)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; readIn reads in a Temperature from the user.        ;;
+;;; It also checks the validity of the input            ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun readIn(theTemp)
+  (princ "The format is 'xxx.xx A' where xxx.xx is a real value\n" buf)
+  (princ "and A is a character representing a unit system (F, C, R, K)\n" buf)
+
+  ;; seed values for the loop
+  (setq value -460.00)
+  (setq unit ?F)
+  (while (not (isValid value unit))
+    (setq inTemp (upcase (read-from-minibuffer "Enter here: ")))
+    (setq value (string-to-number inTemp))
+    (setq unit (string-to-char (byte-to-string (aref inTemp (- (length inTemp) 1)))))
+    (if (not (isValid value unit))
+	(princ "Not a valid Temperature.  Please try again." buf)))
+  (setValue theTemp value)
+  (setUnit  theTemp unit)
+  theTemp)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; writeOut outputs a Temperature in a convenient form.;;
+;;; Namely it outputs the value in all 4 unit systems.  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun writeOut(theTemp buf)
+  (let ( (aTemp (copy-sequence theTemp)) )
+    (princ (toString (toF aTemp)) buf) (princ ",\t" buf)
+    (princ (toString (toC aTemp)) buf) (princ ",\t" buf) 
+    (princ (toString (toR aTemp)) buf) (princ ",\t" buf)
+    (princ (toString (toK aTemp)) buf) (princ "\n"  buf))
+  theTemp);;; temp.el simulates and tests an e-LISP 
+;;; Temperature type.
+;;;
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by: Charles Blum
+;;; Date: 18 April 2014
+;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Load the Temperature module             ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path  ".")
+("." "/usr/share/emacs23/site-lisp/dictionaries-common" "/etc/emacs23" "/etc/emacs" "/usr/local/share/emacs/23.3/site-lisp" "/usr/local/share/emacs/site-lisp" "/usr/share/emacs/23.3/site-lisp" "/usr/share/emacs/23.3/site-lisp/dictionaries-common" "/usr/share/emacs/site-lisp" "/usr/share/emacs/23.3/leim" "/usr/share/emacs/23.3/lisp" "/usr/share/emacs/23.3/lisp/url" ...)
+
+(load "Temperature.elc")
+t
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; test the Temperature module             ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun runTests(buf) 
+  ;(require 'cl)
+  (setq temp (Temperature 30 ?C))
+
+  ;;Getters
+  (assert (= (getValue temp) 30.00))
+  (assert (char-equal (getUnit temp)  ?C))
+
+  ;Setters
+  (setValue temp -100.00)
+  (setUnit temp ?F)
+  (assert (= (getValue temp) -100.00))
+  (assert (char-equal (getUnit temp) ?F))
+
+  ;;Test Conversions
+  ;;This runs through each conversion without repetition
+  (princ "Testing Conversions..." buf) (terpri buf)
+  (toC temp)
+  (assert (= (getValue temp) -73.33))
+  (assert (char-equal (getUnit temp) ?C))
+  (toR temp)
+  (assert (= (getValue temp) 359.68))
+  (assert (char-equal (getUnit temp) ?R))
+  (toK temp)
+  (assert (= (getValue temp) 199.82))
+  (assert (char-equal (getUnit temp) ?K))
+  (toF temp)
+  (assert (= (getValue temp) -99.99))
+  (assert (char-equal (getUnit temp) ?F))
+
+  (princ "Pass 1 Complete!" buf) (terpri buf)
+
+  (toR temp)
+  (assert (= (getValue temp) 359.68))
+  (assert (char-equal (getUnit temp) ?R))
+  (toC temp)
+  (assert (= (getValue temp) -73.33))
+  (assert (char-equal (getUnit temp) ?C))
+  (toK temp)
+  (assert (= (getValue temp) 199.82))
+  (assert (char-equal (getUnit temp) ?K))
+  (toR temp)
+  (assert (= (getValue temp) 359.68))
+  (assert (char-equal (getUnit temp) ?R))
+
+  (princ "Pass 2 Complete!" buf) (terpri buf)
+
+  (toF temp)
+  (assert (= (getValue temp) -99.99))
+  (assert (char-equal (getUnit temp) ?F))
+  (toK temp)
+  (assert (= (getValue temp) 199.82))
+  (assert (char-equal (getUnit temp) ?K))
+  (toC temp)
+  (assert (= (getValue temp) -73.33))
+  (assert (char-equal (getUnit temp) ?C))
+  (toF temp)
+  (assert (= (getValue temp) -99.99))
+  (assert (char-equal (getUnit temp) ?F))
+
+  (princ "Pass 3 Complete!" buf) (terpri buf)
+  (princ "Conversions Passed!" buf) (terpri buf)
+
+  ;; test isValid
+  (princ "Testing isValid..." buf) (terpri buf)
+  (assert (isValid -459.67 ?F))
+  (assert (isValid -273.15 ?C))
+  (assert (isValid    0.00 ?R))
+  (assert (isValid    0.00 ?K))
+  (assert (not (isValid -459.68 ?F)))
+  (assert (not (isValid -273.16 ?C)))
+  (assert (not (isValid   -0.01 ?R)))
+  (assert (not (isValid   -0.01 ?K)))
+  (princ "isValid Passed!" buf) (terpri buf)
+
+  ;; test readIn
+  (princ "testing readIn... writeOut..." buf) (terpri buf)
+  (readIn temp)
+  (writeOut temp buf)
+  (princ "readIn Passed! writeOut Passed!" buf) (terpri buf)
+
+  ;; test raising and lowering temp
+  (princ "testing raiseTemp... lowerTemp..." buf) (terpri buf)
+  (raiseTemp temp 25.0)
+  (assert (= (getValue temp) 55.0))
+  (lowerTemp temp 30.0)
+  (assert (= (getValue temp) 25.0))
+  (lowerTemp temp 500)
+  (assert (= (getValue temp) 25.0))
+  (princ "raiseTemp Passed! lowerTelp Passed!" buf) (terpri buf)
+
+  ;; test equal and lessThan
+  (princ "testing equal... lessThan..." buf) (terpri buf)
+  (setq t1 (Temperature 30 ?C))
+  (setq t2 (Temperature 86 ?F))
+  (assert (equals t1 t2))
+  (lowerTemp t1 3.0)
+  (assert (lessThan t1 t2))
+  (princ "equal Passed! lessThan Passed!" buf) (terpri buf)
+
+  (princ "All Tests Passed!" buf) (terpri buf)
+)
+runTests
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; get input from user and print out a     ;;
+;;; range of temperatures in all four units ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (require 'cl)
+  (setq buf (switch-to-buffer-other-window "temp.out"))
+  (runTests buf)
+
+  (setq baseTemp (Temperature 0 ?F))
+  (setq limitTemp (Temperature 100 ?F))
+  (princ "Enter a base Temperature in the mini-buffer:\n" buf)
+  (readIn baseTemp)
+  (princ "Enter a limit Temperature in the mini-buffer:\n" buf)
+  (readIn limitTemp)
+  (setq stepValue (string-to-number 
+		   (read-from-minibuffer "Now enter a value to step with: ")))
+  (princ "Base Temperature is: " buf)
+  (princ (toString baseTemp) buf) (terpri buf)
+  (princ "Limit Temperature is: " buf)
+  (princ (toString limitTemp) buf) (terpri buf)
+  (princ "StepValue is: " buf)
+  (princ stepValue buf) (terpri buf)
+
+  (while (lessThan baseTemp limitTemp)
+    (writeOut baseTemp buf)
+    (raiseTemp baseTemp stepValue))
+  (terpri buf)
+)
+t
+Testing Conversions...
+Pass 1 Complete!
+Pass 2 Complete!
+Pass 3 Complete!
+Conversions Passed!
+Testing isValid...
+isValid Passed!
+testing readIn... writeOut...
+The format is 'xxx.xx A' where xxx.xx is a real value
+and A is a character representing a unit system (F, C, R, K)
+  86.00 F,	  30.00 C,	 545.67 R,	 303.15 K
+readIn Passed! writeOut Passed!
+testing raiseTemp... lowerTemp...
+raiseTemp Passed! lowerTelp Passed!
+testing equal... lessThan...
+equal Passed! lessThan Passed!
+All Tests Passed!
+Enter a base Temperature in the mini-buffer:
+The format is 'xxx.xx A' where xxx.xx is a real value
+and A is a character representing a unit system (F, C, R, K)
+Enter a limit Temperature in the mini-buffer:
+The format is 'xxx.xx A' where xxx.xx is a real value
+and A is a character representing a unit system (F, C, R, K)
+Base Temperature is:    0.00 F
+Limit Temperature is:  100.00 C
+StepValue is: 2.5
+   0.00 F,	 -17.78 C,	 459.67 R,	 255.37 K
+   2.50 F,	 -16.39 C,	 462.17 R,	 256.76 K
+   5.00 F,	 -15.00 C,	 464.67 R,	 258.15 K
+   7.50 F,	 -13.61 C,	 467.17 R,	 259.54 K
+  10.00 F,	 -12.22 C,	 469.67 R,	 260.93 K
+  12.50 F,	 -10.83 C,	 472.18 R,	 262.32 K
+  15.00 F,	  -9.44 C,	 474.68 R,	 263.71 K
+  17.50 F,	  -8.06 C,	 477.16 R,	 265.09 K
+  20.00 F,	  -6.67 C,	 479.66 R,	 266.48 K
+  22.50 F,	  -5.28 C,	 482.17 R,	 267.87 K
+  25.00 F,	  -3.89 C,	 484.67 R,	 269.26 K
+  27.50 F,	  -2.50 C,	 487.17 R,	 270.65 K
+  30.00 F,	  -1.11 C,	 489.67 R,	 272.04 K
+  32.50 F,	   0.28 C,	 492.17 R,	 273.43 K
+  35.00 F,	   1.67 C,	 494.68 R,	 274.82 K
+  37.50 F,	   3.06 C,	 497.18 R,	 276.21 K
+  40.00 F,	   4.44 C,	 499.66 R,	 277.59 K
+  42.50 F,	   5.83 C,	 502.16 R,	 278.98 K
+  45.00 F,	   7.22 C,	 504.67 R,	 280.37 K
+  47.50 F,	   8.61 C,	 507.17 R,	 281.76 K
+  50.00 F,	  10.00 C,	 509.67 R,	 283.15 K
+  52.50 F,	  11.39 C,	 512.17 R,	 284.54 K
+  55.00 F,	  12.78 C,	 514.67 R,	 285.93 K
+  57.50 F,	  14.17 C,	 517.18 R,	 287.32 K
+  60.00 F,	  15.56 C,	 519.68 R,	 288.71 K
+  62.50 F,	  16.94 C,	 522.16 R,	 290.09 K
+  65.00 F,	  18.33 C,	 524.66 R,	 291.48 K
+  67.50 F,	  19.72 C,	 527.17 R,	 292.87 K
+  70.00 F,	  21.11 C,	 529.67 R,	 294.26 K
+  72.50 F,	  22.50 C,	 532.17 R,	 295.65 K
+  75.00 F,	  23.89 C,	 534.67 R,	 297.04 K
+  77.50 F,	  25.28 C,	 537.17 R,	 298.43 K
+  80.00 F,	  26.67 C,	 539.68 R,	 299.82 K
+  82.50 F,	  28.06 C,	 542.18 R,	 301.21 K
+  85.00 F,	  29.44 C,	 544.66 R,	 302.59 K
+  87.50 F,	  30.83 C,	 547.16 R,	 303.98 K
+  90.00 F,	  32.22 C,	 549.67 R,	 305.37 K
+  92.50 F,	  33.61 C,	 552.17 R,	 306.76 K
+  95.00 F,	  35.00 C,	 554.67 R,	 308.15 K
+  97.50 F,	  36.39 C,	 557.17 R,	 309.54 K
+ 100.00 F,	  37.78 C,	 559.67 R,	 310.93 K
+ 102.50 F,	  39.17 C,	 562.18 R,	 312.32 K
+ 105.00 F,	  40.56 C,	 564.68 R,	 313.71 K
+ 107.50 F,	  41.94 C,	 567.16 R,	 315.09 K
+ 110.00 F,	  43.33 C,	 569.66 R,	 316.48 K
+ 112.50 F,	  44.72 C,	 572.17 R,	 317.87 K
+ 115.00 F,	  46.11 C,	 574.67 R,	 319.26 K
+ 117.50 F,	  47.50 C,	 577.17 R,	 320.65 K
+ 120.00 F,	  48.89 C,	 579.67 R,	 322.04 K
+ 122.50 F,	  50.28 C,	 582.17 R,	 323.43 K
+ 125.00 F,	  51.67 C,	 584.68 R,	 324.82 K
+ 127.50 F,	  53.06 C,	 587.18 R,	 326.21 K
+ 130.00 F,	  54.44 C,	 589.66 R,	 327.59 K
+ 132.50 F,	  55.83 C,	 592.16 R,	 328.98 K
+ 135.00 F,	  57.22 C,	 594.67 R,	 330.37 K
+ 137.50 F,	  58.61 C,	 597.17 R,	 331.76 K
+ 140.00 F,	  60.00 C,	 599.67 R,	 333.15 K
+ 142.50 F,	  61.39 C,	 602.17 R,	 334.54 K
+ 145.00 F,	  62.78 C,	 604.67 R,	 335.93 K
+ 147.50 F,	  64.17 C,	 607.18 R,	 337.32 K
+ 150.00 F,	  65.56 C,	 609.68 R,	 338.71 K
+ 152.50 F,	  66.94 C,	 612.16 R,	 340.09 K
+ 155.00 F,	  68.33 C,	 614.66 R,	 341.48 K
+ 157.50 F,	  69.72 C,	 617.17 R,	 342.87 K
+ 160.00 F,	  71.11 C,	 619.67 R,	 344.26 K
+ 162.50 F,	  72.50 C,	 622.17 R,	 345.65 K
+ 165.00 F,	  73.89 C,	 624.67 R,	 347.04 K
+ 167.50 F,	  75.28 C,	 627.17 R,	 348.43 K
+ 170.00 F,	  76.67 C,	 629.68 R,	 349.82 K
+ 172.50 F,	  78.06 C,	 632.18 R,	 351.21 K
+ 175.00 F,	  79.44 C,	 634.66 R,	 352.59 K
+ 177.50 F,	  80.83 C,	 637.16 R,	 353.98 K
+ 180.00 F,	  82.22 C,	 639.67 R,	 355.37 K
+ 182.50 F,	  83.61 C,	 642.17 R,	 356.76 K
+ 185.00 F,	  85.00 C,	 644.67 R,	 358.15 K
+ 187.50 F,	  86.39 C,	 647.17 R,	 359.54 K
+ 190.00 F,	  87.78 C,	 649.67 R,	 360.93 K
+ 192.50 F,	  89.17 C,	 652.18 R,	 362.32 K
+ 195.00 F,	  90.56 C,	 654.68 R,	 363.71 K
+ 197.50 F,	  91.94 C,	 657.16 R,	 365.09 K
+ 200.00 F,	  93.33 C,	 659.66 R,	 366.48 K
+ 202.50 F,	  94.72 C,	 662.17 R,	 367.87 K
+ 205.00 F,	  96.11 C,	 664.67 R,	 369.26 K
+ 207.50 F,	  97.50 C,	 667.17 R,	 370.65 K
+ 210.00 F,	  98.89 C,	 669.67 R,	 372.04 K
+
+
+]0;theo@theo-VBox: ~/Documents/spring-2014/project08/e-lisptheo@theo-VBox:~/Documents/spring-2014/project08/e-lisp$ exit
+
+Script done on Sat 19 Apr 2014 02:14:41 PM EDT

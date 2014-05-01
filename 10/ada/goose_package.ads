@@ -2,23 +2,22 @@
 --
 --  and derives Goose from Bird.
 -- Begun by: Dr. Adams, CS 214 at Calvin College.
--- Completed by:
--- Date:
+-- Completed by:Charles Blum
+-- Date:24 April 2014
 ---------------------------------------------------
 
-with Bird_Package; use Bird_Package;
+with FlyingBird_Package; use FlyingBird_Package;
 
 package Goose_Package is
 
- type Goose_Type is new Bird_Type with private;
-
+ type Goose_Type is new FlyingBird_Type with private;
 
  ----------------------------------------------------
  -- A Goose's Call (Over-rides Bird.Call())         -
  -- Receive: A_Goose, a Goose.                      -
  -- Return: "Honk!"                                 -
  ----------------------------------------------------
-
+ function  Call(A_Goose : in Goose_Type) return String;
 
  -----------------------------------------------------
  -- Determine type of a Goose                        -
@@ -26,8 +25,12 @@ package Goose_Package is
  -- Receive: A_Goose, a Goose.                       -
  -- Return: "Goose".                                 -
  -----------------------------------------------------
+ function  Type_Name(A_Goose : in Goose_Type) return String;
 
 private
-
+  type Goose_Type is new FlyingBird_Type with
+    record
+      null;
+    end record;
 
 end Goose_Package;

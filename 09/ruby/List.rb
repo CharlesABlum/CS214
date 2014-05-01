@@ -1,8 +1,8 @@
 # List.rb implements a linked list structure in Ruby.
 #
 # Begun by: Dr. Adams, for CS 214 at Calvin College.
-# Completed by:
-# Date:
+# Completed by:Charles Blum
+# Date:28 April 2014
 #######################################################
 
 require 'test/unit/assertions'
@@ -12,20 +12,20 @@ class List
 
    # initialize a List to be empty
    # Postcondition: first == nil and last == nil and length == 0
-
-   # Replace this line with a List constructor definition
-
+   def initialize
+      @first, @last, @length  = nil, nil, 0
+   end #init
 
    # create reader method for length
-
-   # Replace this line with a statement to define a 'length' reader method
-
+   def getLength
+      @length
+   end #getLength
 
    # Am I empty?
    # Return: length == 0
    def empty?
       @length == 0
-   end
+   end #empty?
   
    # append a value to me
    # Receive: value, the item to be appended
@@ -38,28 +38,63 @@ class List
          @first = newNode
       else
          @last.next = newNode      
-      end
+      end #if
 
       @last = newNode
       @length += 1
       self
-   end
+   end #append
 
 
    # print my items
    # Postcondition: my items have been displayed to the screen
-
-   # Replace this line with a definition for method 'print'
-
+   def print 
+      temp = @first
+      while !temp.nil?
+	 printf " #{temp.value}"
+	 temp = temp.next
+      end #while
+   end #print
 
    # find my maximum item
    # Return: my maximum item
+   def max
+      temp = @first
+      maxValue = -999999
+      while !temp.nil?
+	 if temp.value > maxValue
+	    maxValue = temp.value
+ 	 end #if
+	 temp = temp.next
+      end #while
+      maxValue
+   end #max
+   
+   # find the index of nubmer 
+   # Return: the index of number
+   def getIndex(number)
+      temp = @first
+      indexOf = 0
+      realIndex = -1
+      while !temp.nil?
+	if temp.value == number
+	   realIndex = indexOf 
+ 	end #if
+	temp = temp.next
+	indexOf += 1
+      end #while
+      realIndex
+   end #getIndex
 
-   # Replace this line with a definition for method 'max'
+   class Node
+      def initialize(item, link)
+         @value = item
+ 	 @next = link
+      end #init
 
+      attr_reader :value
+      attr_accessor :next
+   end #Node
 
-   # Replace this line with a declaration for class Node
-   #  (and its methods)
-
-end
+end #List
 

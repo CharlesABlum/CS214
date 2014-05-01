@@ -1,5 +1,5 @@
-Script started on Tue 29 Apr 2014 10:19:52 PM EDT
-theo@theo-VBox:~/Documents/spring-2014/11/c++$ cat threaded_array_sum.cpp 
+Script started on Thu 01 May 2014 09:30:25 AM EDT
+cab35@kay:~/Documents/spring-2014/11/c++$ cat threaded_array_sum.cpp 
 /* threaded_array_sum.cpp sums the values in a file
  *  by reading them into an array and summing them there.
  *  It splits the work across several threads to increase performance.
@@ -81,23 +81,18 @@ void display(long total , const NanoTimer& nTimer) {
         << " secs.\n" << endl;
 
 }
-theo@theo-VBox:~/Documents/spring-2014/11/c++$ make
+cab35@kay:~/Documents/spring-2014/11/c++$ make
 make: Nothing to be done for `all'.
-theo@theo-VBox:~/Documents/spring-2014/11/c++$ ./threaded_array_sum ../numbers/1 000000numbers.txt  1
+cab35@kay:~/Documents/spring-2014/11/c++$ ./threaded_array_sum 10[K[K./n[K[K./numbers/1000000numbers.txt 1
 
 The sum is 500869305
- and computing it took 0.004507556 secs.
+ and computing it took 0.003130866 secs.
 
-theo@theo-VBox:~/Documents/spring-2014/11/c++$ ./threaded_array_sum ../numbers/10000000numbers.txt  1[K2
-
-The sum is 500869305
- and computing it took 0.002616254 secs.
-
-theo@theo-VBox:~/Documents/spring-2014/11/c++$ ./threaded_array_sum ../numbers/10000000numbers.txt  2[K4
+cab35@kay:~/Documents/spring-2014/11/c++$ ./threaded_array_sum ../numbers/1000000numbers.txt 1[K4
 
 The sum is 500869305
- and computing it took 0.002523225 secs.
+ and computing it took 0.000919591 secs.
 
-theo@theo-VBox:~/Documents/spring-2014/11/c++$ exit
+cab35@kay:~/Documents/spring-2014/11/c++$ exit
 
-Script done on Tue 29 Apr 2014 10:20:30 PM EDT
+Script done on Thu 01 May 2014 09:30:53 AM EDT

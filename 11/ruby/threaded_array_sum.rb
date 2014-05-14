@@ -50,8 +50,7 @@ def sumInParallel(values, numThreads)
      threadArray[i] = Thread.new { 
         id = Thread.current[:id]
         myTotal = sumSlice(values, id, sliceSize)
-        Thread.exclusive
-        {
+        Thread.exclusive {
            result += myTotal
         }
       }
@@ -67,8 +66,7 @@ def sumInParallel(values, numThreads)
       end
    end
 
-   Thread.exclusive
-   {
+   Thread.exclusive {
       result += myTotal
    }
 

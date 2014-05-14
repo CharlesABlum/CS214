@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="NewWizardAction">
+		<item value="net.sf.eclipsefp.haskell.ui.wizards.NewHaskellProjectWizard" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="net.sf.eclipsefp.haskell.ui.newWizardCategory"/>
+		</list>
+	</section>
+</section>

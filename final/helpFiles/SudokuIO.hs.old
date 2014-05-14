@@ -1,0 +1,37 @@
+--This Module reads in a sudoku file to solve.
+--Found here:
+--http://stackoverflow.com/questions/9748474/reading-from-input-files-in-haskell
+module SudokuIO
+( parseFile
+, printBoard
+) where
+
+import Data.Array
+import Control.Monad
+import System.Environment
+
+readWords :: (Read a) => String -> [a]
+readWords = map read . words
+
+parseFile :: String -> Int -> Int -> IO (Array (Int, Int) Int)
+parseFile fname rows cols = do
+    matr <- liftM readWords $ readFile fname
+    return $ listArray ((1, 1), (cols, rows)) matr
+    -- (matr :: [Int] is inferred from the parseFile's type)
+
+
+
+-- prints diagonal...
+--(putStr . show) $ zipWith (\(x,y) -> testArr!(x,y)) [(x,y) |  x<-[1..9], y<-[1..b]
+
+--Rosetta Code: Printing an array to IO()
+--main = mapM_ putStrLn $ zipWith3 (\a b c -> [a,b,c]) "abc" "ABC" "123"
+
+--prints whole board as a line...
+--map (\(x,y)->testArr!(x,y))[(x,y) | x<-[1..9],y<-[1..9]]
+
+
+printBoard a = 
+  let printLine a row = map (\col -> a!(row,col)) [1..9]
+  in  do
+    (putStrLn . show) $ map (\row -> printLine a row) [1..9]

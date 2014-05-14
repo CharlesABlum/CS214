@@ -1,0 +1,8 @@
+module Main where
+
+import Data.Char (digitToInt)
+
+int2intList :: Integral i => i -> [Int]
+int2intList s = map digitToInt $ show s
+
+main = print $ int2intList 12351234999123123123
